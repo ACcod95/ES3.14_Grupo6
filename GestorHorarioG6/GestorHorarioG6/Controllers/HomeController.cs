@@ -12,12 +12,17 @@ namespace GestorHorarioG6.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly GestorHorarioG6Context _context;
+
+        public HomeController(GestorHorarioG6Context context)
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
-
-        private readonly GestorHorarioG6Context _context;
 
         // GET: Funcionarios
         public async Task<IActionResult> Escalas()
