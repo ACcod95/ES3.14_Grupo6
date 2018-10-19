@@ -12218,23 +12218,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\tiago\\.nuget\\packages\\": {},
+    "C:\\Users\\Andre\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tiago\\Desktop\\ES3.14_Grupo6\\GestorHorarioG6\\GestorHorarioG6\\GestorHorarioG6.csproj",
+      "projectUniqueName": "D:\\- EI\\EI 3º ano\\ESPI\\es3.14_grupo6\\GestorHorarioG6\\GestorHorarioG6\\GestorHorarioG6.csproj",
       "projectName": "GestorHorarioG6",
-      "projectPath": "C:\\Users\\tiago\\Desktop\\ES3.14_Grupo6\\GestorHorarioG6\\GestorHorarioG6\\GestorHorarioG6.csproj",
-      "packagesPath": "C:\\Users\\tiago\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tiago\\Desktop\\ES3.14_Grupo6\\GestorHorarioG6\\GestorHorarioG6\\obj\\",
+      "projectPath": "D:\\- EI\\EI 3º ano\\ESPI\\es3.14_grupo6\\GestorHorarioG6\\GestorHorarioG6\\GestorHorarioG6.csproj",
+      "packagesPath": "C:\\Users\\Andre\\.nuget\\packages\\",
+      "outputPath": "D:\\- EI\\EI 3º ano\\ESPI\\es3.14_grupo6\\GestorHorarioG6\\GestorHorarioG6\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\tiago\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Andre\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

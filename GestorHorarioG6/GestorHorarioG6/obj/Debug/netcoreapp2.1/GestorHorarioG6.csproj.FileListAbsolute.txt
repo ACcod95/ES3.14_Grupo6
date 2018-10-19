@@ -67,3 +67,37 @@ C:\Users\tiago\Desktop\ES3.14_Grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\n
 C:\Users\tiago\Desktop\ES3.14_Grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\Home\Delete.g.cshtml.cs
 C:\Users\tiago\Desktop\ES3.14_Grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\Home\Details.g.cshtml.cs
 C:\Users\tiago\Desktop\ES3.14_Grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\Home\Edit.g.cshtml.cs
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\bin\Debug\netcoreapp2.1\GestorHorarioG6.deps.json
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\bin\Debug\netcoreapp2.1\GestorHorarioG6.runtimeconfig.json
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\bin\Debug\netcoreapp2.1\GestorHorarioG6.runtimeconfig.dev.json
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\bin\Debug\netcoreapp2.1\GestorHorarioG6.dll
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\bin\Debug\netcoreapp2.1\GestorHorarioG6.pdb
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\bin\Debug\netcoreapp2.1\GestorHorarioG6.Views.dll
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\bin\Debug\netcoreapp2.1\GestorHorarioG6.Views.pdb
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\GestorHorarioG6.csprojAssemblyReference.cache
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\GestorHorarioG6.csproj.CoreCompileInputs.cache
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\GestorHorarioG6.RazorAssemblyInfo.cache
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\GestorHorarioG6.RazorAssemblyInfo.cs
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\GestorHorarioG6.AssemblyInfoInputs.cache
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\GestorHorarioG6.AssemblyInfo.cs
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\GestorHorarioG6.TagHelpers.input.cache
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\GestorHorarioG6.TagHelpers.output.cache
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\GestorHorarioG6.RazorCoreGenerate.cache
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\Home\Adicionar_Funcionario.g.cshtml.cs
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\Home\Delete.g.cshtml.cs
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\Home\Details.g.cshtml.cs
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\Home\Edit.g.cshtml.cs
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\Home\Escalas.g.cshtml.cs
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\Home\Index.g.cshtml.cs
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Error.g.cshtml.cs
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Layout.g.cshtml.cs
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\_ViewImports.g.cshtml.cs
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\_ViewStart.g.cshtml.cs
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\GestorHorarioG6.RazorTargetAssemblyInfo.cache
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\GestorHorarioG6.RazorTargetAssemblyInfo.cs
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\GestorHorarioG6.Views.pdb
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\GestorHorarioG6.dll
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\GestorHorarioG6.pdb
+D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\GestorHorarioG6.csproj.CopyComplete
