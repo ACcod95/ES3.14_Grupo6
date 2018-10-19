@@ -36,7 +36,7 @@ namespace GestorHorarioG6.Controllers
             if (id == null)
             {
                 //return NotFound();
-                return RedirectToAction("Escalas");
+                return RedirectToAction(nameof(Escalas));
             }
 
             var funcionario = await _context.Funcionario
@@ -66,7 +66,7 @@ namespace GestorHorarioG6.Controllers
             {
                 _context.Add(funcionario);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Escalas));
             }
             return View(funcionario);
         }
@@ -117,7 +117,7 @@ namespace GestorHorarioG6.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Escalas));
             }
             return View(funcionario);
         }
@@ -148,7 +148,7 @@ namespace GestorHorarioG6.Controllers
             var funcionario = await _context.Funcionario.FindAsync(id);
             _context.Funcionario.Remove(funcionario);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Escalas));
         }
 
         private bool FuncionarioExists(int id)

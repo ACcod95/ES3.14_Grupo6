@@ -1,0 +1,49 @@
+﻿@model IEnumerable<GestorHorarioG6.Models.Requisicao>
+
+@{
+    ViewData["Title"] = "Requisições";
+}
+
+<h2>Requisições</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ServicoID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HoraDeInicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HoraDeFim)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequisicoesAdicionais)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServicoID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraDeInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraDeFim)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequisicoesAdicionais)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RequisicaoID">Editar</a> |
+                <a asp-action="Delete" asp-route-id="@item.RequisicaoID">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

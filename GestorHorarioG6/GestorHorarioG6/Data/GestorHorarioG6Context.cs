@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using GestorHorarioG6.Models;
 
 namespace GestorHorarioG6.Models
 {
@@ -14,5 +15,7 @@ namespace GestorHorarioG6.Models
         }
 
         public DbSet<GestorHorarioG6.Models.Funcionario> Funcionario { get; set; }
+
+        public DbSet<GestorHorarioG6.Models.Requisicao> Requisicao { get; set; }
     }
 }
