@@ -41,7 +41,57 @@ namespace GestorHorarioG6.Controllers
             {
                 _context.Add(requisicao);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Created));
+            }
+            return View(requisicao);
+        }
+
+        // GET: Requisicoes/Created/5
+        public async Task<IActionResult> Created(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var requisicao = await _context.Requisicao.FindAsync(id);
+            if (requisicao == null)
+            {
+                return NotFound();
+            }
+            return View(requisicao);
+        }
+
+        // POST: Requisicoes/Created/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Created(int id, [Bind("RequisicaoID,ServicoID,HoraDeInicio,HoraDeFim,RequisicoesAdicionais")] Requisicao requisicao)
+        {
+            if (id != requisicao.RequisicaoID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(requisicao);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!RequisicaoExists(requisicao.RequisicaoID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
             }
             return View(requisicao);
         }

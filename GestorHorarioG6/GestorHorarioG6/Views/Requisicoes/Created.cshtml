@@ -1,0 +1,40 @@
+﻿@model GestorHorarioG6.Models.Requisicao
+@{
+    ViewData["Title"] = "Requisição Realizada";
+}
+
+<h2>Requisição Realizada</h2>
+
+<h4>A Sua Requisição:</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Created">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="RequisicaoID" />
+            <div class="form-group">
+                <label asp-for="ServicoID" class="control-label"></label>
+                <input asp-for="ServicoID" class="form-control" />
+                <span asp-validation-for="ServicoID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HoraDeInicio" class="control-label"></label>
+                <input asp-for="HoraDeInicio" class="form-control" />
+                <span asp-validation-for="HoraDeInicio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HoraDeFim" class="control-label"></label>
+                <input asp-for="HoraDeFim" class="form-control" />
+                <span asp-validation-for="HoraDeFim" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequisicoesAdicionais" class="control-label"></label>
+                <input asp-for="RequisicoesAdicionais" class="form-control" />
+                <span asp-validation-for="RequisicoesAdicionais" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>

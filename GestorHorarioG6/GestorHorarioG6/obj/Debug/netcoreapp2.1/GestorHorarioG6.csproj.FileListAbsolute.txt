@@ -71,3 +71,4 @@ C:\Users\tiago\Desktop\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\n
 C:\Users\tiago\Desktop\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\Requisicoes\Delete.g.cshtml.cs
 C:\Users\tiago\Desktop\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\Requisicoes\Edit.g.cshtml.cs
 C:\Users\tiago\Desktop\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\Requisicoes\Index.g.cshtml.cs
+C:\Users\tiago\Desktop\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\Requisicoes\Created.g.cshtml.cs
