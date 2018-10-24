@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestorHorarioG6.Migrations
 {
     [DbContext(typeof(GestorHorarioG6Context))]
-    [Migration("20181017154727_initial")]
+    [Migration("20181024144940_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,6 +45,25 @@ namespace GestorHorarioG6.Migrations
                     b.HasKey("FuncionarioID");
 
                     b.ToTable("Funcionario");
+                });
+
+            modelBuilder.Entity("GestorHorarioG6.Models.Requisicao", b =>
+                {
+                    b.Property<int>("RequisicaoID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("HoraDeFim");
+
+                    b.Property<DateTime>("HoraDeInicio");
+
+                    b.Property<string>("RequisicoesAdicionais");
+
+                    b.Property<int>("ServicoID");
+
+                    b.HasKey("RequisicaoID");
+
+                    b.ToTable("Requisicao");
                 });
 #pragma warning restore 612, 618
         }

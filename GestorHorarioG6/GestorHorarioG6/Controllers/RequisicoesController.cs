@@ -118,15 +118,15 @@ namespace GestorHorarioG6.Controllers
         // POST: Requisicoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id, string btn)
         {
             var requisicao = await _context.Requisicao.FindAsync(id);
+            if (btn.Equals("Aprovar"))
+                new RequisicaoAprovada(requisicao);
             _context.Requisicao.Remove(requisicao);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
-        //TODO se (requisicao aprovada): mudança de horário
 
         private bool RequisicaoExists(int id)
         {

@@ -9,29 +9,26 @@ namespace GestorHorarioG6.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Funcionario",
+                name: "Requisicao",
                 columns: table => new
                 {
-                    FuncionarioID = table.Column<int>(nullable: false)
+                    RequisicaoID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(nullable: false),
-                    Cargo = table.Column<string>(nullable: true),
-                    Nascimento = table.Column<DateTime>(nullable: false),
-                    NIF = table.Column<int>(nullable: false),
-                    Telefone = table.Column<int>(nullable: false),
-                    Email = table.Column<string>(nullable: true),
-                    Notas = table.Column<string>(nullable: true)
+                    ServicoID = table.Column<int>(nullable: false),
+                    HoraDeInicio = table.Column<DateTime>(nullable: false),
+                    HoraDeFim = table.Column<DateTime>(nullable: false),
+                    RequisicoesAdicionais = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Funcionario", x => x.FuncionarioID);
+                    table.PrimaryKey("PK_Requisicao", x => x.RequisicaoID);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Funcionario");
+                name: "Requisicao");
         }
     }
 }

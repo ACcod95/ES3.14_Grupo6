@@ -21,7 +21,7 @@ namespace GestorHorarioG6.Models
 
         [Required]
         public int NIF { get; set; }
-
+        
         public int Telefone { get; set; }
 
         [DataType(DataType.EmailAddress)]

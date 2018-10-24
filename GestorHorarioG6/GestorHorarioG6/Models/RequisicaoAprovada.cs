@@ -7,14 +7,23 @@ using System.Threading.Tasks;
 
 namespace GestorHorarioG6.Models
 {
-    public class Requisicao
+    public class RequisicaoAprovada
     {
+        public RequisicaoAprovada(Requisicao requisicao)
+        {
+            this.RequisicaoID = requisicao.RequisicaoID;
+            this.ServicoID = requisicao.ServicoID;
+            this.HoraDeInicio = requisicao.HoraDeInicio;
+            this.HoraDeFim = requisicao.HoraDeFim;
+            this.RequisicoesAdicionais = requisicao.RequisicoesAdicionais;
+        }
+
         public int RequisicaoID { get; set; }
 
         [ForeignKey("Servicos")]
         public int ServicoID { get; set; }
 
-        //public Servicos Servico { get; set; }
+        public Servicos Servico { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
