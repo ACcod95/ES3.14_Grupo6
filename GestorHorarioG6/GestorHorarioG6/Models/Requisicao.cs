@@ -25,5 +25,7 @@ namespace GestorHorarioG6.Models
         public DateTime HoraDeFim { get; set; }
 
         public string RequisicoesAdicionais { get; set; }
+
+        public Boolean Aprovado { get; set; }
     }
 }

@@ -24,6 +24,12 @@ namespace GestorHorarioG6.Controllers
             return View(await _context.Requisicao.ToListAsync());
         }
 
+        // GET: Requisicoes/Aprovadas
+        public async Task<IActionResult> Aprovadas()
+        {
+            return View(await _context.Requisicao.Where(r => r.Aprovado == true).ToListAsync());
+        }
+
         // GET: Requisicoes/Create
         public IActionResult Create()
         {
@@ -171,8 +177,6 @@ namespace GestorHorarioG6.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id, string btn)
         {
             var requisicao = await _context.Requisicao.FindAsync(id);
-            if (btn.Equals("Aprovar"))
-                new RequisicaoAprovada(requisicao);
             _context.Requisicao.Remove(requisicao);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

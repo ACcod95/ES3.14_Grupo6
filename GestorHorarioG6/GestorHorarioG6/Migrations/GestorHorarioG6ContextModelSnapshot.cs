@@ -51,6 +51,8 @@ namespace GestorHorarioG6.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("Aprovado");
+
                     b.Property<DateTime>("HoraDeFim");
 
                     b.Property<DateTime>("HoraDeInicio");

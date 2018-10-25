@@ -21,7 +21,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.RequisicoesAdicionais)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aprovado)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -41,8 +43,11 @@
                 @Html.DisplayFor(modelItem => item.RequisicoesAdicionais)
             </td>
             <td>
+                @Html.CheckBoxFor(modelItem => item.Aprovado)
+            </td>
+            <td>
                 <a asp-action="Edit" asp-route-id="@item.RequisicaoID">Editar</a> |
-                <a asp-action="Delete" asp-route-id="@item.RequisicaoID">Arquivar</a>
+                <a asp-action="Delete" asp-route-id="@item.RequisicaoID">Eliminar</a>
             </td>
         </tr>
 }

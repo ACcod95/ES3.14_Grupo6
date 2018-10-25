@@ -1,10 +1,10 @@
 ﻿@model GestorHorarioG6.Models.Requisicao
 
 @{
-    ViewData["Title"] = "Arquivar";
+    ViewData["Title"] = "Eliminar";
 }
 
-<h2>Aprovar ou Eliminar</h2>
+<h2>Eliminar</h2>
 
 <div>
     <h4>Requisição</h4>
@@ -38,8 +38,7 @@
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="RequisicaoID" />
-        <input type="submit" name="btn" value="Aprovar" class="btn btn-default" /> |
-        <input type="submit" name="btn" value="Eliminar" class="btn btn-default" />
+        <input type="submit" value="Eliminar" class="btn btn-default" />
     </form>
 
     <a asp-action="Index">Voltar</a>
