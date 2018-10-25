@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestorHorarioG6.Migrations
 {
     [DbContext(typeof(GestorHorarioG6Context))]
-    [Migration("20181024150740_initial")]
+    [Migration("20181025170939_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,9 +57,9 @@ namespace GestorHorarioG6.Migrations
 
                     b.Property<bool>("Conhecimento");
 
-                    b.Property<int>("IDFuncionario1");
+                    b.Property<int>("IDFuncionario1FuncionarioID");
 
-                    b.Property<int>("IDFuncionario2");
+                    b.Property<int?>("IDFuncionario2FuncionarioID");
 
                     b.Property<int>("Turno1");
 
@@ -67,7 +67,23 @@ namespace GestorHorarioG6.Migrations
 
                     b.HasKey("TrocasID");
 
+                    b.HasIndex("IDFuncionario1FuncionarioID");
+
+                    b.HasIndex("IDFuncionario2FuncionarioID");
+
                     b.ToTable("Trocas");
+                });
+
+            modelBuilder.Entity("GestorHorarioG6.Models.Trocas", b =>
+                {
+                    b.HasOne("GestorHorarioG6.Models.Funcionario", "IDFuncionario1")
+                        .WithMany()
+                        .HasForeignKey("IDFuncionario1FuncionarioID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("GestorHorarioG6.Models.Funcionario", "IDFuncionario2")
+                        .WithMany()
+                        .HasForeignKey("IDFuncionario2FuncionarioID");
                 });
 #pragma warning restore 612, 618
         }

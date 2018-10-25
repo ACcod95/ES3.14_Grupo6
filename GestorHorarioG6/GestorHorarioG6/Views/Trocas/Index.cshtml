@@ -7,17 +7,11 @@
 <h2>Index</h2>
 
 <p>
-    <a asp-action="Create">Criar Nova troca</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IDFuncionario1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IDFuncionario2)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Turno1)
             </th>
@@ -37,12 +31,6 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.IDFuncionario1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IDFuncionario2)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Turno1)
             </td>
             <td>
@@ -55,9 +43,9 @@
                 @Html.DisplayFor(modelItem => item.Aprovado)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.TrocasID">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.TrocasID">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.TrocasID">Apagar</a>
+                <a asp-action="Edit" asp-route-id="@item.TrocasID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TrocasID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TrocasID">Delete</a>
             </td>
         </tr>
 }

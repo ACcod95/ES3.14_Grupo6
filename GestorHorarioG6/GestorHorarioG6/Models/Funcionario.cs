@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,5 +29,8 @@ namespace GestorHorarioG6.Models
         public string Email { get; set; }
         
         public string Notas { get; set; }
+
+        [NotMapped]
+        public ICollection<Trocas> Trocas { get; set; }
     }
 }
