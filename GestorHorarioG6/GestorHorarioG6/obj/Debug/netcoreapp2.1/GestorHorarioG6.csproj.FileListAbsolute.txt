@@ -101,3 +101,8 @@ D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\
 D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\GestorHorarioG6.dll
 D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\GestorHorarioG6.pdb
 D:\- EI\EI 3º ano\ESPI\es3.14_grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\GestorHorarioG6.csproj.CopyComplete
+D:\- EI\EI 3º ano\ESPI\ES3.14_Grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\Trocas\Create.g.cshtml.cs
+D:\- EI\EI 3º ano\ESPI\ES3.14_Grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\Trocas\Delete.g.cshtml.cs
+D:\- EI\EI 3º ano\ESPI\ES3.14_Grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\Trocas\Details.g.cshtml.cs
+D:\- EI\EI 3º ano\ESPI\ES3.14_Grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\Trocas\Edit.g.cshtml.cs
+D:\- EI\EI 3º ano\ESPI\ES3.14_Grupo6\GestorHorarioG6\GestorHorarioG6\obj\Debug\netcoreapp2.1\Razor\Views\Trocas\Index.g.cshtml.cs

@@ -1,0 +1,60 @@
+﻿@model GestorHorarioG6.Models.Trocas
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Editar</h2>
+
+<h4>Trocas</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TrocasID" />
+            <div class="form-group">
+                <label asp-for="IDFuncionario1" class="control-label"></label>
+                <input asp-for="IDFuncionario1" class="form-control" />
+                <span asp-validation-for="IDFuncionario1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IDFuncionario2" class="control-label"></label>
+                <input asp-for="IDFuncionario2" class="form-control" />
+                <span asp-validation-for="IDFuncionario2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Turno1" class="control-label"></label>
+                <input asp-for="Turno1" class="form-control" />
+                <span asp-validation-for="Turno1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Turno2" class="control-label"></label>
+                <input asp-for="Turno2" class="form-control" />
+                <span asp-validation-for="Turno2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Conhecimento" /> @Html.DisplayNameFor(model => model.Conhecimento)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Aprovado" /> @Html.DisplayNameFor(model => model.Aprovado)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar à lista</a>
+</div>
+
