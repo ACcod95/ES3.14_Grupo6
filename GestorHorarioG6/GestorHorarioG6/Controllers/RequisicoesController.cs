@@ -61,7 +61,7 @@ namespace GestorHorarioG6.Controllers
             {
                 _context.Add(requisicao);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Created));
+                return RedirectToAction("Created/" + requisicao.RequisicaoID);
             }
             return View(requisicao);
         }
