@@ -24,6 +24,20 @@ namespace GestorHorarioG6.Controllers
             return View(await _context.Requisicao.ToListAsync());
         }
 
+        // POST: Requisicoes/Clicked/1
+        [HttpPost]
+        public async Task<IActionResult> Clicked(int id)
+        {
+            var requisicao = await _context.Requisicao.FindAsync(id);
+            if (requisicao.Aprovado)
+                requisicao.Aprovado = false;
+            else
+                requisicao.Aprovado = true;
+            _context.Requisicao.Update(requisicao);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
         // GET: Requisicoes/Aprovadas
         public async Task<IActionResult> Aprovadas()
         {

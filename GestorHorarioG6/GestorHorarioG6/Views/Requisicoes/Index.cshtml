@@ -10,19 +10,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ServicoID)
+                Serviço
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HoraDeInicio)
+                Hora de Início
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HoraDeFim)
+                Hora de Fim
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RequisicoesAdicionais)
+                Requisições Adicionais
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Aprovado)
+                Aprovada
             </th>
         </tr>
     </thead>
@@ -43,7 +43,7 @@
                 @Html.DisplayFor(modelItem => item.RequisicoesAdicionais)
             </td>
             <td>
-                @Html.CheckBoxFor(modelItem => item.Aprovado)
+                @Html.CheckBoxFor(modelItem => item.Aprovado, new { @onclick="Clicked("+ item.RequisicaoID +")" })
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.RequisicaoID">Editar</a> |
@@ -53,3 +53,9 @@
 }
     </tbody>
 </table>
+
+<script>
+    function Clicked(id) {
+        $.post("/Requisicoes/Clicked/" + id);
+    }
+</script>
