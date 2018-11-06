@@ -21,8 +21,9 @@ namespace GestorHorarioG6.Models
         
         public int Turno2 { get; set; }
 
-        public Boolean  Conhecimento{get;set;}
+        public Boolean  Conhecimento{get; set;}
 
         public Boolean Aprovado { get; set; }
+
     }
 }
