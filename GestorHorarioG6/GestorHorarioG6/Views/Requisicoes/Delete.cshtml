@@ -14,7 +14,7 @@
             Serviço
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ServicoID)
+            @Html.DisplayFor(model => model.ServicoId)
         </dd>
         <dt>
            Hora de Início
@@ -47,7 +47,7 @@
         </dt>
         <dd>
             <form asp-action="Delete">
-                <input type="hidden" asp-for="RequisicaoID" />
+                <input type="hidden" asp-for="RequisicaoId" />
                 <input type="submit" value="Eliminar" class="btn btn-danger" />
             </form>
         </dd>

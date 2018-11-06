@@ -9,12 +9,11 @@ namespace GestorHorarioG6.Models
 {
     public class Requisicao
     {
-        public int RequisicaoID { get; set; }
+        [Key]
+        public int RequisicaoId { get; set; }
 
-        [ForeignKey("Servicos")]
-        public int ServicoID { get; set; }
-
-        //public Servicos Servico { get; set; }
+        public Servico Servico { get; set; }
+        public int ServicoId { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]

@@ -21,7 +21,8 @@ namespace GestorHorarioG6.Controllers
         // GET: Requisicoes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Requisicao.ToListAsync());
+            var databaseContext = _context.Requisicao.Include(r => r.Servico);
+            return View(await databaseContext.ToListAsync());
         }
 
         // POST: Requisicoes/Clicked/1
@@ -61,7 +62,7 @@ namespace GestorHorarioG6.Controllers
             {
                 _context.Add(requisicao);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Created/" + requisicao.RequisicaoID);
+                return RedirectToAction("Created/" + requisicao.RequisicaoId);
             }
             return View(requisicao);
         }
@@ -89,7 +90,7 @@ namespace GestorHorarioG6.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Created(int id, [Bind("RequisicaoID,ServicoID,HoraDeInicio,HoraDeFim,RequisicoesAdicionais")] Requisicao requisicao)
         {
-            if (id != requisicao.RequisicaoID)
+            if (id != requisicao.RequisicaoId)
             {
                 return NotFound();
             }
@@ -103,7 +104,7 @@ namespace GestorHorarioG6.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RequisicaoExists(requisicao.RequisicaoID))
+                    if (!RequisicaoExists(requisicao.RequisicaoId))
                     {
                         return NotFound();
                     }
@@ -139,7 +140,7 @@ namespace GestorHorarioG6.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("RequisicaoID,ServicoID,HoraDeInicio,HoraDeFim,RequisicoesAdicionais")] Requisicao requisicao)
         {
-            if (id != requisicao.RequisicaoID)
+            if (id != requisicao.RequisicaoId)
             {
                 return NotFound();
             }
@@ -153,7 +154,7 @@ namespace GestorHorarioG6.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RequisicaoExists(requisicao.RequisicaoID))
+                    if (!RequisicaoExists(requisicao.RequisicaoId))
                     {
                         return NotFound();
                     }
@@ -176,7 +177,7 @@ namespace GestorHorarioG6.Controllers
             }
 
             var requisicao = await _context.Requisicao
-                .FirstOrDefaultAsync(m => m.RequisicaoID == id);
+                .FirstOrDefaultAsync(m => m.RequisicaoId == id);
             if (requisicao == null)
             {
                 return NotFound();
@@ -198,7 +199,7 @@ namespace GestorHorarioG6.Controllers
 
         private bool RequisicaoExists(int id)
         {
-            return _context.Requisicao.Any(e => e.RequisicaoID == id);
+            return _context.Requisicao.Any(e => e.RequisicaoId == id);
         }
     }
 }

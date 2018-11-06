@@ -17,5 +17,7 @@ namespace GestorHorarioG6.Models
         public DbSet<GestorHorarioG6.Models.Funcionario> Funcionario { get; set; }
 
         public DbSet<GestorHorarioG6.Models.Requisicao> Requisicao { get; set; }
+
+        public DbSet<GestorHorarioG6.Models.Servico> Servico { get; set; }
     }
 }

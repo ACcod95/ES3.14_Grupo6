@@ -8,7 +8,7 @@ namespace GestorHorarioG6.Models
 {
     public class Funcionario
     {
-        public int FuncionarioID { get; set; }
+        public int FuncionarioId { get; set; }
 
         [Required]
         public string Nome { get; set; }

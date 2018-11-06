@@ -40,7 +40,7 @@ namespace GestorHorarioG6.Controllers
             }
 
             var funcionario = await _context.Funcionario
-                .FirstOrDefaultAsync(m => m.FuncionarioID == id);
+                .FirstOrDefaultAsync(m => m.FuncionarioId == id);
             if (funcionario == null)
             {
                 return NotFound();
@@ -94,7 +94,7 @@ namespace GestorHorarioG6.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("FuncionarioID,Nome,Cargo,Nascimento,NIF,Telefone,Email,Notas")] Funcionario funcionario)
         {
-            if (id != funcionario.FuncionarioID)
+            if (id != funcionario.FuncionarioId)
             {
                 return NotFound();
             }
@@ -108,7 +108,7 @@ namespace GestorHorarioG6.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FuncionarioExists(funcionario.FuncionarioID))
+                    if (!FuncionarioExists(funcionario.FuncionarioId))
                     {
                         return NotFound();
                     }
@@ -131,7 +131,7 @@ namespace GestorHorarioG6.Controllers
             }
 
             var funcionario = await _context.Funcionario
-                .FirstOrDefaultAsync(m => m.FuncionarioID == id);
+                .FirstOrDefaultAsync(m => m.FuncionarioId == id);
             if (funcionario == null)
             {
                 return NotFound();
@@ -153,7 +153,7 @@ namespace GestorHorarioG6.Controllers
 
         private bool FuncionarioExists(int id)
         {
-            return _context.Funcionario.Any(e => e.FuncionarioID == id);
+            return _context.Funcionario.Any(e => e.FuncionarioId == id);
         }
     }
 }

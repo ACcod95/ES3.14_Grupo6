@@ -31,7 +31,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ServicoID)
+                @Html.DisplayFor(modelItem => item.Servico.ServicoId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.HoraDeInicio)
@@ -43,11 +43,11 @@
                 @Html.DisplayFor(modelItem => item.RequisicoesAdicionais)
             </td>
             <td>
-                @Html.CheckBoxFor(modelItem => item.Aprovado, new { @onclick="Clicked("+ item.RequisicaoID +")" })
+                @Html.CheckBoxFor(modelItem => item.Aprovado, new { @onclick = "Clicked(" + item.RequisicaoId + ")" })
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.RequisicaoID">Editar</a> |
-                <a asp-action="Delete" asp-route-id="@item.RequisicaoID">Eliminar</a>
+                <a asp-action="Edit" asp-route-id="@item.RequisicaoId">Editar</a> |
+                <a asp-action="Delete" asp-route-id="@item.RequisicaoId">Eliminar</a>
             </td>
         </tr>
 }
