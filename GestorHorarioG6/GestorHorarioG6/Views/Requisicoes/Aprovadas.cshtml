@@ -1,0 +1,46 @@
+﻿@model IEnumerable<GestorHorarioG6.Models.Requisicao>
+
+@{
+    ViewData["Title"] = "Requisições Aprovadas";
+}
+
+<h2>Requisições Aprovadas</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Serviço
+            </th>
+            <th>
+                Hora de Início
+            </th>
+            <th>
+                Hora de Fim
+            </th>
+            <th>
+                Requisições Adicionais
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Servico.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoraDeInicio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoraDeFim)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequisicoesAdicionais)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

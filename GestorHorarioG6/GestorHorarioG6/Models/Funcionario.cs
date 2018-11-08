@@ -9,7 +9,7 @@ namespace GestorHorarioG6.Models
 {
     public class Funcionario
     {
-        public int FuncionarioID { get; set; }
+        public int FuncionarioId { get; set; }
 
         [StringLength(60, MinimumLength = 3)]
         [Required(ErrorMessage = "Please enter Name")]

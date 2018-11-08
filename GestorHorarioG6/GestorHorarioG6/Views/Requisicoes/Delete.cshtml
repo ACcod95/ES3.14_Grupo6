@@ -1,0 +1,55 @@
+﻿@model GestorHorarioG6.Models.Requisicao
+
+@{
+    ViewData["Title"] = "Eliminar";
+}
+
+<h2>Eliminar</h2>
+
+<div>
+    <h4>Requisição</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Serviço
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Servico.Nome)
+        </dd>
+        <dt>
+           Hora de Início
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HoraDeInicio)
+        </dd>
+        <dt>
+            Hora de Fim
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HoraDeFim)
+        </dd>
+        <dt>
+            Requisições Adicionais
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RequisicoesAdicionais)
+        </dd>
+        <dt>
+            <br />
+        </dt>
+        <dd>
+            <br />
+        </dd>
+        <dt>
+            <a asp-action="Index">
+                <input type="submit" value="Voltar" class="btn btn-default" />
+            </a>
+        </dt>
+        <dd>
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="RequisicaoId" />
+                <input type="submit" value="Eliminar" class="btn btn-danger" />
+            </form>
+        </dd>
+    </dl>
+</div>
