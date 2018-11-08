@@ -11,7 +11,7 @@ namespace GestorHorarioG6.Controllers
 {
     public class RequisicoesController : Controller
     {
-        private readonly GestorHorarioG6Context _context;
+        private readonly GestorHorarioG6Context _context; 
 
         public RequisicoesController(GestorHorarioG6Context context)
         {
@@ -42,12 +42,14 @@ namespace GestorHorarioG6.Controllers
         // GET: Requisicoes/Aprovadas
         public async Task<IActionResult> Aprovadas()
         {
-            return View(await _context.Requisicao.Where(r => r.Aprovado == true).ToListAsync());
+            var databaseContext = _context.Requisicao.Include(r => r.Servico);
+            return View(await databaseContext.Where(r => r.Aprovado == true).ToListAsync());
         }
 
         // GET: Requisicoes/Create
         public IActionResult Create()
         {
+            ViewData["Servico"] = new SelectList(_context.Servico, "ServicoId", "Nome");
             return View();
         }
 
@@ -56,7 +58,7 @@ namespace GestorHorarioG6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RequisicaoID,ServicoID,HoraDeInicio,HoraDeFim,RequisicoesAdicionais")] Requisicao requisicao)
+        public async Task<IActionResult> Create([Bind("RequisicaoId,ServicoId,HoraDeInicio,HoraDeFim,RequisicoesAdicionais")] Requisicao requisicao)
         {
             if (ModelState.IsValid)
             {
@@ -64,6 +66,7 @@ namespace GestorHorarioG6.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Created/" + requisicao.RequisicaoId);
             }
+            ViewData["Servico"] = new SelectList(_context.Servico, "ServicoId", "Nome", requisicao.ServicoId);
             return View(requisicao);
         }
 
@@ -80,6 +83,7 @@ namespace GestorHorarioG6.Controllers
             {
                 return NotFound();
             }
+            ViewData["Servico"] = new SelectList(_context.Servico, "ServicoId", "Nome", requisicao.ServicoId);
             return View(requisicao);
         }
 
@@ -88,7 +92,7 @@ namespace GestorHorarioG6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Created(int id, [Bind("RequisicaoID,ServicoID,HoraDeInicio,HoraDeFim,RequisicoesAdicionais")] Requisicao requisicao)
+        public async Task<IActionResult> Created(int id, [Bind("RequisicaoId,ServicoId,HoraDeInicio,HoraDeFim,RequisicoesAdicionais")] Requisicao requisicao)
         {
             if (id != requisicao.RequisicaoId)
             {
@@ -114,6 +118,7 @@ namespace GestorHorarioG6.Controllers
                     }
                 }
             }
+            ViewData["Servico"] = new SelectList(_context.Servico, "ServicoId", "Nome", requisicao.ServicoId);
             return View(requisicao);
         }
 
@@ -138,7 +143,7 @@ namespace GestorHorarioG6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RequisicaoID,ServicoID,HoraDeInicio,HoraDeFim,RequisicoesAdicionais")] Requisicao requisicao)
+        public async Task<IActionResult> Edit(int id, [Bind("RequisicaoId,ServicoId,HoraDeInicio,HoraDeFim,RequisicoesAdicionais")] Requisicao requisicao)
         {
             if (id != requisicao.RequisicaoId)
             {
