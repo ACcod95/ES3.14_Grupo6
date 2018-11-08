@@ -1,2 +1,6 @@
-
-Prototipo/Thumbs.db
+obj/**
+**/obj/**
+bin/**
+**/bin/**
+.vs/**
+**/.vs/**
