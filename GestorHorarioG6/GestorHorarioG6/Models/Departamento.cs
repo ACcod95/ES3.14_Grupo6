@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace GestorHorarioG6.Models
 {
-    public class Servico
+    public class Departamento
     {
         [Key]
-        public int ServicoId { get; set; }
+        public int DepartamentoId { get; set; }
 
         [Required]
         public string Nome { get; set; }

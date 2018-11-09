@@ -21,7 +21,7 @@ namespace GestorHorarioG6.Controllers
         // GET: Requisicoes
         public async Task<IActionResult> Index()
         {
-            var databaseContext = _context.Requisicao.Include(r => r.Servico);
+            var databaseContext = _context.Requisicao.Include(r => r.Departamento);
             return View(await databaseContext.ToListAsync());
         }
 
@@ -42,14 +42,14 @@ namespace GestorHorarioG6.Controllers
         // GET: Requisicoes/Aprovadas
         public async Task<IActionResult> Aprovadas()
         {
-            var databaseContext = _context.Requisicao.Include(r => r.Servico);
+            var databaseContext = _context.Requisicao.Include(r => r.Departamento);
             return View(await databaseContext.Where(r => r.Aprovado == true).ToListAsync());
         }
 
         // GET: Requisicoes/Create
         public IActionResult Create()
         {
-            ViewData["Servico"] = new SelectList(_context.Servico, "ServicoId", "Nome");
+            ViewData["Departamento"] = new SelectList(_context.Departamento, "DepartamentoId", "Nome");
             return View();
         }
 
@@ -58,7 +58,7 @@ namespace GestorHorarioG6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RequisicaoId,ServicoId,HoraDeInicio,HoraDeFim,RequisicoesAdicionais")] Requisicao requisicao)
+        public async Task<IActionResult> Create([Bind("RequisicaoId,DepartamentoId,HoraDeInicio,HoraDeFim,RequisicoesAdicionais")] Requisicao requisicao)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +66,7 @@ namespace GestorHorarioG6.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Created/" + requisicao.RequisicaoId);
             }
-            ViewData["Servico"] = new SelectList(_context.Servico, "ServicoId", "Nome", requisicao.ServicoId);
+            ViewData["Departamento"] = new SelectList(_context.Departamento, "DepartamentoId", "Nome", requisicao.DepartamentoId);
             return View(requisicao);
         }
 
@@ -83,7 +83,7 @@ namespace GestorHorarioG6.Controllers
             {
                 return NotFound();
             }
-            ViewData["Servico"] = new SelectList(_context.Servico, "ServicoId", "Nome", requisicao.ServicoId);
+            ViewData["Departamento"] = new SelectList(_context.Departamento, "DepartamentoId", "Nome", requisicao.DepartamentoId);
             return View(requisicao);
         }
 
@@ -92,7 +92,7 @@ namespace GestorHorarioG6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Created(int id, [Bind("RequisicaoId,ServicoId,HoraDeInicio,HoraDeFim,RequisicoesAdicionais")] Requisicao requisicao)
+        public async Task<IActionResult> Created(int id, [Bind("RequisicaoId,DepartamentoId,HoraDeInicio,HoraDeFim,RequisicoesAdicionais")] Requisicao requisicao)
         {
             if (id != requisicao.RequisicaoId)
             {
@@ -118,7 +118,7 @@ namespace GestorHorarioG6.Controllers
                     }
                 }
             }
-            ViewData["Servico"] = new SelectList(_context.Servico, "ServicoId", "Nome", requisicao.ServicoId);
+            ViewData["Departamento"] = new SelectList(_context.Departamento, "DepartamentoId", "Nome", requisicao.DepartamentoId);
             return View(requisicao);
         }
 
@@ -143,7 +143,7 @@ namespace GestorHorarioG6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RequisicaoId,ServicoId,HoraDeInicio,HoraDeFim,RequisicoesAdicionais")] Requisicao requisicao)
+        public async Task<IActionResult> Edit(int id, [Bind("RequisicaoId,DepartamentoId,HoraDeInicio,HoraDeFim,RequisicoesAdicionais")] Requisicao requisicao)
         {
             if (id != requisicao.RequisicaoId)
             {
