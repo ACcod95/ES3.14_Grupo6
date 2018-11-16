@@ -21,5 +21,7 @@ namespace GestorHorarioG6.Models
         public DbSet<GestorHorarioG6.Models.Departamento> Departamento { get; set; }
 
         public DbSet<GestorHorarioG6.Models.Local> Local { get; set; }
+
+        public DbSet<GestorHorarioG6.Models.Equipamento> Equipamento { get; set; }
     }
 }
