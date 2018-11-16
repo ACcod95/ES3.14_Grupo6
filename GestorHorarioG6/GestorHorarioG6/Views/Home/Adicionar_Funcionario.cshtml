@@ -17,13 +17,17 @@
             </div>
             <div class="form-group">
                 <label asp-for="Cargo" class="control-label"></label>
-                <input asp-for="Cargo" class="form-control" />
-                <span asp-validation-for="Cargo" class="text-danger"></span>
+                <select asp-for="Cargo" class="form-control" asp-items="ViewBag.CargoId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Nascimento" class="control-label">Data de Nascimento</label>
                 <input asp-for="Nascimento" class="form-control" />
                 <span asp-validation-for="Nascimento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NascimentoFilho" class="control-label">Data de Nascimento do Filho Mais Novo</label>
+                <input asp-for="NascimentoFilho" class="form-control" />
+                <span asp-validation-for="NascimentoFilho" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="NIF" class="control-label"></label>
@@ -44,7 +48,7 @@
                 <label asp-for="Notas" class="control-label"></label>
                 <input asp-for="Notas" class="form-control" />
                 <span asp-validation-for="Notas" class="text-danger"></span>
-            </div>
+            </div>    
             <div class="form-group">
                 <input type="submit" value="Adicionar" class="btn btn-default" />
             </div>

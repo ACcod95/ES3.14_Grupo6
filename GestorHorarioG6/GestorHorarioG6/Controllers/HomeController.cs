@@ -24,6 +24,8 @@ namespace GestorHorarioG6.Controllers
             return View();
         }
 
+
+
         // GET: Funcionarios
         public async Task<IActionResult> Escalas()
         {
@@ -52,6 +54,7 @@ namespace GestorHorarioG6.Controllers
         // GET: Funcionarios/Create
         public IActionResult Adicionar_Funcionario()
         {
+            ViewData["Cargo"] = new SelectList(_context.Departamento, "CargoId", "Nome");
             return View();
         }
 
@@ -60,7 +63,7 @@ namespace GestorHorarioG6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Adicionar_Funcionario([Bind("FuncionarioID,Nome,Cargo,Nascimento,NIF,Telefone,Email,Notas")] Funcionario funcionario)
+        public async Task<IActionResult> Adicionar_Funcionario([Bind("FuncionarioID,Nome,CargoId,Nascimento,NascimentoFilho,NIF,Telefone,Email,Notas")] Funcionario funcionario)
         {
             if (ModelState.IsValid)
             {
@@ -68,6 +71,7 @@ namespace GestorHorarioG6.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Escalas));
             }
+            ViewData["Cargo"] = new SelectList(_context.Cargo, "CargoId", "Nome", funcionario.CargoId);
             return View(funcionario);
         }
 
@@ -84,6 +88,7 @@ namespace GestorHorarioG6.Controllers
             {
                 return NotFound();
             }
+            ViewData["Cargo"] = new SelectList(_context.Cargo, "CargoId", "Nome");
             return View(funcionario);
         }
 
@@ -92,7 +97,7 @@ namespace GestorHorarioG6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioID,Nome,Cargo,Nascimento,NIF,Telefone,Email,Notas")] Funcionario funcionario)
+        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioID,Nome,CargoId,Nascimento,NascimentoFilho,NIF,Telefone,Email,Notas")] Funcionario funcionario)
         {
             if (id != funcionario.FuncionarioId)
             {
@@ -119,6 +124,7 @@ namespace GestorHorarioG6.Controllers
                 }
                 return RedirectToAction(nameof(Escalas));
             }
+            ViewData["Cargo"] = new SelectList(_context.Cargo, "CargoId", "Nome", funcionario.CargoId);
             return View(funcionario);
         }
 
