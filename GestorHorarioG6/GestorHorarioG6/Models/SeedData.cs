@@ -48,10 +48,25 @@ namespace GestorHorarioG6.Models
                     new Local { LocalId = 7, Nome = "Centro de Materias e Esterilização" },
                     new Local { LocalId = 8, Nome = "UTI Adulto" },
                     new Local { LocalId = 9, Nome = "UTI Neonatal" },
-                    new Local { LocalId = 10, Nome = "Fonoaudiologia" }
+                    new Local { LocalId = 10, Nome = "Fonoaudiologia" },
+                    new Local { LocalId = 11, Nome = "Sala de Equipamentos 1"}
                     );
                 }
 
+                if (!db.Equipamento.Any())
+                {
+                    db.Equipamento.AddRange
+                    (new Equipamento { EquipamentoId = 1, Nome = "Ultrasom Portátil", Local = "Sala de Equipamentos 1" },
+                    new Equipamento { EquipamentoId = 2, Nome = "Torre de vídeo endoscopia alta e baixa", Local = "Oncopediátrica" },
+                    new Equipamento { EquipamentoId = 3, Nome = "Aparelho de anestesia com monitorização", Local = "Centro Cirúrgico" },
+                    new Equipamento { EquipamentoId = 4, Nome = "Desfribilador", Local = "Sala de Equipamentos 1" },
+                    new Equipamento { EquipamentoId = 5, Nome = "Aparelho de Ressonância Magnética", Local = "Centro Obstrético" },
+                    new Equipamento { EquipamentoId = 6, Nome = "Aparelho de Raio X", Local = "UTI Adulto" },
+                    new Equipamento { EquipamentoId = 7, Nome = "Hemodinâmica", Local = "Gineco-Obstétrica" },
+                    new Equipamento { EquipamentoId = 8, Nome = "Aparelho de Hemodiálise", Local = "Sala de Equipamentos 1" }
+                    );
+                }
+                
                 db.SaveChanges();
             }
         }
