@@ -35,6 +35,23 @@ namespace GestorHorarioG6.Models
                     new Requisicao { DepartamentoId = 5, HoraDeInicio = DateTime.Today, HoraDeFim = DateTime.Today, Aprovado = false }
                     );
                 }
+                
+                if (!db.Local.Any())
+                {
+                    db.Local.AddRange
+                    (new Local { LocalId = 1, Nome = "Centro Obstrético" },
+                    new Local { LocalId = 2, Nome = "Centro Cirúrgico" },
+                    new Local { LocalId = 3, Nome = "UTI Pediátrica" },
+                    new Local { LocalId = 4, Nome = "Gineco-Obstétrica" },
+                    new Local { LocalId = 5, Nome = "Oncopediátrica" },
+                    new Local { LocalId = 6, Nome = "Lactário" },
+                    new Local { LocalId = 7, Nome = "Centro de Materias e Esterilização" },
+                    new Local { LocalId = 8, Nome = "UTI Adulto" },
+                    new Local { LocalId = 9, Nome = "UTI Neonatal" },
+                    new Local { LocalId = 10, Nome = "Fonoaudiologia" }
+                    );
+                }
+
                 db.SaveChanges();
             }
         }
