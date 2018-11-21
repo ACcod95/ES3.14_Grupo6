@@ -1,19 +1,35 @@
-﻿@model IEnumerable<GestorHorarioG6.Models.Funcionario>
+﻿@model FuncionarioViewModel
 
 @{
     ViewData["Title"] = "Escalas";
 }
 
-<h2>Escalas</h2>
+<h2>@ViewData["Title"]</h2>
 
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">Pesquisa</div>
+        <div class="panel-body">
+            <form asp-action="Index">
+                <div class="form-group">
+                    <label asp-for="CurrentNome" class="control-label"></label>
+                    <input asp-for="CurrentNome" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Pesquisar" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nome)
+              Nome
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cargo)
+               Cargo
             </th>
             <th>
                 Data de Nascimento
@@ -22,23 +38,23 @@
                 Data de Nascimento do filho mais novo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NIF)
+               Nif
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Telefone)
+               Telefone
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+               Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Notas)
+               Notas
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.Funcionario) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
@@ -74,3 +90,9 @@
         }
     </tbody>
 </table>
+
+<div page-model="@Model.Pagination"></div>
+
+<p>
+    <a asp-action="Adicionar_Funcionario" class="btn btn-default">Novo</a>
+</p>

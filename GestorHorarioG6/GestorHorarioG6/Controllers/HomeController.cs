@@ -12,6 +12,7 @@ namespace GestorHorarioG6.Controllers
 {
     public class HomeController : Controller
     {
+        private const int PAGE_SIZE = 5;
         private readonly GestorHorarioG6Context _context;
 
         public HomeController(GestorHorarioG6Context context)
@@ -27,9 +28,45 @@ namespace GestorHorarioG6.Controllers
 
 
         // GET: Funcionarios
-        public async Task<IActionResult> Escalas()
+        public async Task<IActionResult> Escalas(FuncionarioViewModel model = null, int page = 1)
         {
-            return View(await _context.Funcionario.ToListAsync());
+            string nome = null;
+
+            if (model != null)
+            {
+                nome = model.CurrentNome;
+                page = 1;
+            }
+
+            var funcionario = _context.Funcionario
+                .Where(f => nome == null || f.Nome.Contains(nome));
+
+            int numProducts = await funcionario.CountAsync();
+
+            if (page > (numProducts / PAGE_SIZE) + 1)
+            {
+                page = 1;
+            }
+
+            var funcionarioList = await funcionario
+                    .OrderBy(f => f.CargoId)
+                    .Skip(PAGE_SIZE * (page - 1))
+                    .Take(PAGE_SIZE)
+                    .ToListAsync();
+
+            return View(
+                new FuncionarioViewModel
+                {
+                    Funcionario = funcionarioList,
+                    Pagination = new PaginationViewModel
+                    {
+                        CurrentPage = page,
+                        ItemsPerPage = PAGE_SIZE,
+                        TotalItems = numProducts
+                    },
+                    CurrentNome = nome
+                }
+            );
         }
 
         // GET: Funcionarios/Details/5
