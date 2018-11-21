@@ -45,6 +45,7 @@ namespace GestorHorarioG6.Controllers
         // GET: Equipamentos/Create
         public IActionResult Create()
         {
+            ViewData["Local"] = new SelectList(_context.Local, "LocalId", "Nome");
             return View();
         }
 
