@@ -11,7 +11,8 @@ namespace GestorHorarioG6.Controllers
 {
     public class RequisicoesController : Controller
     {
-        private readonly GestorHorarioG6Context _context; 
+        private readonly GestorHorarioG6Context _context;
+        private readonly int PageSize = 5;
 
         public RequisicoesController(GestorHorarioG6Context context)
         {
@@ -19,10 +20,27 @@ namespace GestorHorarioG6.Controllers
         }
 
         // GET: Requisicoes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
             var databaseContext = _context.Requisicao.Include(r => r.Departamento);
-            return View(await databaseContext.ToListAsync());
+            var total = await databaseContext.CountAsync();
+
+            var requisicoes = await databaseContext.
+                OrderBy(p => p.RequisicaoId)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize).
+                ToListAsync();
+
+            return View(new RequisicoesListViewModel
+            {
+                Requisicoes = requisicoes,
+                PagingInfo = new PaginationViewModel
+                {
+                    CurrentPage = page,
+                    ItensPerPage = PageSize,
+                    TotalItems = total
+                }
+            });
         }
 
         // POST: Requisicoes/Clicked/1

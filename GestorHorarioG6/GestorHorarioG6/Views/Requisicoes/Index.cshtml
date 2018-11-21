@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GestorHorarioG6.Models.Requisicao>
+﻿@model RequisicoesListViewModel
 
 @{
     ViewData["Title"] = "Requisições";
@@ -6,6 +6,7 @@
 
 <h2>Requisições</h2>
 
+<p><a asp-action="Create"><input type="submit" value="Criar Requisição" class="btn btn-primary" /></a></p>
 <table class="table">
     <thead>
         <tr>
@@ -28,33 +29,33 @@
     </thead>
     <tbody>
 
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Departamento.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HoraDeInicio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HoraDeFim)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RequisicoesAdicionais)
-            </td>
-            <td>
-                @Html.CheckBoxFor(modelItem => item.Aprovado, new { @onclick = "Clicked(" + item.RequisicaoId + ")" })
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.RequisicaoId">Editar</a> |
-                <a asp-action="Delete" asp-route-id="@item.RequisicaoId">Eliminar</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Requisicoes)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Departamento.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoraDeInicio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoraDeFim)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequisicoesAdicionais)
+                </td>
+                <td>
+                    @Html.CheckBoxFor(modelItem => item.Aprovado, new { @onclick = "Clicked(" + item.RequisicaoId + ")" })
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.RequisicaoId">Editar</a> |
+                    <a asp-action="Delete" asp-route-id="@item.RequisicaoId">Eliminar</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
-
-<p><a asp-action="Create">Criar Requisição</a></p>
+<div pagination-model="Model.PagingInfo"></div>
 
 <script>
     function Clicked(id) {
