@@ -21,7 +21,8 @@ namespace GestorHorarioG6.Controllers
         // GET: Equipamentos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Equipamento.ToListAsync());
+            var gestorHorarioG6Context = _context.Equipamento.Include(e => e.Bloco);
+            return View(await gestorHorarioG6Context.ToListAsync());
         }
 
         // GET: Equipamentos/Details/5
@@ -33,6 +34,7 @@ namespace GestorHorarioG6.Controllers
             }
 
             var equipamento = await _context.Equipamento
+                .Include(e => e.Bloco)
                 .FirstOrDefaultAsync(m => m.EquipamentoId == id);
             if (equipamento == null)
             {
@@ -45,7 +47,7 @@ namespace GestorHorarioG6.Controllers
         // GET: Equipamentos/Create
         public IActionResult Create()
         {
-            ViewData["Local"] = new SelectList(_context.Local, "LocalId", "Nome");
+            ViewData["BlocoId"] = new SelectList(_context.Bloco, "BlocoId", "Nome");
             return View();
         }
 
@@ -54,7 +56,7 @@ namespace GestorHorarioG6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EquipamentoId,Nome,Local")] Equipamento equipamento)
+        public async Task<IActionResult> Create([Bind("EquipamentoId,Nome,BlocoId")] Equipamento equipamento)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +64,7 @@ namespace GestorHorarioG6.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["BlocoId"] = new SelectList(_context.Bloco, "BlocoId", "Nome");
             return View(equipamento);
         }
 
@@ -78,6 +81,7 @@ namespace GestorHorarioG6.Controllers
             {
                 return NotFound();
             }
+            ViewData["BlocoId"] = new SelectList(_context.Bloco, "BlocoId", "Nome");
             return View(equipamento);
         }
 
@@ -86,7 +90,7 @@ namespace GestorHorarioG6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EquipamentoId,Nome,Local")] Equipamento equipamento)
+        public async Task<IActionResult> Edit(int id, [Bind("EquipamentoId,Nome,BlocoId")] Equipamento equipamento)
         {
             if (id != equipamento.EquipamentoId)
             {
@@ -113,6 +117,7 @@ namespace GestorHorarioG6.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["BlocoId"] = new SelectList(_context.Bloco, "BlocoId", "Nome");
             return View(equipamento);
         }
 
@@ -125,6 +130,7 @@ namespace GestorHorarioG6.Controllers
             }
 
             var equipamento = await _context.Equipamento
+                .Include(e => e.Bloco)
                 .FirstOrDefaultAsync(m => m.EquipamentoId == id);
             if (equipamento == null)
             {

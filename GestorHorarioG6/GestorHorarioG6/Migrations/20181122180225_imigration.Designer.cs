@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestorHorarioG6.Migrations
 {
     [DbContext(typeof(GestorHorarioG6Context))]
-    [Migration("20181120131159_SeedDatav2")]
-    partial class SeedDatav2
+    [Migration("20181122180225_imigration")]
+    partial class imigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,20 @@ namespace GestorHorarioG6.Migrations
                 .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("GestorHorarioG6.Models.Bloco", b =>
+                {
+                    b.Property<int>("BlocoId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Nome")
+                        .IsRequired();
+
+                    b.HasKey("BlocoId");
+
+                    b.ToTable("Bloco");
+                });
 
             modelBuilder.Entity("GestorHorarioG6.Models.Departamento", b =>
                 {
@@ -41,13 +55,14 @@ namespace GestorHorarioG6.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Local")
-                        .IsRequired();
+                    b.Property<int>("BlocoId");
 
                     b.Property<string>("Nome")
                         .IsRequired();
 
                     b.HasKey("EquipamentoId");
+
+                    b.HasIndex("BlocoId");
 
                     b.ToTable("Equipamento");
                 });
@@ -78,20 +93,6 @@ namespace GestorHorarioG6.Migrations
                     b.ToTable("Funcionario");
                 });
 
-            modelBuilder.Entity("GestorHorarioG6.Models.Local", b =>
-                {
-                    b.Property<int>("LocalId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Nome")
-                        .IsRequired();
-
-                    b.HasKey("LocalId");
-
-                    b.ToTable("Local");
-                });
-
             modelBuilder.Entity("GestorHorarioG6.Models.Requisicao", b =>
                 {
                     b.Property<int>("RequisicaoId")
@@ -113,6 +114,14 @@ namespace GestorHorarioG6.Migrations
                     b.HasIndex("DepartamentoId");
 
                     b.ToTable("Requisicao");
+                });
+
+            modelBuilder.Entity("GestorHorarioG6.Models.Equipamento", b =>
+                {
+                    b.HasOne("GestorHorarioG6.Models.Bloco", "Bloco")
+                        .WithMany()
+                        .HasForeignKey("BlocoId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GestorHorarioG6.Models.Requisicao", b =>

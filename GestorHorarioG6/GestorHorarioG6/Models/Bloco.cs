@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace GestorHorarioG6.Models
 {
-    public class Local
+    public class Bloco
     {
         [Key]
-        public int LocalId { get; set; }
+        public int BlocoId { get; set; }
 
         [Required]
         public string Nome { get; set; }

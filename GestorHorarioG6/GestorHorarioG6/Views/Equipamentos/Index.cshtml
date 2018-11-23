@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Local)
+                @Html.DisplayNameFor(model => model.Bloco)
             </th>
             <th></th>
         </tr>
@@ -28,7 +28,7 @@
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Local)
+                @Html.DisplayFor(modelItem => item.Bloco.Nome)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.EquipamentoId">Edit</a> |

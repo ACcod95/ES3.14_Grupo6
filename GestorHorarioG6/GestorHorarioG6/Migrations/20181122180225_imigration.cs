@@ -9,6 +9,19 @@ namespace GestorHorarioG6.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Bloco",
+                columns: table => new
+                {
+                    BlocoId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Nome = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bloco", x => x.BlocoId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Departamento",
                 columns: table => new
                 {
@@ -41,6 +54,26 @@ namespace GestorHorarioG6.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Equipamento",
+                columns: table => new
+                {
+                    EquipamentoId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Nome = table.Column<string>(nullable: false),
+                    BlocoId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Equipamento", x => x.EquipamentoId);
+                    table.ForeignKey(
+                        name: "FK_Equipamento_Bloco_BlocoId",
+                        column: x => x.BlocoId,
+                        principalTable: "Bloco",
+                        principalColumn: "BlocoId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Requisicao",
                 columns: table => new
                 {
@@ -64,6 +97,11 @@ namespace GestorHorarioG6.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Equipamento_BlocoId",
+                table: "Equipamento",
+                column: "BlocoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Requisicao_DepartamentoId",
                 table: "Requisicao",
                 column: "DepartamentoId");
@@ -72,10 +110,16 @@ namespace GestorHorarioG6.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Equipamento");
+
+            migrationBuilder.DropTable(
                 name: "Funcionario");
 
             migrationBuilder.DropTable(
                 name: "Requisicao");
+
+            migrationBuilder.DropTable(
+                name: "Bloco");
 
             migrationBuilder.DropTable(
                 name: "Departamento");
