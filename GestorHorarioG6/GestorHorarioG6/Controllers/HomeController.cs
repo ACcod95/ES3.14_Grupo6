@@ -28,9 +28,9 @@ namespace GestorHorarioG6.Controllers
 
 
         // GET: Funcionarios
-        public async Task<IActionResult> Escalas(FuncionarioViewModel model = null, int page = 1)
+        public async Task<IActionResult> Escalas(FuncionarioViewModel  model= null, int page = 1)
         {
-            string nome = null;
+              string nome = null;
 
             if (model != null)
             {
@@ -38,35 +38,39 @@ namespace GestorHorarioG6.Controllers
                 page = 1;
             }
 
-            var funcionario = _context.Funcionario
-                .Where(f => nome == null || f.Nome.Contains(nome));
+         /*   
+                 funcionario = _context.Funcionario.Where(n => nome == null || n.Nome.Contains(nome));
 
-            int numProducts = await funcionario.CountAsync();
+                int numFuncionario = await funcionario.CountAsync();
 
-            if (page > (numProducts / PAGE_SIZE) + 1)
+            if (page > (numFuncionario / PAGE_SIZE) + 1)
             {
                 page = 1;
+            }*/
+
+
+            var funcionario = _context.Funcionario.Include(f => f.Cargo);
+            var search = _context.Funcionario.Where(n => nome == null || n.Nome.Contains(nome));
+            var total = await funcionario.CountAsync();
+            var listFunc = await funcionario.
+               OrderBy(p => p.FuncionarioId)
+               .Skip(PAGE_SIZE *(page - 1) )
+               .Take(PAGE_SIZE)
+               .ToListAsync();
+
+            return View(new FuncionarioViewModel
+            {
+                Funcionario = listFunc,
+                PageInfo = new PaginationViewModel
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PAGE_SIZE,
+                    TotalItems = total
+                },
+                CurrentNome = nome
             }
 
-            var funcionarioList = await funcionario
-                    .OrderBy(f => f.CargoId)
-                    .Skip(PAGE_SIZE * (page - 1))
-                    .Take(PAGE_SIZE)
-                    .ToListAsync();
-
-            return View(
-                new FuncionarioViewModel
-                {
-                    Funcionario = funcionarioList,
-                    Pagination = new PaginationViewModel
-                    {
-                        CurrentPage = page,
-                        ItemsPerPage = PAGE_SIZE,
-                        TotalItems = numProducts
-                    },
-                    CurrentNome = nome
-                }
-            );
+           );
         }
 
         // GET: Funcionarios/Details/5
@@ -91,7 +95,7 @@ namespace GestorHorarioG6.Controllers
         // GET: Funcionarios/Create
         public IActionResult Adicionar_Funcionario()
         {
-            ViewData["Cargo"] = new SelectList(_context.Departamento, "CargoId", "Nome");
+            ViewData["Cargo"] = new SelectList(_context.Cargo, "CargoId", "Nome");
             return View();
         }
 
@@ -182,7 +186,7 @@ namespace GestorHorarioG6.Controllers
 
             return View(funcionario);
         }
-
+        
         // POST: Funcionarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

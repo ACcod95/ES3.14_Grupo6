@@ -8,15 +8,24 @@
 
 <div class="container">
     <div class="panel panel-default">
-        <div class="panel-heading">Pesquisa</div>
         <div class="panel-body">
-            <form asp-action="Index">
+            <form asp-action="Escalas">
                 <div class="form-group">
-                    <label asp-for="CurrentNome" class="control-label"></label>
-                    <input asp-for="CurrentNome" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Pesquisar" class="btn btn-default" />
+                    <table>
+                        <tr>
+                            <td>
+                                <label asp-for="CurrentNome" class="control-label"></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input asp-for="CurrentNome" class="form-control"  />
+                            </td>
+                            <td>
+                                <input type="submit" value="Pesquisar" class="btn btn-default" />
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </form>
         </div>
@@ -53,7 +62,6 @@
         </tr>
     </thead>
     <tbody>
-
 @foreach (var item in Model.Funcionario) {
         <tr>
             <td>
@@ -91,7 +99,7 @@
     </tbody>
 </table>
 
-<div page-model="@Model.Pagination"></div>
+<div pagination-model="Model.PageInfo"></div>
 
 <p>
     <a asp-action="Adicionar_Funcionario" class="btn btn-default">Novo</a>
