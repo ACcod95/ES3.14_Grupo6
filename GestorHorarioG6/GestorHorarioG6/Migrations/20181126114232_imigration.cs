@@ -41,6 +41,20 @@ namespace GestorHorarioG6.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Servico",
+                columns: table => new
+                {
+                    ServicoId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Nome = table.Column<string>(nullable: false),
+                    Descrição = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Servico", x => x.ServicoId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Requisicao",
                 columns: table => new
                 {
@@ -76,6 +90,9 @@ namespace GestorHorarioG6.Migrations
 
             migrationBuilder.DropTable(
                 name: "Requisicao");
+
+            migrationBuilder.DropTable(
+                name: "Servico");
 
             migrationBuilder.DropTable(
                 name: "Departamento");

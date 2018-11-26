@@ -82,6 +82,22 @@ namespace GestorHorarioG6.Migrations
                     b.ToTable("Requisicao");
                 });
 
+            modelBuilder.Entity("GestorHorarioG6.Models.Servico", b =>
+                {
+                    b.Property<int>("ServicoId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Descrição");
+
+                    b.Property<string>("Nome")
+                        .IsRequired();
+
+                    b.HasKey("ServicoId");
+
+                    b.ToTable("Servico");
+                });
+
             modelBuilder.Entity("GestorHorarioG6.Models.Requisicao", b =>
                 {
                     b.HasOne("GestorHorarioG6.Models.Departamento", "Departamento")

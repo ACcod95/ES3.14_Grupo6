@@ -35,6 +35,14 @@ namespace GestorHorarioG6.Models
                     new Requisicao { DepartamentoId = 5, HoraDeInicio = DateTime.Today, HoraDeFim = DateTime.Today, Aprovado = false }
                     );
                 }
+
+                if (!db.Servico.Any())
+                {
+                    db.Servico.AddRange
+                    (new Servico { Nome = "Reparação", Descrição = "Reparação geral de um computador"},
+                    new Servico { Nome = "Substituição" }
+                    );
+                }
                 db.SaveChanges();
             }
         }

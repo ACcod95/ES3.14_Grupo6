@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestorHorarioG6.Migrations
 {
     [DbContext(typeof(GestorHorarioG6Context))]
-    [Migration("20181109123331_imigration")]
+    [Migration("20181126114232_imigration")]
     partial class imigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -82,6 +82,22 @@ namespace GestorHorarioG6.Migrations
                     b.HasIndex("DepartamentoId");
 
                     b.ToTable("Requisicao");
+                });
+
+            modelBuilder.Entity("GestorHorarioG6.Models.Servico", b =>
+                {
+                    b.Property<int>("ServicoId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Descrição");
+
+                    b.Property<string>("Nome")
+                        .IsRequired();
+
+                    b.HasKey("ServicoId");
+
+                    b.ToTable("Servico");
                 });
 
             modelBuilder.Entity("GestorHorarioG6.Models.Requisicao", b =>

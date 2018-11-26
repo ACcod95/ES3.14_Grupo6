@@ -1,0 +1,32 @@
+﻿@model GestorHorarioG6.Models.Servico
+
+@{
+    ViewData["Title"] = "Eliminar Serviço";
+}
+
+<h2>Eliminar Serviço</h2>
+
+<h3>Tem a certeza que pretende eliminar este serviço?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Descrição)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Descrição)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ServicoId" />
+        <input type="submit" value="Eliminar" class="btn btn-default" /> |
+        <a asp-action="Index">Voltar</a>
+    </form>
+</div>
