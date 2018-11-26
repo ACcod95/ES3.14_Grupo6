@@ -11,6 +11,7 @@ namespace GestorHorarioG6.Controllers
 {
     public class EquipamentosController : Controller
     {
+        private const int PAGE_SIZE = 5;
         private readonly GestorHorarioG6Context _context;
 
         public EquipamentosController(GestorHorarioG6Context context)
@@ -19,17 +20,51 @@ namespace GestorHorarioG6.Controllers
         }
 
         // GET: Equipamentos
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, string searchString2, EquipamentosViewModel model = null, int page=1)
         {
+            string nome = null;
+
+            if(model != null && model.CurrentNome != null)
+            {
+                nome = model.CurrentNome;
+                page = 1;
+            }
             var equipamentoContext = from e in _context.Equipamento select e;
 
             if (!String.IsNullOrEmpty(searchString))
             {
                 equipamentoContext = _context.Equipamento.Where(s => s.Nome.Contains(searchString));
             }
+            if (!String.IsNullOrEmpty(searchString2))
+            {
+                equipamentoContext = _context.Equipamento.Where(s => s.Bloco.Nome.Contains(searchString2));
+            }
 
             equipamentoContext = equipamentoContext.Include(e => e.Bloco);
-            return View(await equipamentoContext.ToListAsync());
+            var total = await equipamentoContext.CountAsync();
+
+            if (page > (total / PAGE_SIZE) +1)
+            {
+                page = 1;
+            }
+
+            var listEqui = await equipamentoContext
+                .OrderBy(p => p.EquipamentoId)
+                .Skip(PAGE_SIZE * (page - 1))
+                .Take(PAGE_SIZE)
+                .ToListAsync();
+
+            return View(new EquipamentosViewModel
+            {
+                Equipamento = listEqui,
+                PageInfo = new PaginationViewModel
+                {
+                    CurrentPage = page,
+                    ItensPerPage = PAGE_SIZE,
+                    TotalItems = total
+                },
+                CurrentNome = nome
+            });
         }
 
         // GET: Equipamentos/Details/5
