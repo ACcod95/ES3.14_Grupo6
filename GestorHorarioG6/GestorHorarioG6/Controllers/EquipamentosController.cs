@@ -19,10 +19,17 @@ namespace GestorHorarioG6.Controllers
         }
 
         // GET: Equipamentos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var gestorHorarioG6Context = _context.Equipamento.Include(e => e.Bloco);
-            return View(await gestorHorarioG6Context.ToListAsync());
+            var equipamentoContext = from e in _context.Equipamento select e;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                equipamentoContext = _context.Equipamento.Where(s => s.Nome.Contains(searchString));
+            }
+
+            equipamentoContext = equipamentoContext.Include(e => e.Bloco);
+            return View(await equipamentoContext.ToListAsync());
         }
 
         // GET: Equipamentos/Details/5
