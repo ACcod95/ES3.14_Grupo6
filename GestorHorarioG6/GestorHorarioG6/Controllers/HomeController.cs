@@ -28,33 +28,27 @@ namespace GestorHorarioG6.Controllers
 
 
         // GET: Funcionarios
-        public async Task<IActionResult> Escalas(FuncionarioViewModel  model= null, int page = 1)
+        public async Task<IActionResult> Escalas(FuncionarioViewModel  model = null, int page = 1)
         {
-              string nome = null;
+            string nome = null;
 
-            if (model != null)
+            if (model != null && model.CurrentNome != null)
             {
                 nome = model.CurrentNome;
                 page = 1;
             }
+        
+            var func = _context.Funcionario.Include(f => f.Cargo).Where(f => nome == null || f.Nome.Contains(nome));
+            var total = await func.CountAsync();
 
-         /*   
-                 funcionario = _context.Funcionario.Where(n => nome == null || n.Nome.Contains(nome));
-
-                int numFuncionario = await funcionario.CountAsync();
-
-            if (page > (numFuncionario / PAGE_SIZE) + 1)
+            if (page > (total / PAGE_SIZE) + 1)
             {
                 page = 1;
-            }*/
-
-
-            var funcionario = _context.Funcionario.Include(f => f.Cargo);
-            var search = _context.Funcionario.Where(n => nome == null || n.Nome.Contains(nome));
-            var total = await funcionario.CountAsync();
-            var listFunc = await funcionario.
-               OrderBy(p => p.FuncionarioId)
-               .Skip(PAGE_SIZE *(page - 1) )
+            }
+            
+            var listFunc = await func
+               .OrderBy(p => p.FuncionarioId)   
+               .Skip(PAGE_SIZE * (page - 1))
                .Take(PAGE_SIZE)
                .ToListAsync();
 
@@ -64,13 +58,11 @@ namespace GestorHorarioG6.Controllers
                 PageInfo = new PaginationViewModel
                 {
                     CurrentPage = page,
-                    ItemsPerPage = PAGE_SIZE,
+                    ItensPerPage = PAGE_SIZE,
                     TotalItems = total
                 },
                 CurrentNome = nome
-            }
-
-           );
+            });
         }
 
         // GET: Funcionarios/Details/5
@@ -104,7 +96,7 @@ namespace GestorHorarioG6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Adicionar_Funcionario([Bind("FuncionarioID,Nome,CargoId,Nascimento,NascimentoFilho,NIF,Telefone,Email,Notas")] Funcionario funcionario)
+        public async Task<IActionResult> Adicionar_Funcionario([Bind("FuncionarioId,Nome,CargoId,Nascimento,NascimentoFilho,NIF,Telefone,Email,Notas")] Funcionario funcionario)
         {
             if (ModelState.IsValid)
             {
@@ -138,7 +130,7 @@ namespace GestorHorarioG6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioID,Nome,CargoId,Nascimento,NascimentoFilho,NIF,Telefone,Email,Notas")] Funcionario funcionario)
+        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioId,Nome,CargoId,Nascimento,NascimentoFilho,NIF,Telefone,Email,Notas")] Funcionario funcionario)
         {
             if (id != funcionario.FuncionarioId)
             {
