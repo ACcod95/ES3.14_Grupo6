@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GestorHorarioG6.Models.Equipamento>
+﻿@model EquipamentosViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -9,15 +9,31 @@
 <table class="table">
     <tr>
         <td>
+            <br />
             <p>
-                <a asp-action="Create">Create New</a>
+                <a asp-action="Create" class="btn btn-primary">Criar Novo</a>
             </p>
         </td>
-        <td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td class="col-sm-offset-3" style="text-align:center">
             <form asp-controller="Equipamentos" asp.action="Index">
+                <br />
                 <p>
                     Nome: <input type="text" name="SearchString" />
-                    <input type="submit" value="Pesquisar" />
+                    <button type="submit" style="border:0; background:transparent">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </p>
+            </form>
+        </td>
+        <td style="text-align:right">
+            <form asp-controller="Equipamentos" asp.action="Index">
+                <br />
+                <p>
+                    Bloco: <input type="text" name="SearchString2" />
+                    <button type="submit" style="border:0; background:transparent">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
                 </p>
             </form>
         </td>
@@ -28,16 +44,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nome)
+               Nome
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bloco)
+               Bloco
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Equipamento) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
@@ -45,12 +61,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Bloco.Nome)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.EquipamentoId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.EquipamentoId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.EquipamentoId">Delete</a>
+            <td style="text-align:right">
+                <a asp-action="Edit" asp-route-id="@item.EquipamentoId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.EquipamentoId">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.EquipamentoId">Eliminar</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+<div pagination-model="Model.PageInfo"></div>
