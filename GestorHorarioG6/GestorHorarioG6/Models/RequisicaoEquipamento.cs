@@ -22,7 +22,6 @@ namespace GestorHorarioG6.Models
         [DataType(DataType.DateTime)]
         public DateTime HoraDeFim { get; set; }
 
-        [Required]
         public Bloco Bloco { get; set; }
         public int BlocoId { get; set; }
     }

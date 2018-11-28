@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestorHorarioG6.Migrations
 {
     [DbContext(typeof(GestorHorarioG6Context))]
-    [Migration("20181128131221_imigration")]
+    [Migration("20181128151457_imigration")]
     partial class imigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -116,6 +116,29 @@ namespace GestorHorarioG6.Migrations
                     b.ToTable("Requisicao");
                 });
 
+            modelBuilder.Entity("GestorHorarioG6.Models.RequisicaoEquipamento", b =>
+                {
+                    b.Property<int>("RequisicaoEquipamentoId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BlocoId");
+
+                    b.Property<int>("EquipamentoId");
+
+                    b.Property<DateTime>("HoraDeFim");
+
+                    b.Property<DateTime>("HoraDeInicio");
+
+                    b.HasKey("RequisicaoEquipamentoId");
+
+                    b.HasIndex("BlocoId");
+
+                    b.HasIndex("EquipamentoId");
+
+                    b.ToTable("RequisicaoEquipamento");
+                });
+
             modelBuilder.Entity("GestorHorarioG6.Models.Equipamento", b =>
                 {
                     b.HasOne("GestorHorarioG6.Models.Bloco", "Bloco")
@@ -129,6 +152,19 @@ namespace GestorHorarioG6.Migrations
                     b.HasOne("GestorHorarioG6.Models.Departamento", "Departamento")
                         .WithMany()
                         .HasForeignKey("DepartamentoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("GestorHorarioG6.Models.RequisicaoEquipamento", b =>
+                {
+                    b.HasOne("GestorHorarioG6.Models.Bloco", "Bloco")
+                        .WithMany()
+                        .HasForeignKey("BlocoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("GestorHorarioG6.Models.Equipamento", "Equipamento")
+                        .WithMany()
+                        .HasForeignKey("EquipamentoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

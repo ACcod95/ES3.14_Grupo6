@@ -66,6 +66,17 @@ namespace GestorHorarioG6.Models
                     new Equipamento { Nome = "Aparelho de Hemodiálise", BlocoId = 11 }
                     );
                 }
+                if (!db.RequisicaoEquipamento.Any())
+                {
+                    db.RequisicaoEquipamento.AddRange
+                    (new RequisicaoEquipamento { EquipamentoId = 1, HoraDeInicio = DateTime.Today, HoraDeFim = DateTime.Today, BlocoId = 1 },
+                    new RequisicaoEquipamento { EquipamentoId = 2, HoraDeInicio = DateTime.Today, HoraDeFim = DateTime.Today, BlocoId = 2 },
+                    new RequisicaoEquipamento { EquipamentoId = 3, HoraDeInicio = DateTime.Today, HoraDeFim = DateTime.Today, BlocoId = 3 },
+                    new RequisicaoEquipamento { EquipamentoId = 4, HoraDeInicio = DateTime.Today, HoraDeFim = DateTime.Today, BlocoId = 4 },
+                    new RequisicaoEquipamento { EquipamentoId = 5, HoraDeInicio = DateTime.Today, HoraDeFim = DateTime.Today, BlocoId = 5 },
+                    new RequisicaoEquipamento { EquipamentoId = 6, HoraDeInicio = DateTime.Today, HoraDeFim = DateTime.Today, BlocoId = 6 }
+                    );
+                }
                 db.SaveChanges();
             }
         }

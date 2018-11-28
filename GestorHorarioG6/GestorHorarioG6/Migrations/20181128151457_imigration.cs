@@ -96,6 +96,34 @@ namespace GestorHorarioG6.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "RequisicaoEquipamento",
+                columns: table => new
+                {
+                    RequisicaoEquipamentoId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    EquipamentoId = table.Column<int>(nullable: false),
+                    HoraDeInicio = table.Column<DateTime>(nullable: false),
+                    HoraDeFim = table.Column<DateTime>(nullable: false),
+                    BlocoId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RequisicaoEquipamento", x => x.RequisicaoEquipamentoId);
+                    table.ForeignKey(
+                        name: "FK_RequisicaoEquipamento_Bloco_BlocoId",
+                        column: x => x.BlocoId,
+                        principalTable: "Bloco",
+                        principalColumn: "BlocoId",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_RequisicaoEquipamento_Equipamento_EquipamentoId",
+                        column: x => x.EquipamentoId,
+                        principalTable: "Equipamento",
+                        principalColumn: "EquipamentoId",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Equipamento_BlocoId",
                 table: "Equipamento",
@@ -105,13 +133,20 @@ namespace GestorHorarioG6.Migrations
                 name: "IX_Requisicao_DepartamentoId",
                 table: "Requisicao",
                 column: "DepartamentoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RequisicaoEquipamento_BlocoId",
+                table: "RequisicaoEquipamento",
+                column: "BlocoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RequisicaoEquipamento_EquipamentoId",
+                table: "RequisicaoEquipamento",
+                column: "EquipamentoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Equipamento");
-
             migrationBuilder.DropTable(
                 name: "Funcionario");
 
@@ -119,10 +154,16 @@ namespace GestorHorarioG6.Migrations
                 name: "Requisicao");
 
             migrationBuilder.DropTable(
-                name: "Bloco");
+                name: "RequisicaoEquipamento");
 
             migrationBuilder.DropTable(
                 name: "Departamento");
+
+            migrationBuilder.DropTable(
+                name: "Equipamento");
+
+            migrationBuilder.DropTable(
+                name: "Bloco");
         }
     }
 }
