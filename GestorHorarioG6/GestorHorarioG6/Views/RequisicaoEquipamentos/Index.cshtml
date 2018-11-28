@@ -14,17 +14,14 @@
             </p>
         </td>
         <td>
-        <td style="text-align:right">
-            <form asp-controller="RequisicaoEquipamento" asp.action="Index">
-                <br />
-                <div class='input-group date'>
-                    <input asp-for="CurrentDay" class="form-control" />
-                    <span class="input-group-addon">
-                        <button type="submit" style="border:0; background:transparent">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
-                </div>
+        <td class="col-sm-3" style="text-align:right ">
+            <form asp-action="Index">
+                    <div class='input-group date'>
+                            Data: <input asp-for="CurrentDay" class="form-control" />
+                            <button type="submit" style="border:solid; background:transparent">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                    </div>
             </form>
         </td>
     </tr>

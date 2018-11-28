@@ -12,7 +12,7 @@ namespace GestorHorarioG6.Controllers
     public class RequisicaoEquipamentosController : Controller
     {
         private readonly GestorHorarioG6Context _context;
-        private readonly int PageSize = 5;
+        private const int PAGE_SIZE = 5;
 
         public RequisicaoEquipamentosController(GestorHorarioG6Context context)
         {
@@ -24,7 +24,7 @@ namespace GestorHorarioG6.Controllers
         {
             DateTime day = DateTime.MinValue;
 
-            if(model!= null /*&& model.CurrentDay!=null*/)
+            if(model!= null && model.CurrentDay != DateTime.MinValue)
             {
                 day = model.CurrentDay;
                 page = 1;
@@ -34,15 +34,15 @@ namespace GestorHorarioG6.Controllers
                 Where(r => day == DateTime.MinValue || r.HoraDeInicio.Date.Equals(day.Date));
             var total = await requisicaoContext.CountAsync();
 
-            if (page> (total / PageSize) + 1)
+            if (page> (total / PAGE_SIZE) + 1)
             {
                 page = 1;
             }
 
             var requisicaoequipamento = await requisicaoContext.
                 OrderBy(p => p.RequisicaoEquipamentoId)
-                .Skip((page - 1) * PageSize)
-                .Take(PageSize).
+                .Skip((page - 1) * PAGE_SIZE)
+                .Take(PAGE_SIZE).
                 ToListAsync();
 
             return View(new RequisicoesEquipamentosListViewModel
@@ -51,7 +51,7 @@ namespace GestorHorarioG6.Controllers
                 PagingInfo = new PaginationViewModel
                 {
                     CurrentPage = page,
-                    ItensPerPage = PageSize,
+                    ItensPerPage = PAGE_SIZE,
                     TotalItems = total
                 },
                 CurrentDay = day                
