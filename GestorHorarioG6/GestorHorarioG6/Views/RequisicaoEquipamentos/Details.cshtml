@@ -1,0 +1,42 @@
+﻿@model GestorHorarioG6.Models.RequisicaoEquipamento
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RequisicaoEquipamento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Equipamento)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Equipamento.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HoraDeInicio)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HoraDeInicio)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HoraDeFim)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HoraDeFim)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Bloco)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Bloco.Nome)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.RequisicaoEquipamentoId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
