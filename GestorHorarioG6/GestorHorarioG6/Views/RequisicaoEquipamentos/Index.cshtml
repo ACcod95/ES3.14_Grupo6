@@ -1,34 +1,54 @@
-﻿@model IEnumerable<GestorHorarioG6.Models.RequisicaoEquipamento>
+﻿@model RequisicoesEquipamentosListViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h2>Requisições de Equipamentos</h2>
+<table class="table">
+    <tr>
+        <td>
+            <br />
+            <p>
+                <a asp-action="Create" class="btn btn-primary">Criar Novo</a>
+            </p>
+        </td>
+        <td>
+        <td style="text-align:right">
+            <form asp-controller="RequisicaoEquipamento" asp.action="Index">
+                <br />
+                <div class='input-group date'>
+                    <input asp-for="CurrentDay" class="form-control" />
+                    <span class="input-group-addon">
+                        <button type="submit" style="border:0; background:transparent">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </form>
+        </td>
+    </tr>
+</table>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Equipamento)
+                Equipamento
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HoraDeInicio)
+                Hora de Início
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HoraDeFim)
+                Hora de Fim
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bloco)
+                Bloco
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.RequisicaoEquipamento) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Equipamento.Nome)
@@ -43,11 +63,12 @@
                 @Html.DisplayFor(modelItem => item.Bloco.Nome)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.RequisicaoEquipamentoId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RequisicaoEquipamentoId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.RequisicaoEquipamentoId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.RequisicaoEquipamentoId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.RequisicaoEquipamentoId">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.RequisicaoEquipamentoId">Eliminar</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+<div pagination-model="Model.PagingInfo"></div>

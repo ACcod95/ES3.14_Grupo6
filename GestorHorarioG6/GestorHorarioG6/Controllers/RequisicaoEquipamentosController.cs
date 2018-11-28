@@ -12,6 +12,7 @@ namespace GestorHorarioG6.Controllers
     public class RequisicaoEquipamentosController : Controller
     {
         private readonly GestorHorarioG6Context _context;
+        private readonly int PageSize = 5;
 
         public RequisicaoEquipamentosController(GestorHorarioG6Context context)
         {
@@ -19,10 +20,42 @@ namespace GestorHorarioG6.Controllers
         }
 
         // GET: RequisicaoEquipamentos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(RequisicoesEquipamentosListViewModel model = null, int page = 1)
         {
-            var gestorHorarioG6Context = _context.RequisicaoEquipamento.Include(r => r.Bloco).Include(r => r.Equipamento);
-            return View(await gestorHorarioG6Context.ToListAsync());
+            DateTime day = DateTime.MinValue;
+
+            if(model!= null /*&& model.CurrentDay!=null*/)
+            {
+                day = model.CurrentDay;
+                page = 1;
+            }
+
+            var requisicaoContext = _context.RequisicaoEquipamento.Include(e => e.Equipamento).Include(b => b.Bloco).
+                Where(r => day == DateTime.MinValue || r.HoraDeInicio.Date.Equals(day.Date));
+            var total = await requisicaoContext.CountAsync();
+
+            if (page> (total / PageSize) + 1)
+            {
+                page = 1;
+            }
+
+            var requisicaoequipamento = await requisicaoContext.
+                OrderBy(p => p.RequisicaoEquipamentoId)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize).
+                ToListAsync();
+
+            return View(new RequisicoesEquipamentosListViewModel
+            {
+                RequisicaoEquipamento = requisicaoequipamento,
+                PagingInfo = new PaginationViewModel
+                {
+                    CurrentPage = page,
+                    ItensPerPage = PageSize,
+                    TotalItems = total
+                },
+                CurrentDay = day                
+            });
         }
 
         // GET: RequisicaoEquipamentos/Details/5
