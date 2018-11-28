@@ -4,42 +4,44 @@
     ViewData["Title"] = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Apagar Requisição</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Tem a certeza que deseja apagar esta requisição?</h3>
 <div>
-    <h4>RequisicaoEquipamento</h4>
+
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Equipamento)
+            Equipamento:
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Equipamento.Nome)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.HoraDeInicio)
+            Hora de Início:
         </dt>
         <dd>
             @Html.DisplayFor(model => model.HoraDeInicio)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.HoraDeFim)
+            Hora de Fim:
         </dt>
         <dd>
             @Html.DisplayFor(model => model.HoraDeFim)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Bloco)
+            Bloco:
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Bloco.Nome)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="RequisicaoEquipamentoId" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Eliminar" class="btn btn-danger" />
     </form>
+    <br />
+    <a asp-action="Index" class="btn btn-primary">Voltar para a lista</a>
 </div>
+
