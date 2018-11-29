@@ -24,6 +24,7 @@ namespace GestorHorarioG6.Models
                         new Departamento { Nome = "Neurologia" }
                     );
                 }
+                db.SaveChanges();
 
                 if (!db.Requisicao.Any())
                 {
@@ -35,6 +36,7 @@ namespace GestorHorarioG6.Models
                     new Requisicao { DepartamentoId = 5, HoraDeInicio = DateTime.Today, HoraDeFim = DateTime.Today, Aprovado = false }
                     );
                 }
+                db.SaveChanges();
 
                 if (!db.Servico.Any())
                 {
@@ -43,7 +45,8 @@ namespace GestorHorarioG6.Models
                     new Servico { Nome = "Substituição" }
                     );
                 }
-              
+                db.SaveChanges();
+
                 if (!db.Cargo.Any())
                 {
                     db.Cargo.AddRange
@@ -51,6 +54,7 @@ namespace GestorHorarioG6.Models
                      new Cargo { Nome = "Engenheiro Técnico Informático" }
                     );
                 }
+                db.SaveChanges();
 
                 if (!db.Funcionario.Any())
                 {
@@ -63,7 +67,9 @@ namespace GestorHorarioG6.Models
                     new Funcionario { Nome = "Bruna ", CargoId = 2, Nascimento = DateTime.Today, NascimentoFilho = DateTime.Today, NIF = "221362789", Telefone = "917854745", Email = "bruna@outlook.com", Notas = "" }
                     );
                 }
-if (!db.Bloco.Any())
+                db.SaveChanges();
+
+                if (!db.Bloco.Any())
                 {
                     db.Bloco.AddRange
                     (new Bloco { Nome = "Centro Obstrético" },
@@ -79,6 +85,7 @@ if (!db.Bloco.Any())
                     new Bloco { Nome = "Sala de Equipamentos 1"}
                     );
                 }
+                db.SaveChanges();
 
                 if (!db.Equipamento.Any())
                 {
@@ -86,13 +93,15 @@ if (!db.Bloco.Any())
                     (new Equipamento { Nome = "Ultrasom Portátil", BlocoId = 11 },
                     new Equipamento { Nome = "Torre de vídeo endoscopia alta e baixa", BlocoId = 5 },
                     new Equipamento { Nome = "Aparelho de anestesia com monitorização", BlocoId = 2 },
-                    new Equipamento { Nome = "Desfribilador", BlocoId = 11 },
+                    new Equipamento { Nome = "Desfibrilador", BlocoId = 11 },
                     new Equipamento { Nome = "Aparelho de Ressonância Magnética", BlocoId = 1 },
                     new Equipamento { Nome = "Aparelho de Raio X", BlocoId = 8 },
                     new Equipamento { Nome = "Hemodinâmica", BlocoId = 4 },
                     new Equipamento { Nome = "Aparelho de Hemodiálise", BlocoId = 11 }
                     );
                 }
+                db.SaveChanges();
+
                 if (!db.RequisicaoEquipamento.Any())
                 {
                     db.RequisicaoEquipamento.AddRange
