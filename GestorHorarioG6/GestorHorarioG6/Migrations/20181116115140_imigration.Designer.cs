@@ -4,14 +4,16 @@ using GestorHorarioG6.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GestorHorarioG6.Migrations
 {
     [DbContext(typeof(GestorHorarioG6Context))]
-    partial class GestorHorarioG6ContextModelSnapshot : ModelSnapshot
+    [Migration("20181116115140_imigration")]
+    partial class imigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,6 +34,7 @@ namespace GestorHorarioG6.Migrations
 
                     b.ToTable("Cargo");
                 });
+
             modelBuilder.Entity("GestorHorarioG6.Models.Departamento", b =>
                 {
                     b.Property<int>("DepartamentoId")
@@ -75,7 +78,7 @@ namespace GestorHorarioG6.Migrations
                     b.HasKey("FuncionarioId");
 
                     b.HasIndex("CargoId");
-                    
+
                     b.ToTable("Funcionario");
                 });
 
@@ -109,7 +112,7 @@ namespace GestorHorarioG6.Migrations
                         .HasForeignKey("CargoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
-                
+
             modelBuilder.Entity("GestorHorarioG6.Models.Requisicao", b =>
                 {
                     b.HasOne("GestorHorarioG6.Models.Departamento", "Departamento")

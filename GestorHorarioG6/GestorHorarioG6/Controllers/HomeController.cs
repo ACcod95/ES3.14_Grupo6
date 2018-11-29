@@ -12,6 +12,7 @@ namespace GestorHorarioG6.Controllers
 {
     public class HomeController : Controller
     {
+        private const int PAGE_SIZE = 5;
         private readonly GestorHorarioG6Context _context;
 
         public HomeController(GestorHorarioG6Context context)
@@ -24,10 +25,44 @@ namespace GestorHorarioG6.Controllers
             return View();
         }
 
+
+
         // GET: Funcionarios
-        public async Task<IActionResult> Escalas()
+        public async Task<IActionResult> Escalas(FuncionarioViewModel  model = null, int page = 1)
         {
-            return View(await _context.Funcionario.ToListAsync());
+            string nome = null;
+
+            if (model != null && model.CurrentNome != null)
+            {
+                nome = model.CurrentNome;
+                page = 1;
+            }
+        
+            var func = _context.Funcionario.Include(f => f.Cargo).Where(f => nome == null || f.Nome.Contains(nome));
+            var total = await func.CountAsync();
+
+            if (page > (total / PAGE_SIZE) + 1)
+            {
+                page = 1;
+            }
+            
+            var listFunc = await func
+               .OrderBy(p => p.FuncionarioId)   
+               .Skip(PAGE_SIZE * (page - 1))
+               .Take(PAGE_SIZE)
+               .ToListAsync();
+
+            return View(new FuncionarioViewModel
+            {
+                Funcionario = listFunc,
+                PageInfo = new PaginationViewModel
+                {
+                    CurrentPage = page,
+                    ItensPerPage = PAGE_SIZE,
+                    TotalItems = total
+                },
+                CurrentNome = nome
+            });
         }
 
         // GET: Funcionarios/Details/5
@@ -52,6 +87,7 @@ namespace GestorHorarioG6.Controllers
         // GET: Funcionarios/Create
         public IActionResult Adicionar_Funcionario()
         {
+            ViewData["Cargo"] = new SelectList(_context.Cargo, "CargoId", "Nome");
             return View();
         }
 
@@ -60,7 +96,7 @@ namespace GestorHorarioG6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Adicionar_Funcionario([Bind("FuncionarioID,Nome,Cargo,Nascimento,NIF,Telefone,Email,Notas")] Funcionario funcionario)
+        public async Task<IActionResult> Adicionar_Funcionario([Bind("FuncionarioId,Nome,CargoId,Nascimento,NascimentoFilho,NIF,Telefone,Email,Notas")] Funcionario funcionario)
         {
             if (ModelState.IsValid)
             {
@@ -68,6 +104,7 @@ namespace GestorHorarioG6.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Escalas));
             }
+            ViewData["Cargo"] = new SelectList(_context.Cargo, "CargoId", "Nome", funcionario.CargoId);
             return View(funcionario);
         }
 
@@ -84,6 +121,7 @@ namespace GestorHorarioG6.Controllers
             {
                 return NotFound();
             }
+            ViewData["Cargo"] = new SelectList(_context.Cargo, "CargoId", "Nome");
             return View(funcionario);
         }
 
@@ -92,7 +130,7 @@ namespace GestorHorarioG6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioID,Nome,Cargo,Nascimento,NIF,Telefone,Email,Notas")] Funcionario funcionario)
+        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioId,Nome,CargoId,Nascimento,NascimentoFilho,NIF,Telefone,Email,Notas")] Funcionario funcionario)
         {
             if (id != funcionario.FuncionarioId)
             {
@@ -119,6 +157,7 @@ namespace GestorHorarioG6.Controllers
                 }
                 return RedirectToAction(nameof(Escalas));
             }
+            ViewData["Cargo"] = new SelectList(_context.Cargo, "CargoId", "Nome", funcionario.CargoId);
             return View(funcionario);
         }
 
@@ -139,7 +178,7 @@ namespace GestorHorarioG6.Controllers
 
             return View(funcionario);
         }
-
+        
         // POST: Funcionarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
