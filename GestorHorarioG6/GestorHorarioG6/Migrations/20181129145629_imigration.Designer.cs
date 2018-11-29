@@ -10,16 +10,30 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestorHorarioG6.Migrations
 {
     [DbContext(typeof(GestorHorarioG6Context))]
-    [Migration("20181109123331_imigration")]
+    [Migration("20181129145629_imigration")]
     partial class imigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("GestorHorarioG6.Models.Cargo", b =>
+                {
+                    b.Property<int>("CargoId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Nome")
+                        .IsRequired();
+
+                    b.HasKey("CargoId");
+
+                    b.ToTable("Cargo");
+                });
 
             modelBuilder.Entity("GestorHorarioG6.Models.Departamento", b =>
                 {
@@ -41,22 +55,29 @@ namespace GestorHorarioG6.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Cargo");
+                    b.Property<int>("CargoId");
 
                     b.Property<string>("Email");
 
-                    b.Property<int>("NIF");
+                    b.Property<string>("NIF")
+                        .IsRequired();
 
                     b.Property<DateTime>("Nascimento");
 
+                    b.Property<DateTime>("NascimentoFilho");
+
                     b.Property<string>("Nome")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(60);
 
                     b.Property<string>("Notas");
 
-                    b.Property<int>("Telefone");
+                    b.Property<string>("Telefone")
+                        .IsRequired();
 
                     b.HasKey("FuncionarioId");
+
+                    b.HasIndex("CargoId");
 
                     b.ToTable("Funcionario");
                 });
@@ -84,12 +105,59 @@ namespace GestorHorarioG6.Migrations
                     b.ToTable("Requisicao");
                 });
 
+            modelBuilder.Entity("GestorHorarioG6.Models.Trocas", b =>
+                {
+                    b.Property<int>("TrocasID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Aprovado");
+
+                    b.Property<bool>("Conhecimento");
+
+                    b.Property<int>("IDFuncionario1FuncionarioId");
+
+                    b.Property<int?>("IDFuncionario2FuncionarioId");
+
+                    b.Property<int>("Turno1");
+
+                    b.Property<int>("Turno2");
+
+                    b.HasKey("TrocasID");
+
+                    b.HasIndex("IDFuncionario1FuncionarioId");
+
+                    b.HasIndex("IDFuncionario2FuncionarioId");
+
+                    b.ToTable("Trocas");
+                });
+
+            modelBuilder.Entity("GestorHorarioG6.Models.Funcionario", b =>
+                {
+                    b.HasOne("GestorHorarioG6.Models.Cargo", "Cargo")
+                        .WithMany()
+                        .HasForeignKey("CargoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("GestorHorarioG6.Models.Requisicao", b =>
                 {
                     b.HasOne("GestorHorarioG6.Models.Departamento", "Departamento")
                         .WithMany()
                         .HasForeignKey("DepartamentoId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("GestorHorarioG6.Models.Trocas", b =>
+                {
+                    b.HasOne("GestorHorarioG6.Models.Funcionario", "IDFuncionario1")
+                        .WithMany()
+                        .HasForeignKey("IDFuncionario1FuncionarioId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("GestorHorarioG6.Models.Funcionario", "IDFuncionario2")
+                        .WithMany()
+                        .HasForeignKey("IDFuncionario2FuncionarioId");
                 });
 #pragma warning restore 612, 618
         }

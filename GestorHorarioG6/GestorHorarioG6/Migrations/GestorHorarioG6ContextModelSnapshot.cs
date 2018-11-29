@@ -32,6 +32,7 @@ namespace GestorHorarioG6.Migrations
 
                     b.ToTable("Cargo");
                 });
+
             modelBuilder.Entity("GestorHorarioG6.Models.Departamento", b =>
                 {
                     b.Property<int>("DepartamentoId")
@@ -75,7 +76,7 @@ namespace GestorHorarioG6.Migrations
                     b.HasKey("FuncionarioId");
 
                     b.HasIndex("CargoId");
-                    
+
                     b.ToTable("Funcionario");
                 });
 
@@ -100,14 +101,6 @@ namespace GestorHorarioG6.Migrations
                     b.HasIndex("DepartamentoId");
 
                     b.ToTable("Requisicao");
-                });
-
-            modelBuilder.Entity("GestorHorarioG6.Models.Funcionario", b =>
-                {
-                    b.HasOne("GestorHorarioG6.Models.Cargo", "Cargo")
-                        .WithMany()
-                        .HasForeignKey("CargoId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GestorHorarioG6.Models.Trocas", b =>
@@ -135,6 +128,14 @@ namespace GestorHorarioG6.Migrations
                     b.HasIndex("IDFuncionario2FuncionarioId");
 
                     b.ToTable("Trocas");
+                });
+
+            modelBuilder.Entity("GestorHorarioG6.Models.Funcionario", b =>
+                {
+                    b.HasOne("GestorHorarioG6.Models.Cargo", "Cargo")
+                        .WithMany()
+                        .HasForeignKey("CargoId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GestorHorarioG6.Models.Requisicao", b =>

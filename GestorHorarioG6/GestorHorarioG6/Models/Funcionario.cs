@@ -24,7 +24,6 @@ namespace GestorHorarioG6.Models
         [Required(ErrorMessage = "Por favor insira uma data de nascimento válida")]
         public DateTime Nascimento { get; set; }
 
-
         [DataType(DataType.Date)]
         public DateTime NascimentoFilho { get; set; }
 
@@ -42,7 +41,6 @@ namespace GestorHorarioG6.Models
 
         public string Notas { get; set; }
 
-        //[NotMapped] // reformular
-       // public ICollection<Trocas> Trocas { get; set; }
+      //  public ICollection<Trocas> Trocas { get; set; }
     }
 }

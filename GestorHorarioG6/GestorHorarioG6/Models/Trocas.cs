@@ -9,21 +9,24 @@ namespace GestorHorarioG6.Models
 {
     public class Trocas
     {
+        private int _funcionarioId;
+
+        [Key]
         public int TrocasID { set; get; }
 
         [Required]
         public Funcionario IDFuncionario1 { get; set; }
-        
+//public int FuncionarioId { get => _funcionarioId; set => _funcionarioId = value; }
         public Funcionario IDFuncionario2 { get; set; }
-
+        
         [Required]
         public int Turno1 { get; set; }
-        
+
         public int Turno2 { get; set; }
 
-        public Boolean  Conhecimento{get; set;}
+        public Boolean Conhecimento { get; set; }
 
-        public Boolean Aprovado { get; set; }
+
 
     }
 }

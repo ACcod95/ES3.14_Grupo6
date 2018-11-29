@@ -83,6 +83,36 @@ namespace GestorHorarioG6.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Trocas",
+                columns: table => new
+                {
+                    TrocasID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    IDFuncionario1FuncionarioId = table.Column<int>(nullable: false),
+                    IDFuncionario2FuncionarioId = table.Column<int>(nullable: true),
+                    Turno1 = table.Column<int>(nullable: false),
+                    Turno2 = table.Column<int>(nullable: false),
+                    Conhecimento = table.Column<bool>(nullable: false),
+                    Aprovado = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Trocas", x => x.TrocasID);
+                    table.ForeignKey(
+                        name: "FK_Trocas_Funcionario_IDFuncionario1FuncionarioId",
+                        column: x => x.IDFuncionario1FuncionarioId,
+                        principalTable: "Funcionario",
+                        principalColumn: "FuncionarioId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Trocas_Funcionario_IDFuncionario2FuncionarioId",
+                        column: x => x.IDFuncionario2FuncionarioId,
+                        principalTable: "Funcionario",
+                        principalColumn: "FuncionarioId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Funcionario_CargoId",
                 table: "Funcionario",
@@ -92,21 +122,34 @@ namespace GestorHorarioG6.Migrations
                 name: "IX_Requisicao_DepartamentoId",
                 table: "Requisicao",
                 column: "DepartamentoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trocas_IDFuncionario1FuncionarioId",
+                table: "Trocas",
+                column: "IDFuncionario1FuncionarioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trocas_IDFuncionario2FuncionarioId",
+                table: "Trocas",
+                column: "IDFuncionario2FuncionarioId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Funcionario");
-
-            migrationBuilder.DropTable(
                 name: "Requisicao");
 
             migrationBuilder.DropTable(
-                name: "Cargo");
+                name: "Trocas");
 
             migrationBuilder.DropTable(
                 name: "Departamento");
+
+            migrationBuilder.DropTable(
+                name: "Funcionario");
+
+            migrationBuilder.DropTable(
+                name: "Cargo");
         }
     }
 }
