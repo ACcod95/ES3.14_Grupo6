@@ -4,96 +4,98 @@
     ViewData["Title"] = "Escalas";
 }
 
-<h2>@ViewData["Title"]</h2>
-<form asp-action="Escalas">
-    <div class="form-group">
-        <table>
-            <tr>
-                <td>
-                    <label asp-for="CurrentNome" class="control-label"></label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input asp-for="CurrentNome" class="form-control"  />
-                </td>
-                <td>
-                    <input type="submit" value="Pesquisar" class="btn btn-default" />
-                </td>
-            </tr>
-        </table>
+<div class="container">
+    <div class="row">
+        <div class='col-sm-6'>
+            <h2>@ViewData["Title"]</h2>
+            <p><a asp-action="Adicionar_Funcionario" class="btn btn-primary">Novo</a></p>
+        </div>
+        <div class='col-sm-offset-2 col-sm-3'>
+            <form asp-action="Escalas">
+                <div class="form-group">
+                    <br />
+                    <div class='input-group'>                        
+                            <input asp-for="CurrentNome" class="form-control" />
+                            <span class="input-group-addon">
+                                <button type="submit" style="border:0; background:transparent">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                    </div>      
+                </div>
+            </form>
+        </div>
     </div>
-</form>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-              Nome
-            </th>
-            <th>
-               Cargo
-            </th>
-            <th>
-                Data de Nascimento
-            </th>
-            <th>
-                Data de Nascimento do filho mais novo
-            </th>
-            <th>
-               Nif
-            </th>
-            <th>
-               Telefone
-            </th>
-            <th>
-               Email
-            </th>
-            <th>
-               Notas
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Funcionario) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cargo.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nascimento)
-            </td>
+</div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Nome
+                        </th>
+                        <th>
+                            Cargo
+                        </th>
+                        <th width="40px">
+                            Data de Nascimento
+                        </th>
+                        <th width="150px">
+                            Nascimento do Filho Mais Novo
+                        </th>
+                        <th>
+                            Nif
+                        </th>
+                        <th>
+                            Telefone
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Notas
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Funcionario)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cargo.Nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nascimento)
+                            </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.NascimentoFilho)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NIF)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Notas)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.FuncionarioId">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.FuncionarioId">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.FuncionarioId">Eliminar</a>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NascimentoFilho)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NIF)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Telefone)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Notas)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.FuncionarioId">Editar</a> |
+                                <a asp-action="Details" asp-route-id="@item.FuncionarioId">Detalhes</a> |
+                                <a asp-action="Delete" asp-route-id="@item.FuncionarioId">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
 
-<div pagination-model="Model.PageInfo"></div>
+            <div pagination-model="Model.PageInfo"></div>
 
-<p>
-    <a asp-action="Adicionar_Funcionario" class="btn btn-default">Novo</a>
-</p>
+           

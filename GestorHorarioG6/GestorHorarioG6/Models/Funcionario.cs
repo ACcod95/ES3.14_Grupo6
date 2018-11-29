@@ -42,7 +42,5 @@ namespace GestorHorarioG6.Models
 
         public string Notas { get; set; }
 
-        //[NotMapped] // reformular
-       // public ICollection<Trocas> Trocas { get; set; }
     }
 }
