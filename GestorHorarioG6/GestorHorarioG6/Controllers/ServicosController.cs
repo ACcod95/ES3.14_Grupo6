@@ -12,6 +12,7 @@ namespace GestorHorarioG6.Controllers
     public class ServicosController : Controller
     {
         private readonly GestorHorarioG6Context _context;
+        private readonly int PageSize = 5;
 
         public ServicosController(GestorHorarioG6Context context)
         {
@@ -19,9 +20,31 @@ namespace GestorHorarioG6.Controllers
         }
 
         // GET: Servicos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(RequisicoesListViewModel model = null, int page = 1)
         {
-            return View(await _context.Servico.ToListAsync());
+            var total = await _context.Servico.CountAsync();
+
+            if (page > (total / PageSize) + 1)
+            {
+                page = 1;
+            }
+
+            var servicos = await _context.Servico
+                .OrderBy(p => p.ServicoId)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize)
+                .ToListAsync();
+
+            return View(new ServicosListViewModel
+            {
+                Servicos = servicos,
+                PagingInfo = new PaginationViewModel
+                {
+                    CurrentPage = page,
+                    ItensPerPage = PageSize,
+                    TotalItems = total
+                }
+            });
         }
 
         // GET: Servicos/Details/5

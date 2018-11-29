@@ -110,7 +110,7 @@ namespace GestorHorarioG6.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Descrição")
-                        .HasMaxLength(100);
+                        .HasMaxLength(200);
 
                     b.Property<string>("Nome")
                         .IsRequired()

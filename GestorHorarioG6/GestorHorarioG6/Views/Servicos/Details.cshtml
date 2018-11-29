@@ -21,9 +21,13 @@
         <dd>
             @Html.DisplayFor(model => model.Descrição)
         </dd>
+        <dt><br /></dt>
+        <dd><br /></dd>
+        <dt>
+            <a asp-action="Index"><input type="button" value="Voltar" class="btn btn-default" /></a>
+        </dt>
+        <dd>
+            <a asp-action="Edit" asp-route-id="@Model.ServicoId"><input type="button" value="Editar" class="btn btn-success" /></a>
+        </dd>
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ServicoId">Editar</a> |
-    <a asp-action="Index">Voltar</a>
 </div>

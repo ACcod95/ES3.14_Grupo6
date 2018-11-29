@@ -15,7 +15,7 @@ namespace GestorHorarioG6.Models
         [Required(ErrorMessage = "Por favor insira um nome válido")]
         public string Nome { get; set; }
 
-        [StringLength(100, MinimumLength = 5)]
+        [StringLength(200, MinimumLength = 5)]
         public string Descrição { get; set; }
     }
 }

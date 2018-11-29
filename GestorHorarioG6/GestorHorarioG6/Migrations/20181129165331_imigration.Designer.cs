@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestorHorarioG6.Migrations
 {
     [DbContext(typeof(GestorHorarioG6Context))]
-    [Migration("20181129152730_initial")]
-    partial class initial
+    [Migration("20181129165331_imigration")]
+    partial class imigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -112,7 +112,7 @@ namespace GestorHorarioG6.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Descrição")
-                        .HasMaxLength(100);
+                        .HasMaxLength(200);
 
                     b.Property<string>("Nome")
                         .IsRequired()
