@@ -4,34 +4,23 @@ using GestorHorarioG6.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GestorHorarioG6.Migrations
 {
     [DbContext(typeof(GestorHorarioG6Context))]
-    partial class GestorHorarioG6ContextModelSnapshot : ModelSnapshot
+    [Migration("20181109123331_imigration")]
+    partial class imigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("GestorHorarioG6.Models.Cargo", b =>
-                {
-                    b.Property<int>("CargoId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Nome")
-                        .IsRequired();
-
-                    b.HasKey("CargoId");
-
-                    b.ToTable("Cargo");
-                });
             modelBuilder.Entity("GestorHorarioG6.Models.Departamento", b =>
                 {
                     b.Property<int>("DepartamentoId")
@@ -52,30 +41,23 @@ namespace GestorHorarioG6.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CargoId");
+                    b.Property<string>("Cargo");
 
                     b.Property<string>("Email");
 
-                    b.Property<string>("NIF")
-                        .IsRequired();
+                    b.Property<int>("NIF");
 
                     b.Property<DateTime>("Nascimento");
 
-                    b.Property<DateTime>("NascimentoFilho");
-
                     b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasMaxLength(60);
+                        .IsRequired();
 
                     b.Property<string>("Notas");
 
-                    b.Property<string>("Telefone")
-                        .IsRequired();
+                    b.Property<int>("Telefone");
 
                     b.HasKey("FuncionarioId");
 
-                    b.HasIndex("CargoId");
-                    
                     b.ToTable("Funcionario");
                 });
 
@@ -102,14 +84,6 @@ namespace GestorHorarioG6.Migrations
                     b.ToTable("Requisicao");
                 });
 
-            modelBuilder.Entity("GestorHorarioG6.Models.Funcionario", b =>
-                {
-                    b.HasOne("GestorHorarioG6.Models.Cargo", "Cargo")
-                        .WithMany()
-                        .HasForeignKey("CargoId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-                
             modelBuilder.Entity("GestorHorarioG6.Models.Requisicao", b =>
                 {
                     b.HasOne("GestorHorarioG6.Models.Departamento", "Departamento")

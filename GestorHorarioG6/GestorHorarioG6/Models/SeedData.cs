@@ -35,7 +35,7 @@ namespace GestorHorarioG6.Models
                     new Requisicao { DepartamentoId = 5, HoraDeInicio = DateTime.Today, HoraDeFim = DateTime.Today, Aprovado = false }
                     );
                 }
-
+              
                 if (!db.Cargo.Any())
                 {
                     db.Cargo.AddRange
