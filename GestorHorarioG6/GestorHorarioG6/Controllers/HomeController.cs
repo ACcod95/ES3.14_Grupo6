@@ -98,6 +98,17 @@ namespace GestorHorarioG6.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Adicionar_Funcionario([Bind("FuncionarioId,Nome,CargoId,Nascimento,NascimentoFilho,NIF,Telefone,Email,Notas")] Funcionario funcionario)
         {
+            if (funcionario.NascimentoFilho  > DateTime.Now)
+            {
+                ModelState.AddModelError("NascimentoFilho", "A data de nascimento não pode de ser posterior á atual.");
+
+            }
+            if (funcionario.Nascimento > DateTime.Now)
+            {
+                ModelState.AddModelError("Nascimento", "A data de nascimento não pode ser posterior á atual.");
+
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(funcionario);
