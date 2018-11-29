@@ -24,7 +24,6 @@ namespace GestorHorarioG6.Models
         [Required(ErrorMessage = "Por favor insira uma data de nascimento válida")]
         public DateTime Nascimento { get; set; }
 
-
         [DataType(DataType.Date)]
         public DateTime NascimentoFilho { get; set; }
 
@@ -41,6 +40,5 @@ namespace GestorHorarioG6.Models
         public string Email { get; set; }
 
         public string Notas { get; set; }
-
     }
 }
