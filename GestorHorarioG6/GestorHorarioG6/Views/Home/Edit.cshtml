@@ -19,14 +19,18 @@
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Cargo" class="control-label"></label>
-                <input asp-for="Cargo" class="form-control" />
-                <span asp-validation-for="Cargo" class="text-danger"></span>
+                <label asp-for="CargoId" class="control-label"></label>
+                <select asp-for="CargoId" class="form-control" asp-items="ViewBag.CargoId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Nascimento" class="control-label"></label>
                 <input asp-for="Nascimento" class="form-control" />
                 <span asp-validation-for="Nascimento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NascimentoFilho" class="control-label"></label>
+                <input asp-for="NascimentoFilho" class="form-control" />
+                <span asp-validation-for="NascimentoFilho" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="NIF" class="control-label"></label>
