@@ -24,11 +24,12 @@ namespace GestorHorarioG6.Controllers
         {
             DateTime day = DateTime.MinValue;
 
-            if (model != null)
+            if (model != null && model.CurrentDay != DateTime.MinValue)
             {
                 day = model.CurrentDay;
                 page = 1;
             }
+
             var databaseContext = _context.Requisicao.Include(r => r.Departamento)
                 .Where(r => day == DateTime.MinValue || r.HoraDeInicio.Date.Equals(day.Date));
             var total = await databaseContext.CountAsync();
@@ -38,11 +39,11 @@ namespace GestorHorarioG6.Controllers
                 page = 1;
             }
 
-            var requisicoes = await databaseContext.
-                OrderBy(p => p.RequisicaoId)
+            var requisicoes = await databaseContext
+                .OrderBy(p => p.RequisicaoId)
                 .Skip((page - 1) * PageSize)
-                .Take(PageSize).
-                ToListAsync();
+                .Take(PageSize)
+                .ToListAsync();
 
             return View(new RequisicoesListViewModel
             {
@@ -57,9 +58,9 @@ namespace GestorHorarioG6.Controllers
             });
         }
 
-        // POST: Requisicoes/Clicked/1
+        // POST: Requisicoes/Aprovar/1
         [HttpPost]
-        public async Task<IActionResult> Clicked(int id)
+        public async Task<IActionResult> Aprovar(int id)
         {
             var requisicao = await _context.Requisicao.FindAsync(id);
             if (requisicao.Aprovado)
