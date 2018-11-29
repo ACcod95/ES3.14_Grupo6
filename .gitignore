@@ -4,3 +4,5 @@ bin/**
 **/bin/**
 .vs/**
 **/.vs/**
+**/Migrations/**
+**/GestorHorarioG6.csproj.user
