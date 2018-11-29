@@ -13,6 +13,7 @@ namespace GestorHorarioG6.Models
         public int EquipamentoId{ get; set; }
 
         [Required(ErrorMessage = "Por favor insira um nome válido!")]
+        [StringLength(35, MinimumLength = 3 ,ErrorMessage ="O nome tem de ter entre 3 a 35 caracteres!")]
         public string Nome { get; set; }
         
         public Bloco Bloco { get; set; }

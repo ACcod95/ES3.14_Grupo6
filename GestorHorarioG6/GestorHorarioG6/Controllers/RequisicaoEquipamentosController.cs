@@ -94,9 +94,9 @@ namespace GestorHorarioG6.Controllers
         public async Task<IActionResult> Create([Bind("RequisicaoEquipamentoId,EquipamentoId,HoraDeInicio,HoraDeFim,BlocoId")] RequisicaoEquipamento requisicaoEquipamento)
         {
             if (DateTime.Now > requisicaoEquipamento.HoraDeInicio)
-                ModelState.AddModelError("HoraDeInicio", "A hora de início não pode ser anterior à actual.");
+                ModelState.AddModelError("HoraDeInicio", "O dia e hora de início não pode ser anterior ao dia e hora actual.");
             if (requisicaoEquipamento.HoraDeFim < requisicaoEquipamento.HoraDeInicio)
-                ModelState.AddModelError("HoraDeFim", "A hora de fim não pode ser anterior à hora de início.");
+                ModelState.AddModelError("HoraDeFim", "A dia e hora de fim não pode ser anterior ao dia e hora de início.");
 
             if (ModelState.IsValid)
             {
@@ -134,6 +134,11 @@ namespace GestorHorarioG6.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("RequisicaoEquipamentoId,EquipamentoId,HoraDeInicio,HoraDeFim,BlocoId")] RequisicaoEquipamento requisicaoEquipamento)
         {
+            if (DateTime.Now > requisicaoEquipamento.HoraDeInicio)
+                ModelState.AddModelError("HoraDeInicio", "O dia e hora de início não pode ser anterior ao dia e hora actual.");
+            if (requisicaoEquipamento.HoraDeFim < requisicaoEquipamento.HoraDeInicio)
+                ModelState.AddModelError("HoraDeFim", "A dia e hora de fim não pode ser anterior ao dia e hora de início.");
+
             if (id != requisicaoEquipamento.RequisicaoEquipamentoId)
             {
                 return NotFound();
