@@ -93,6 +93,11 @@ namespace GestorHorarioG6.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RequisicaoEquipamentoId,EquipamentoId,HoraDeInicio,HoraDeFim,BlocoId")] RequisicaoEquipamento requisicaoEquipamento)
         {
+            if (DateTime.Now > requisicaoEquipamento.HoraDeInicio)
+                ModelState.AddModelError("HoraDeInicio", "A hora de início não pode ser anterior à actual.");
+            if (requisicaoEquipamento.HoraDeFim < requisicaoEquipamento.HoraDeInicio)
+                ModelState.AddModelError("HoraDeFim", "A hora de fim não pode ser anterior à hora de início.");
+
             if (ModelState.IsValid)
             {
                 _context.Add(requisicaoEquipamento);

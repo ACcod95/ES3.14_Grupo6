@@ -12,7 +12,7 @@ namespace GestorHorarioG6.Models
         [Key]
         public int EquipamentoId{ get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Por favor insira um nome válido!")]
         public string Nome { get; set; }
         
         public Bloco Bloco { get; set; }
