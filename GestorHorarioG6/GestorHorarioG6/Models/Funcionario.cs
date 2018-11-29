@@ -9,35 +9,40 @@ namespace GestorHorarioG6.Models
 {
     public class Funcionario
     {
+        [Key]
         public int FuncionarioId { get; set; }
 
         [StringLength(60, MinimumLength = 3)]
-        [Required(ErrorMessage = "Please enter Name")]
+        [Required(ErrorMessage = "Por favor insira um nome válido")]
         public string Nome { get; set; }
 
-        [Required(ErrorMessage = "Please enter the job")]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
-        public string Cargo { get; set; }
+        [Required(ErrorMessage = "Por favor selecione um cargo válido")]
+        public Cargo Cargo { get; set; }
+        public int CargoId { get; set; }
 
-        [Required(ErrorMessage = "Please enter BirthDate")]
         [DataType(DataType.Date)]
+        [Required(ErrorMessage = "Por favor insira uma data de nascimento válida")]
         public DateTime Nascimento { get; set; }
 
-        [Required(ErrorMessage = "Please enter NIF")]
-        [RegularExpression(@"[0-9]{8}")]
-        public int NIF { get; set; }
 
-        [Required(ErrorMessage = "Please enter Number")]
+        [DataType(DataType.Date)]
+        public DateTime NascimentoFilho { get; set; }
+
+        [Required(ErrorMessage = "Por favor insira um NIF válido")]
+        [RegularExpression(@"[0-9]{8}")]
+        public string NIF { get; set; }
+
+        [Required(ErrorMessage = "Por favor insira um número de telefone válido")]
         [RegularExpression(@"(\+[0-9]{3}\s)?[9][0-9]{8}([0-9]{2})?")]
-        public int Telefone { get; set; }
+        public string Telefone { get; set; }
 
         [DataType(DataType.EmailAddress)]
-        [RegularExpression(@"(\w+(\.\w+)*@[a-zA-Z_]+?\.[a-zA-Z]{2,6})", ErrorMessage = "Invalid Email")]
+        [RegularExpression(@"(\w+(\.\w+)*@[a-zA-Z_]+?\.[a-zA-Z]{2,6})", ErrorMessage = "Por favor insira um email válido")]
         public string Email { get; set; }
-        
+
         public string Notas { get; set; }
 
-        [NotMapped]
-        public ICollection<Trocas> Trocas { get; set; }
+        //[NotMapped] // reformular
+       // public ICollection<Trocas> Trocas { get; set; }
     }
 }

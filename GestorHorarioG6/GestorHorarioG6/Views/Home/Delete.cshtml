@@ -6,7 +6,7 @@
 
 <h2>Eliminar</h2>
 
-<h3>Tem a certeza que pretende editar?</h3>
+<h3>Tem a certeza que pretende apagar?</h3>
 <div>
     <h4>Funcionário</h4>
     <hr />
@@ -21,13 +21,19 @@
             @Html.DisplayNameFor(model => model.Cargo)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Cargo)
+            @Html.DisplayFor(model => model.Cargo.Nome)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Nascimento)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Nascimento)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NascimentoFilho)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NascimentoFilho)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.NIF)
