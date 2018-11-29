@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GestorHorarioG6.Migrations
 {
-    public partial class imigration : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,8 +40,8 @@ namespace GestorHorarioG6.Migrations
                 {
                     ServicoId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(nullable: false),
-                    Descrição = table.Column<string>(nullable: true)
+                    Nome = table.Column<string>(maxLength: 60, nullable: false),
+                    Descrição = table.Column<string>(maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {

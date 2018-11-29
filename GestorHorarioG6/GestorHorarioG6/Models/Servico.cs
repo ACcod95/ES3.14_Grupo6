@@ -11,9 +11,11 @@ namespace GestorHorarioG6.Models
         [Key]
         public int ServicoId { get; set; }
 
-        [Required]
+        [StringLength(60, MinimumLength = 3)]
+        [Required(ErrorMessage = "Por favor insira um nome válido")]
         public string Nome { get; set; }
-        
+
+        [StringLength(100, MinimumLength = 5)]
         public string Descrição { get; set; }
     }
 }
