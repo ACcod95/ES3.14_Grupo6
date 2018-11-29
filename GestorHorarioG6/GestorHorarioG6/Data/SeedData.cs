@@ -51,7 +51,7 @@ namespace GestorHorarioG6.Models
                 {
                     db.Cargo.AddRange
                     (new Cargo { Nome = "Engenheiro Informático" },
-                     new Cargo { Nome = "Engenheiro Técnico Informático" }
+                     new Cargo { Nome = "Técnico de Equipamentos Eletrónicos" }
                     );
                 }
                 db.SaveChanges();

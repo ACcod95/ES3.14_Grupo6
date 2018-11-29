@@ -10,12 +10,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GestorHorarioG6.Controllers
 {
-    public class HomeController : Controller
+    public class FuncionariosController : Controller
     {
         private const int PAGE_SIZE = 5;
         private readonly GestorHorarioG6Context _context;
 
-        public HomeController(GestorHorarioG6Context context)
+        public FuncionariosController(GestorHorarioG6Context context)
         {
             _context = context;
         }
@@ -147,7 +147,16 @@ namespace GestorHorarioG6.Controllers
             {
                 return NotFound();
             }
+            if (funcionario.NascimentoFilho > DateTime.Now)
+            {
+                ModelState.AddModelError("NascimentoFilho", "A data de nascimento não pode de ser posterior á atual.");
 
+            }
+            if (funcionario.Nascimento > DateTime.Now)
+            {
+                ModelState.AddModelError("Nascimento", "A data de nascimento não pode ser posterior á atual.");
+
+            }
             if (ModelState.IsValid)
             {
                 try
