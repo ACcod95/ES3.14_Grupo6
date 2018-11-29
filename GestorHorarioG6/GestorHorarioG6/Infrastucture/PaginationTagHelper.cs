@@ -57,6 +57,7 @@ namespace GestorHorarioG6.Infrastucture
                 {
                     link = new TagBuilder("p");
                     link.InnerHtml.Append(p.ToString());
+                    link.AddCssClass("disabled");
                 }
                 else
                 {

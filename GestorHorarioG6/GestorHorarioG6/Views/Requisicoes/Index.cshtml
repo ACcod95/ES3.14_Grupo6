@@ -33,19 +33,16 @@
     <thead>
         <tr>
             <th>
-                Departamento
+                <p>Departamento</p>
             </th>
             <th>
-                Hora de Início
+                <p>Hora de Início</p>
             </th>
             <th>
-                Hora de Fim
+                <p>Hora de Fim</p>
             </th>
             <th>
-                Requisições Adicionais
-            </th>
-            <th>
-                Aprovada
+                <p>Requisições Adicionais</p>
             </th>
         </tr>
     </thead>
@@ -81,6 +78,6 @@
 
 <script>
     function Clicked(id) {
-        $.post("/Requisicoes/Clicked/" + id);
+        $.post("/Requisicoes/Aprovar/" + id);
     }
 </script>
