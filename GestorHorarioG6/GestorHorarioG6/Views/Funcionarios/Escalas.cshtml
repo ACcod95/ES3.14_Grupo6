@@ -36,24 +36,7 @@
                         <th>
                             Cargo
                         </th>
-                        <th width="40px">
-                            Data de Nascimento
-                        </th>
-                        <th width="150px">
-                            Nascimento do Filho Mais Novo
-                        </th>
-                        <th>
-                            Nif
-                        </th>
-                        <th>
-                            Telefone
-                        </th>
-                        <th>
-                            Email
-                        </th>
-                        <th>
-                            Notas
-                        </th>
+                       
                         <th></th>
                     </tr>
                 </thead>
@@ -67,25 +50,7 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.Cargo.Nome)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Nascimento)
-                            </td>
-
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NascimentoFilho)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NIF)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Telefone)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Email)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Notas)
-                            </td>
+                            
                             <td>
                                 <a asp-action="Edit" asp-route-id="@item.FuncionarioId">Editar</a> |
                                 <a asp-action="Details" asp-route-id="@item.FuncionarioId">Detalhes</a> |

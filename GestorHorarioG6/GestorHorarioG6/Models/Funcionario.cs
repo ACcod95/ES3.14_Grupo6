@@ -13,7 +13,7 @@ namespace GestorHorarioG6.Models
         public int FuncionarioId { get; set; }
 
         [StringLength(60, MinimumLength = 3)]
-        [Required(ErrorMessage = "Por favor insira um nome válido")]
+        [Required(ErrorMessage = "Este campo não pode estar por preencher")]
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "Por favor selecione um cargo válido")]
@@ -28,7 +28,7 @@ namespace GestorHorarioG6.Models
         public DateTime NascimentoFilho { get; set; }
 
         [Required(ErrorMessage = "Por favor insira um NIF válido")]
-        [RegularExpression(@"[0-9]{8}")]
+        [RegularExpression(@"[0-9]{9}")]
         public string NIF { get; set; }
 
         [Required(ErrorMessage = "Por favor insira um número de telefone válido")]
