@@ -40,7 +40,7 @@ namespace GestorHorarioG6.Controllers
             }
 
             var requisicoes = await databaseContext
-                .OrderBy(p => p.RequisicaoId)
+                .OrderBy(r => r.HoraDeInicio)
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize)
                 .ToListAsync();

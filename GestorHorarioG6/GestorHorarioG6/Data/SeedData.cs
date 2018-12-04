@@ -28,12 +28,17 @@ namespace GestorHorarioG6.Models
 
                 if (!db.Requisicao.Any())
                 {
+                    DateTime inicio = DateTime.Today.AddDays(5), fim = DateTime.Today.AddDays(5).AddHours(2);
                     db.Requisicao.AddRange
-                    (new Requisicao { DepartamentoId = 1, HoraDeInicio = DateTime.Today, HoraDeFim = DateTime.Today, Aprovado = false },
-                    new Requisicao { DepartamentoId = 2, HoraDeInicio = DateTime.Today, HoraDeFim = DateTime.Today, Aprovado = false },
-                    new Requisicao { DepartamentoId = 3, HoraDeInicio = DateTime.Today, HoraDeFim = DateTime.Today, Aprovado = false },
-                    new Requisicao { DepartamentoId = 4, HoraDeInicio = DateTime.Today, HoraDeFim = DateTime.Today, Aprovado = false },
-                    new Requisicao { DepartamentoId = 5, HoraDeInicio = DateTime.Today, HoraDeFim = DateTime.Today, Aprovado = false }
+                    (new Requisicao { DepartamentoId = 1, HoraDeInicio = inicio, HoraDeFim = fim, Aprovado = false },
+                    new Requisicao { DepartamentoId = 2, HoraDeInicio = inicio.AddDays(7), HoraDeFim = fim.AddDays(7), Aprovado = false },
+                    new Requisicao { DepartamentoId = 3, HoraDeInicio = inicio, HoraDeFim = fim, Aprovado = false },
+                    new Requisicao { DepartamentoId = 4, HoraDeInicio = inicio, HoraDeFim = fim, Aprovado = false },
+                    new Requisicao { DepartamentoId = 5, HoraDeInicio = inicio.AddDays(1), HoraDeFim = fim.AddDays(1), Aprovado = false },
+                    new Requisicao { DepartamentoId = 4, HoraDeInicio = inicio, HoraDeFim = fim, Aprovado = false },
+                    new Requisicao { DepartamentoId = 3, HoraDeInicio = inicio.AddDays(1), HoraDeFim = fim.AddDays(1), Aprovado = false },
+                    new Requisicao { DepartamentoId = 2, HoraDeInicio = inicio, HoraDeFim = fim, Aprovado = false },
+                    new Requisicao { DepartamentoId = 1, HoraDeInicio = inicio.AddDays(2), HoraDeFim = fim.AddDays(2), Aprovado = false }
                     );
                 }
                 db.SaveChanges();
