@@ -28,7 +28,7 @@ namespace GestorHorarioG6.Controllers
 
 
         // GET: Funcionarios
-        public async Task<IActionResult> Escalas(FuncionarioViewModel  model = null, int page = 1)
+        public async Task<IActionResult> Funcionario(FuncionarioViewModel  model = null, int page = 1)
         {
             string nome = null;
 
@@ -71,7 +71,7 @@ namespace GestorHorarioG6.Controllers
             if (id == null)
             {
                 //return NotFound();
-                return RedirectToAction(nameof(Escalas));
+                return RedirectToAction(nameof(Funcionario));
             }
 
             var funcionario = await _context.Funcionario
@@ -113,7 +113,7 @@ namespace GestorHorarioG6.Controllers
             {
                 _context.Add(funcionario);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Escalas));
+                return RedirectToAction(nameof(Funcionario));
             }
             ViewData["Cargo"] = new SelectList(_context.Cargo, "CargoId", "Nome", funcionario.CargoId);
             return View(funcionario);
@@ -175,7 +175,7 @@ namespace GestorHorarioG6.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Escalas));
+                return RedirectToAction(nameof(Funcionario));
             }
             ViewData["Cargo"] = new SelectList(_context.Cargo, "CargoId", "Nome", funcionario.CargoId);
             return View(funcionario);
@@ -207,7 +207,7 @@ namespace GestorHorarioG6.Controllers
             var funcionario = await _context.Funcionario.FindAsync(id);
             _context.Funcionario.Remove(funcionario);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Escalas));
+            return RedirectToAction(nameof(Funcionario));
         }
 
         private bool FuncionarioExists(int id)

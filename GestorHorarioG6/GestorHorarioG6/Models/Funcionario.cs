@@ -16,8 +16,9 @@ namespace GestorHorarioG6.Models
         [Required(ErrorMessage = "Este campo não pode estar por preencher")]
         public string Nome { get; set; }
 
-        [Required(ErrorMessage = "Por favor selecione um cargo válido")]
+        
         public Cargo Cargo { get; set; }
+        [Required(ErrorMessage = "Por favor selecione um cargo válido")]
         public int CargoId { get; set; }
 
         [DataType(DataType.Date)]
