@@ -1,4 +1,4 @@
-﻿@model GestorHorarioG6.Models.Requisicao
+﻿@model GestorHorarioG6.Models.RequisicaoDetalhe
 
 @{
     ViewData["Title"] = "Eliminar";
@@ -12,19 +12,31 @@
     <dl class="dl-horizontal">
         <dt>Departamento</dt>
         <dd>
-            @Html.DisplayFor(model => model.Departamento.Nome)
+            @Html.DisplayFor(model => model.Requisicao.Departamento.Nome)
+        </dd>
+        <dt>Serviço</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Servico.Nome)
         </dd>
         <dt>Hora de Início</dt>
         <dd>
             @Html.DisplayFor(model => model.HoraDeInicio)
         </dd>
-        <dt>Hora de Fim</dt>
+        <dt>Duração Estimada</dt>
         <dd>
-            @Html.DisplayFor(model => model.HoraDeFim)
+            @Html.DisplayFor(model => model.DuraçãoEstimada)
         </dd>
-        <dt>Requisições Adicionais</dt>
+        <dt>Concluído</dt>
         <dd>
-            @Html.DisplayFor(model => model.RequisicoesAdicionais)
+            @Html.DisplayFor(model => model.Concluido)
+        </dd>
+        <dt>Notas</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Notas)
+        </dd>
+        <dt>Aprovado</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Aprovado ? "Sim" : "Não")
         </dd>
         <dt>
             <br />
@@ -39,7 +51,7 @@
         </dt>
         <dd>
             <form asp-action="Delete">
-                <input type="hidden" asp-for="RequisicaoId" />
+                <input type="hidden" asp-for="RequisicaoDetalheId" />
                 <input type="submit" value="Eliminar" class="btn btn-danger" />
             </form>
         </dd>

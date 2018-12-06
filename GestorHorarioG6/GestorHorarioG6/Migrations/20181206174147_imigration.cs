@@ -78,7 +78,7 @@ namespace GestorHorarioG6.Migrations
                         column: x => x.BlocoId,
                         principalTable: "Bloco",
                         principalColumn: "BlocoId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -104,7 +104,7 @@ namespace GestorHorarioG6.Migrations
                         column: x => x.CargoId,
                         principalTable: "Cargo",
                         principalColumn: "CargoId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -113,11 +113,7 @@ namespace GestorHorarioG6.Migrations
                 {
                     RequisicaoId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DepartamentoId = table.Column<int>(nullable: false),
-                    HoraDeInicio = table.Column<DateTime>(nullable: false),
-                    HoraDeFim = table.Column<DateTime>(nullable: false),
-                    RequisicoesAdicionais = table.Column<string>(nullable: true),
-                    Aprovado = table.Column<bool>(nullable: false)
+                    DepartamentoId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -127,7 +123,7 @@ namespace GestorHorarioG6.Migrations
                         column: x => x.DepartamentoId,
                         principalTable: "Departamento",
                         principalColumn: "DepartamentoId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -149,13 +145,44 @@ namespace GestorHorarioG6.Migrations
                         column: x => x.BlocoId,
                         principalTable: "Bloco",
                         principalColumn: "BlocoId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_RequisicaoEquipamento_Equipamento_EquipamentoId",
                         column: x => x.EquipamentoId,
                         principalTable: "Equipamento",
                         principalColumn: "EquipamentoId",
                         onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RequisicaoDetalhe",
+                columns: table => new
+                {
+                    RequisicaoDetalheId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    RequisicaoId = table.Column<int>(nullable: false),
+                    ServicoId = table.Column<int>(nullable: false),
+                    HoraDeInicio = table.Column<DateTime>(nullable: false),
+                    DuraçãoEstimada = table.Column<DateTime>(nullable: false),
+                    Concluido = table.Column<DateTime>(nullable: false),
+                    Notas = table.Column<string>(nullable: true),
+                    Aprovado = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RequisicaoDetalhe", x => x.RequisicaoDetalheId);
+                    table.ForeignKey(
+                        name: "FK_RequisicaoDetalhe_Requisicao_RequisicaoId",
+                        column: x => x.RequisicaoId,
+                        principalTable: "Requisicao",
+                        principalColumn: "RequisicaoId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RequisicaoDetalhe_Servico_ServicoId",
+                        column: x => x.ServicoId,
+                        principalTable: "Servico",
+                        principalColumn: "ServicoId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -174,6 +201,16 @@ namespace GestorHorarioG6.Migrations
                 column: "DepartamentoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RequisicaoDetalhe_RequisicaoId",
+                table: "RequisicaoDetalhe",
+                column: "RequisicaoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RequisicaoDetalhe_ServicoId",
+                table: "RequisicaoDetalhe",
+                column: "ServicoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RequisicaoEquipamento_BlocoId",
                 table: "RequisicaoEquipamento",
                 column: "BlocoId");
@@ -190,22 +227,25 @@ namespace GestorHorarioG6.Migrations
                 name: "Funcionario");
 
             migrationBuilder.DropTable(
-                name: "Requisicao");
+                name: "RequisicaoDetalhe");
 
             migrationBuilder.DropTable(
                 name: "RequisicaoEquipamento");
 
             migrationBuilder.DropTable(
-                name: "Servico");
-
-            migrationBuilder.DropTable(
                 name: "Cargo");
 
             migrationBuilder.DropTable(
-                name: "Departamento");
+                name: "Requisicao");
+
+            migrationBuilder.DropTable(
+                name: "Servico");
 
             migrationBuilder.DropTable(
                 name: "Equipamento");
+
+            migrationBuilder.DropTable(
+                name: "Departamento");
 
             migrationBuilder.DropTable(
                 name: "Bloco");

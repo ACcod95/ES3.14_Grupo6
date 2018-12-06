@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GestorHorarioG6.Models.Requisicao>
+﻿@model IEnumerable<GestorHorarioG6.Models.RequisicaoDetalhe>
 
 @{
     ViewData["Title"] = "Requisições Aprovadas";
@@ -13,13 +13,16 @@
                 <p>Departamento</p>
             </th>
             <th>
+                <p>Serviço</p>
+            </th>
+            <th>
                 <p>Hora de Início</p>
             </th>
             <th>
-                <p>Hora de Fim</p>
+                <p>Duração Estimada</p>
             </th>
             <th>
-                <p>Requisições Adicionais</p>
+                <p>Notas</p>
             </th>
         </tr>
     </thead>
@@ -29,16 +32,19 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Departamento.Nome)
+                    @Html.DisplayFor(modelItem => item.Requisicao.Departamento.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Servico.Nome)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.HoraDeInicio)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.HoraDeFim)
+                    @Html.DisplayFor(modelItem => item.DuraçãoEstimada)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.RequisicoesAdicionais)
+                    @Html.DisplayFor(modelItem => item.Notas)
                 </td>
             </tr>
         }
