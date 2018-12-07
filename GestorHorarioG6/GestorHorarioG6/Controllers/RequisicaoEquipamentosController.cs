@@ -93,17 +93,18 @@ namespace GestorHorarioG6.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RequisicaoEquipamentoId,EquipamentoId,HoraDeInicio,HoraDeFim,BlocoId")] RequisicaoEquipamento requisicaoEquipamento)
         {
-            if (DateTime.Now > requisicaoEquipamento.HoraDeInicio)
-                ModelState.AddModelError("HoraDeInicio", "O dia e hora de início não pode ser anterior ao dia e hora actual.");
-            if (requisicaoEquipamento.HoraDeFim < requisicaoEquipamento.HoraDeInicio)
-                ModelState.AddModelError("HoraDeFim", "A dia e hora de fim não pode ser anterior ao dia e hora de início.");
-
             if (ModelState.IsValid)
             {
+                /*if (DateTime.Now > requisicaoEquipamento.HoraDeInicio)
+                    ModelState.AddModelError("HoraDeInicio", "O dia e hora de início não pode ser anterior ao dia e hora actual.");
+                if (requisicaoEquipamento.HoraDeFim < requisicaoEquipamento.HoraDeInicio)
+                    ModelState.AddModelError("HoraDeFim", "A dia e hora de fim não pode ser anterior ao dia e hora de início.");*/
+
                 _context.Add(requisicaoEquipamento);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["BlocoId"] = new SelectList(_context.Bloco, "BlocoId", "Nome", requisicaoEquipamento.BlocoId);
             ViewData["EquipamentoId"] = new SelectList(_context.Equipamento, "EquipamentoId", "Nome", requisicaoEquipamento.EquipamentoId);
             return View(requisicaoEquipamento);
