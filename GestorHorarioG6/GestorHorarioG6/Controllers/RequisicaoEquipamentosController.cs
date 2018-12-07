@@ -24,7 +24,7 @@ namespace GestorHorarioG6.Controllers
         {
             DateTime day = DateTime.MinValue;
 
-            if(model!= null && model.CurrentDay != DateTime.MinValue)
+            if (model != null && model.CurrentDay != DateTime.MinValue)
             {
                 day = model.CurrentDay;
                 page = 1;
@@ -34,7 +34,7 @@ namespace GestorHorarioG6.Controllers
                 Where(r => day == DateTime.MinValue || r.HoraDeInicio.Date.Equals(day.Date));
             var total = await requisicaoContext.CountAsync();
 
-            if (page> (total / PAGE_SIZE) + 1)
+            if (page > (total / PAGE_SIZE) + 1)
             {
                 page = 1;
             }
@@ -54,7 +54,7 @@ namespace GestorHorarioG6.Controllers
                     ItensPerPage = PAGE_SIZE,
                     TotalItems = total
                 },
-                CurrentDay = day                
+                CurrentDay = day
             });
         }
 
@@ -93,18 +93,17 @@ namespace GestorHorarioG6.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RequisicaoEquipamentoId,EquipamentoId,HoraDeInicio,HoraDeFim,BlocoId")] RequisicaoEquipamento requisicaoEquipamento)
         {
+            if (DateTime.Now > requisicaoEquipamento.HoraDeInicio)
+                ModelState.AddModelError("HoraDeInicio", "O dia e hora de início não pode ser anterior ao dia e hora actual.");
+            if (requisicaoEquipamento.HoraDeFim < requisicaoEquipamento.HoraDeInicio)
+                ModelState.AddModelError("HoraDeFim", "A dia e hora de fim não pode ser anterior ao dia e hora de início.");
+
             if (ModelState.IsValid)
             {
-                /*if (DateTime.Now > requisicaoEquipamento.HoraDeInicio)
-                    ModelState.AddModelError("HoraDeInicio", "O dia e hora de início não pode ser anterior ao dia e hora actual.");
-                if (requisicaoEquipamento.HoraDeFim < requisicaoEquipamento.HoraDeInicio)
-                    ModelState.AddModelError("HoraDeFim", "A dia e hora de fim não pode ser anterior ao dia e hora de início.");*/
-
                 _context.Add(requisicaoEquipamento);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-
             ViewData["BlocoId"] = new SelectList(_context.Bloco, "BlocoId", "Nome", requisicaoEquipamento.BlocoId);
             ViewData["EquipamentoId"] = new SelectList(_context.Equipamento, "EquipamentoId", "Nome", requisicaoEquipamento.EquipamentoId);
             return View(requisicaoEquipamento);

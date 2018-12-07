@@ -15,11 +15,11 @@ namespace GestorHorarioG6.Models
         public int EquipamentoId { get; set; }
 
         [Required(ErrorMessage = "Por favor insira uma data de inicio válida")]
-        //[DataType(DataType.DateTime)]
+        [DataType(DataType.DateTime)]
         public DateTime HoraDeInicio { get; set; }
 
         [Required(ErrorMessage = "Por favor insira uma data de fim válida")]
-        //[DataType(DataType.DateTime)]
+        [DataType(DataType.DateTime)]
         public DateTime HoraDeFim { get; set; }
 
         public Bloco Bloco { get; set; }

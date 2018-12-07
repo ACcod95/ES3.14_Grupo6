@@ -12,11 +12,11 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="EquipamentoId" class="control-label">Equipamento</label>
-                <select asp-for="EquipamentoId" class ="form-control" asp-items="ViewBag.EquipamentoId"></select>
+                <select asp-for="EquipamentoId" class="form-control" asp-items="ViewBag.EquipamentoId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="HoraDeInicio" class="control-label">Hora de Início</label>
-                <input asp-for="HoraDeInicio" class="form-control" /> |||||
+                <input asp-for="HoraDeInicio" class="form-control" />
                 <span asp-validation-for="HoraDeInicio" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -26,7 +26,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Bloco" class="control-label">Bloco</label>
-                <select asp-for="BlocoId" class ="form-control" asp-items="ViewBag.BlocoId"></select>
+                <select asp-for="BlocoId" class="form-control" asp-items="ViewBag.BlocoId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Criar Requisição" class="btn btn-success" />
@@ -34,8 +34,10 @@
         </form>
     </div>
 </div>
-
 <div>
     <a asp-action="Index" class="btn btn-primary">Voltar para a lista </a>
 </div>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
