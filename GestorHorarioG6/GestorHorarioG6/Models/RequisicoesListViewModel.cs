@@ -12,7 +12,7 @@ namespace GestorHorarioG6.Models
         public IEnumerable<Requisicao> Requisicoes { get; set; }
         public PaginationViewModel PagingInfo { get; set; }
 
-        [DisplayName("HoraDeInicio")]
+        [DisplayName("Dia")]
         [DataType(DataType.Date)]
         public DateTime CurrentDay { get; set; }
     }

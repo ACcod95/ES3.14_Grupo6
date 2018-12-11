@@ -12,6 +12,9 @@ namespace GestorHorarioG6.Models
         [Key]
         public int RequisicaoId { get; set; }
 
+        [DataType(DataType.Date)]
+        public DateTime Dia { get; set; }
+
         public Departamento Departamento { get; set; }
         public int DepartamentoId { get; set; }
 

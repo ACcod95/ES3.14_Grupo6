@@ -27,7 +27,6 @@ namespace GestorHorarioG6.Controllers
             if (model != null && model.CurrentDay != DateTime.MinValue)
             {
                 day = model.CurrentDay;
-                page = 1;
             }
 
             var databaseContext = _context.Requisicao.Include(r => r.Departamento)
@@ -82,6 +81,7 @@ namespace GestorHorarioG6.Controllers
         // GET: Requisicoes/Create
         public IActionResult Create()
         {
+            ViewData["Servico"] = new SelectList(_context.Servico, "ServicoId", "Nome");
             ViewData["Departamento"] = new SelectList(_context.Departamento, "DepartamentoId", "Nome");
             return View();
         }
@@ -93,15 +93,13 @@ namespace GestorHorarioG6.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RequisicaoId,DepartamentoId,Detalhes")] Requisicao requisicao)
         {
-            if (requisicao.Detalhes.OrderBy(d => d.HoraDeInicio).FirstOrDefault().HoraDeInicio.CompareTo(DateTime.Now) < 1)
-                ModelState.AddModelError("Detalhes", "A hora de início não pode ser anterior ao presente.");
-
             if (ModelState.IsValid)
             {
                 _context.Add(requisicao);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Created/" + requisicao.RequisicaoId);
             }
+            ViewData["Servico"] = new SelectList(_context.Servico, "ServicoId", "Nome");
             ViewData["Departamento"] = new SelectList(_context.Departamento, "DepartamentoId", "Nome", requisicao.DepartamentoId);
             return View(requisicao);
         }
@@ -119,6 +117,7 @@ namespace GestorHorarioG6.Controllers
             {
                 return NotFound();
             }
+            ViewData["Servico"] = new SelectList(_context.Servico, "ServicoId", "Nome");
             ViewData["Departamento"] = new SelectList(_context.Departamento, "DepartamentoId", "Nome", requisicao.DepartamentoId);
             return View(requisicao);
         }
@@ -154,6 +153,7 @@ namespace GestorHorarioG6.Controllers
                     }
                 }
             }
+            ViewData["Servico"] = new SelectList(_context.Servico, "ServicoId", "Nome");
             ViewData["Departamento"] = new SelectList(_context.Departamento, "DepartamentoId", "Nome", requisicao.DepartamentoId);
             return View(requisicao);
         }

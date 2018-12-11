@@ -16,16 +16,23 @@ namespace GestorHorarioG6.Models
         public Servico Servico { get; set; }
 
         [DataType(DataType.DateTime)]
-        public DateTime HoraDeInicio { get; set; }
+        public DateTime HoraCriticaDe { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime HoraCriticaAte { get; set; }
 
         [DataType(DataType.Time)]
         public DateTime DuraçãoEstimada { get; set; }
 
-        [DataType(DataType.DateTime)]
-        public DateTime Concluido { get; set; }
-
         public string Notas { get; set; }
 
         public Boolean Aprovado { get; set; }
+        
+        [DataType(DataType.DateTime)]
+        public DateTime HoraDeInicio { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime HoraDeFim { get; set; }
+
+        [DataType(DataType.DateTime)]
+        public DateTime HoraConcluido { get; set; }
     }
 }
