@@ -9,24 +9,28 @@ namespace GestorHorarioG6.Models
 {
     public class Trocas
     {
-        private int _funcionarioId;
-
         [Key]
         public int TrocasID { set; get; }
 
         [Required]
-        public Funcionario IDFuncionario1 { get; set; }
-//public int FuncionarioId { get => _funcionarioId; set => _funcionarioId = value; }
-        public Funcionario IDFuncionario2 { get; set; }
-        
-        [Required]
-        public int Turno1 { get; set; }
+        [ForeignKey("Funcionario")]
+        public int FuncionarioId { get; set; }
+        public Funcionario Funcionario { get; set; }
 
-        public int Turno2 { get; set; }
+        public int FuncionarioId2 { get; set; }
+        public Funcionario Funcionario2 { get; set; }
+
+
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime DiaF1{ get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime DiaF2 { get; set; }
 
         public Boolean Conhecimento { get; set; }
 
-
+        public Boolean Aprovado { get; set; }
 
     }
 }

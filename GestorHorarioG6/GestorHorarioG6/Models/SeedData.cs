@@ -44,8 +44,7 @@ namespace GestorHorarioG6.Models
                     
                     );
                 }
-
-
+                
                 if (!db.Funcionario.Any())
                 {
                     db.Funcionario.AddRange

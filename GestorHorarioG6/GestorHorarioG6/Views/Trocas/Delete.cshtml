@@ -1,0 +1,54 @@
+﻿@model GestorHorarioG6.Models.Trocas
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Deseja apagar?</h2>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Funcionario)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Funcionario.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Funcionario2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Funcionario2.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DiaF1)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DiaF1)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DiaF2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DiaF2)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Conhecimento)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Conhecimento)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Aprovado)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Aprovado)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="TrocasID" />
+        <input type="submit" value="Apagar" class="btn btn-default" /> |
+        <a asp-action="Index"> Voltar</a>
+    </form>
+</div>

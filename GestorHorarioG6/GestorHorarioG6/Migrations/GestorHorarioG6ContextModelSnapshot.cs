@@ -113,19 +113,21 @@ namespace GestorHorarioG6.Migrations
 
                     b.Property<bool>("Conhecimento");
 
-                    b.Property<int>("IDFuncionario1FuncionarioId");
+                    b.Property<DateTime>("DiaF1");
 
-                    b.Property<int?>("IDFuncionario2FuncionarioId");
+                    b.Property<DateTime>("DiaF2");
 
-                    b.Property<int>("Turno1");
+                    b.Property<int?>("Funcionario2FuncionarioId");
 
-                    b.Property<int>("Turno2");
+                    b.Property<int>("FuncionarioId");
+
+                    b.Property<int>("FuncionarioId2");
 
                     b.HasKey("TrocasID");
 
-                    b.HasIndex("IDFuncionario1FuncionarioId");
+                    b.HasIndex("Funcionario2FuncionarioId");
 
-                    b.HasIndex("IDFuncionario2FuncionarioId");
+                    b.HasIndex("FuncionarioId");
 
                     b.ToTable("Trocas");
                 });
@@ -148,14 +150,14 @@ namespace GestorHorarioG6.Migrations
 
             modelBuilder.Entity("GestorHorarioG6.Models.Trocas", b =>
                 {
-                    b.HasOne("GestorHorarioG6.Models.Funcionario", "IDFuncionario1")
+                    b.HasOne("GestorHorarioG6.Models.Funcionario", "Funcionario2")
                         .WithMany()
-                        .HasForeignKey("IDFuncionario1FuncionarioId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("Funcionario2FuncionarioId");
 
-                    b.HasOne("GestorHorarioG6.Models.Funcionario", "IDFuncionario2")
+                    b.HasOne("GestorHorarioG6.Models.Funcionario", "Funcionario")
                         .WithMany()
-                        .HasForeignKey("IDFuncionario2FuncionarioId");
+                        .HasForeignKey("FuncionarioId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

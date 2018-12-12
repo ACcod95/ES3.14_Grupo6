@@ -1,0 +1,71 @@
+﻿@model IEnumerable<GestorHorarioG6.Models.Trocas>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Lista de Trocas</h2>
+
+<p>
+    <a asp-action="Create">Nova Troca</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nome do Primeiro Funcionário
+            </th>
+            <th>
+                Nome do Segundo Funcionário
+            </th>
+            <th>
+                De dia:
+            </th>
+            <th>
+               Para dia:
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Conhecimento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aprovado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Funcionario.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Funcionario2.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaF1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaF2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Conhecimento)
+            </td>
+            <td>
+                @Html.CheckBoxFor(modelItem => item.Aprovado, new { @onclick = "Clicked(" + item.TrocasID + ")" })
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TrocasID">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.TrocasID">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.TrocasID">Apagar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<script>
+    function Clicked(id) {
+        $.post("/Trocas/Aprovar/" + id);
+    }
+</script>

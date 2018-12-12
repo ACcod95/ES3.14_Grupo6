@@ -89,10 +89,11 @@ namespace GestorHorarioG6.Migrations
                 {
                     TrocasID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    IDFuncionario1FuncionarioId = table.Column<int>(nullable: false),
-                    IDFuncionario2FuncionarioId = table.Column<int>(nullable: true),
-                    Turno1 = table.Column<int>(nullable: false),
-                    Turno2 = table.Column<int>(nullable: false),
+                    FuncionarioId = table.Column<int>(nullable: false),
+                    FuncionarioId2 = table.Column<int>(nullable: false),
+                    Funcionario2FuncionarioId = table.Column<int>(nullable: true),
+                    DiaF1 = table.Column<DateTime>(nullable: false),
+                    DiaF2 = table.Column<DateTime>(nullable: false),
                     Conhecimento = table.Column<bool>(nullable: false),
                     Aprovado = table.Column<bool>(nullable: false)
                 },
@@ -100,17 +101,17 @@ namespace GestorHorarioG6.Migrations
                 {
                     table.PrimaryKey("PK_Trocas", x => x.TrocasID);
                     table.ForeignKey(
-                        name: "FK_Trocas_Funcionario_IDFuncionario1FuncionarioId",
-                        column: x => x.IDFuncionario1FuncionarioId,
-                        principalTable: "Funcionario",
-                        principalColumn: "FuncionarioId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Trocas_Funcionario_IDFuncionario2FuncionarioId",
-                        column: x => x.IDFuncionario2FuncionarioId,
+                        name: "FK_Trocas_Funcionario_Funcionario2FuncionarioId",
+                        column: x => x.Funcionario2FuncionarioId,
                         principalTable: "Funcionario",
                         principalColumn: "FuncionarioId",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Trocas_Funcionario_FuncionarioId",
+                        column: x => x.FuncionarioId,
+                        principalTable: "Funcionario",
+                        principalColumn: "FuncionarioId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -124,14 +125,14 @@ namespace GestorHorarioG6.Migrations
                 column: "DepartamentoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Trocas_IDFuncionario1FuncionarioId",
+                name: "IX_Trocas_Funcionario2FuncionarioId",
                 table: "Trocas",
-                column: "IDFuncionario1FuncionarioId");
+                column: "Funcionario2FuncionarioId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Trocas_IDFuncionario2FuncionarioId",
+                name: "IX_Trocas_FuncionarioId",
                 table: "Trocas",
-                column: "IDFuncionario2FuncionarioId");
+                column: "FuncionarioId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
