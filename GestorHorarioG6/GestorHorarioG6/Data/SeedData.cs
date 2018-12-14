@@ -118,6 +118,13 @@ namespace GestorHorarioG6.Models
                     new RequisicaoEquipamento { EquipamentoId = 6, HoraDeInicio = DateTime.Today, HoraDeFim = DateTime.Today, BlocoId = 6 }
                     );
                 }
+                if (!db.RegrasGerais.Any())
+                {
+                    db.RegrasGerais.AddRange
+                    (new RegrasGerais { Nome = "RegraSemana", Descricao = "O Técnico não pode trabalhar mais de 35 horas semanais", Horas = 35 },
+                    new RegrasGerais { Nome = "RegraDia", Descricao = "O Técnico não pode trabalhar mais de 7 horas por dia", Horas = 7 }
+                    );
+                }
                 db.SaveChanges();
             }
         }
