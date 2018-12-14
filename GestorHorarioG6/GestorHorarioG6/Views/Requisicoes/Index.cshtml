@@ -66,7 +66,7 @@
                         @Html.DisplayFor(modelItem => detalhe.HoraDeInicio)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => detalhe.Concluido, new { @onclick = "Concluir(" + detalhe.RequisicaoDetalheId + ")" })
+                        @Html.DisplayFor(modelItem => detalhe.HoraConcluido)
                     </td>
                     <td>
                         @Html.CheckBoxFor(modelItem => detalhe.Aprovado, new { @onclick = "Aprovar(" + detalhe.RequisicaoDetalheId + ")" })
@@ -81,12 +81,3 @@
     </tbody>
 </table>
 <div pagination-model="Model.PagingInfo"></div>
-
-<script>
-    function Aprovar(id) {
-        $.post("/Requisicoes/Aprovar/" + id);
-    }
-    function Concluir(id) {
-        $.post("Requisicoes/Concluir/" + id);
-    }
-</script>
