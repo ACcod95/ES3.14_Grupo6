@@ -15,7 +15,7 @@ namespace GestorHorarioG6.Models
         [StringLength(50, MinimumLength = 3, ErrorMessage = "O nome tem de ter entre 3 a 50 caracteres")]
         public string Nome { get; set; }
 
-        [StringLength(500, ErrorMessage = "O nome tem de ter menos de 50 caracteres")]
+        [StringLength(500, ErrorMessage = "O nome tem de ter menos de 500 caracteres")]
         public string Descricao { get; set; }
 
         public int Horas { get; set; }
