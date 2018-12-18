@@ -125,6 +125,14 @@ namespace GestorHorarioG6.Models
                     new RegrasGerais { Nome = "RegraDia", Descricao = "O Técnico não pode trabalhar mais de 7 horas por dia", Horas = 7 }
                     );
                 }
+                if (!db.Turno.Any())
+                {
+                    db.Turno.AddRange
+                    (new Turno { Numero = "1", HoraInicio = 8, HoraFim = 16, IRefeicao = 13, FRefeicao = 14 },
+                    new Turno { Numero = "2", HoraInicio = 11, HoraFim = 19, IRefeicao = 14, FRefeicao = 15 },                                       
+                    new Turno { Numero = "3", HoraInicio = 14, HoraFim = 22, IRefeicao = 19, FRefeicao = 20 }
+                    );
+                }
                 db.SaveChanges();
             }
         }

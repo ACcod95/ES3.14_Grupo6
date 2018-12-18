@@ -48,6 +48,21 @@ namespace GestorHorarioG6.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RegrasGerais",
+                columns: table => new
+                {
+                    RegraId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Nome = table.Column<string>(maxLength: 50, nullable: false),
+                    Descricao = table.Column<string>(maxLength: 500, nullable: true),
+                    Horas = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RegrasGerais", x => x.RegraId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Servico",
                 columns: table => new
                 {
@@ -59,6 +74,23 @@ namespace GestorHorarioG6.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Servico", x => x.ServicoId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Turno",
+                columns: table => new
+                {
+                    TurnoId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Numero = table.Column<string>(nullable: true),
+                    HoraInicio = table.Column<int>(nullable: false),
+                    HoraFim = table.Column<int>(nullable: false),
+                    IRefeicao = table.Column<int>(nullable: false),
+                    FRefeicao = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Turno", x => x.TurnoId);
                 });
 
             migrationBuilder.CreateTable(
@@ -104,7 +136,7 @@ namespace GestorHorarioG6.Migrations
                         column: x => x.CargoId,
                         principalTable: "Cargo",
                         principalColumn: "CargoId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -127,7 +159,7 @@ namespace GestorHorarioG6.Migrations
                         column: x => x.DepartamentoId,
                         principalTable: "Departamento",
                         principalColumn: "DepartamentoId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -190,6 +222,9 @@ namespace GestorHorarioG6.Migrations
                 name: "Funcionario");
 
             migrationBuilder.DropTable(
+                name: "RegrasGerais");
+
+            migrationBuilder.DropTable(
                 name: "Requisicao");
 
             migrationBuilder.DropTable(
@@ -197,6 +232,9 @@ namespace GestorHorarioG6.Migrations
 
             migrationBuilder.DropTable(
                 name: "Servico");
+
+            migrationBuilder.DropTable(
+                name: "Turno");
 
             migrationBuilder.DropTable(
                 name: "Cargo");
