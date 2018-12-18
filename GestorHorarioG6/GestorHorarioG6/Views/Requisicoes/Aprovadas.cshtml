@@ -22,13 +22,11 @@
                 <p>Duração Estimada</p>
             </th>
             <th>
-                <p>Notas</p>
             </th>
         </tr>
     </thead>
     <tbody>
-
-        @foreach (var item in Model)
+   @foreach (var item in Model)
         {
             <tr>
                 <td>
@@ -44,7 +42,7 @@
                     @Html.DisplayFor(modelItem => item.DuraçãoEstimada)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Notas)
+                    <a asp-action="Details" asp-route-id="@item.RequisicaoDetalheId">Detalhes</a>
                 </td>
             </tr>
         }

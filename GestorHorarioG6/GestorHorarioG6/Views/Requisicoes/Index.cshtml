@@ -53,8 +53,10 @@
     <tbody>
         @foreach (var item in Model.Requisicoes)
         {
-            @foreach (var detalhe in item.Detalhes)
+            @if (item.Detalhes != null)
             {
+                foreach (var detalhe in item.Detalhes)
+                {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Departamento.Nome)
@@ -76,8 +78,9 @@
                         <a asp-action="Delete" asp-route-id="@item.RequisicaoId">Eliminar</a>
                     </td>
                 </tr>
+                    }
+                }
             }
-        }
     </tbody>
 </table>
 <div pagination-model="Model.PagingInfo"></div>
