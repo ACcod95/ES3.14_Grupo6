@@ -15,7 +15,7 @@ namespace GestorHorarioG6.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -71,7 +71,7 @@ namespace GestorHorarioG6.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasMaxLength(35);
+                        .HasMaxLength(50);
 
                     b.HasKey("EquipamentoId");
 
@@ -177,12 +177,33 @@ namespace GestorHorarioG6.Migrations
                     b.ToTable("Servico");
                 });
 
+            modelBuilder.Entity("GestorHorarioG6.Models.Turno", b =>
+                {
+                    b.Property<int>("TurnoId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("FRefeicao");
+
+                    b.Property<int>("HoraFim");
+
+                    b.Property<int>("HoraInicio");
+
+                    b.Property<int>("IRefeicao");
+
+                    b.Property<string>("Numero");
+
+                    b.HasKey("TurnoId");
+
+                    b.ToTable("Turno");
+                });
+
             modelBuilder.Entity("GestorHorarioG6.Models.Equipamento", b =>
                 {
                     b.HasOne("GestorHorarioG6.Models.Bloco", "Bloco")
                         .WithMany()
                         .HasForeignKey("BlocoId")
-                        .OnDelete(DeleteBehavior.ClientSetNull);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GestorHorarioG6.Models.Funcionario", b =>
@@ -190,7 +211,7 @@ namespace GestorHorarioG6.Migrations
                     b.HasOne("GestorHorarioG6.Models.Cargo", "Cargo")
                         .WithMany()
                         .HasForeignKey("CargoId")
-                        .OnDelete(DeleteBehavior.ClientSetNull);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GestorHorarioG6.Models.Requisicao", b =>
@@ -198,7 +219,7 @@ namespace GestorHorarioG6.Migrations
                     b.HasOne("GestorHorarioG6.Models.Departamento", "Departamento")
                         .WithMany()
                         .HasForeignKey("DepartamentoId")
-                        .OnDelete(DeleteBehavior.ClientSetNull);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GestorHorarioG6.Models.RequisicaoEquipamento", b =>
@@ -206,12 +227,12 @@ namespace GestorHorarioG6.Migrations
                     b.HasOne("GestorHorarioG6.Models.Bloco", "Bloco")
                         .WithMany()
                         .HasForeignKey("BlocoId")
-                        .OnDelete(DeleteBehavior.ClientSetNull);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GestorHorarioG6.Models.Equipamento", "Equipamento")
                         .WithMany()
                         .HasForeignKey("EquipamentoId")
-                        .OnDelete(DeleteBehavior.ClientSetNull);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
