@@ -121,9 +121,9 @@ namespace GestorHorarioG6.Models
                 if (!db.Turno.Any())
                 {
                     db.Turno.AddRange
-                    (new Turno { Nome = "Primeiro", HoraInicio = 8, HoraFim = 16, Pausa=11, IRefeicao = 13, FRefeicao = 14 },
-                    new Turno { Nome = "Segundo", HoraInicio = 11, HoraFim = 19 , Pausa = 17, IRefeicao = 14, FRefeicao = 15 },
-                    new Turno { Nome = "Terceiro", HoraInicio = 14, HoraFim = 22, Pausa = 16, IRefeicao = 19, FRefeicao = 20 }
+                    (new Turno { Nome = "Primeiro", HoraInicioManha = 8, HoraFimManha = 13, HoraInicioTarde = 14, HoraFimTarde = 16 },
+                    new Turno { Nome = "Segundo", HoraInicioManha = 11, HoraFimManha = 14 , HoraInicioTarde = 15, HoraFimTarde = 19 },
+                    new Turno { Nome = "Terceiro", HoraInicioManha = 14, HoraFimManha = 19, HoraInicioTarde = 20, HoraFimTarde = 22 }
                     );
                 }
                 db.SaveChanges();

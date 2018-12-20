@@ -34,19 +34,16 @@
                 Nome
             </th>
             <th>
-                Horar de inicio
+                Hora de inicio da Manha
             </th>
             <th>
-                Hora de fim
+                Hora de fim da Manha
             </th>
             <th>
-                Pausa
+                Hora de inicio da Tarde
             </th>
             <th>
-                Inicio da refeição
-            </th>
-            <th>
-                Fim da refeição
+                Hora de inicio da Tarde
             </th>
             <th></th>
         </tr>
@@ -59,19 +56,16 @@
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.HoraInicio)
+                    @Html.DisplayFor(modelItem => item.HoraInicioManha)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.HoraFim)
+                    @Html.DisplayFor(modelItem => item.HoraFimManha)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Pausa)
+                    @Html.DisplayFor(modelItem => item.HoraInicioTarde)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IRefeicao)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FRefeicao)
+                    @Html.DisplayFor(modelItem => item.HoraFimTarde)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.TurnoId">Editar</a> |

@@ -183,18 +183,15 @@ namespace GestorHorarioG6.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("FRefeicao");
+                    b.Property<int>("HoraFimManha");
 
-                    b.Property<int>("HoraFim");
+                    b.Property<int>("HoraFimTarde");
 
-                    b.Property<int>("HoraInicio");
+                    b.Property<int>("HoraInicioManha");
 
-                    b.Property<int>("IRefeicao");
+                    b.Property<int>("HoraInicioTarde");
 
-                    b.Property<string>("Nome")
-                        .IsRequired();
-
-                    b.Property<int>("Pausa");
+                    b.Property<string>("Nome");
 
                     b.HasKey("TurnoId");
 

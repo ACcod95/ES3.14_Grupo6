@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestorHorarioG6.Migrations
 {
     [DbContext(typeof(GestorHorarioG6Context))]
-    [Migration("20181220160718_imigration")]
+    [Migration("20181220174624_imigration")]
     partial class imigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -185,18 +185,15 @@ namespace GestorHorarioG6.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("FRefeicao");
+                    b.Property<int>("HoraFimManha");
 
-                    b.Property<int>("HoraFim");
+                    b.Property<int>("HoraFimTarde");
 
-                    b.Property<int>("HoraInicio");
+                    b.Property<int>("HoraInicioManha");
 
-                    b.Property<int>("IRefeicao");
+                    b.Property<int>("HoraInicioTarde");
 
-                    b.Property<string>("Nome")
-                        .IsRequired();
-
-                    b.Property<int>("Pausa");
+                    b.Property<string>("Nome");
 
                     b.HasKey("TurnoId");
 

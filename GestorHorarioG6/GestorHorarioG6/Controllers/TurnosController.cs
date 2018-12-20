@@ -87,7 +87,7 @@ namespace GestorHorarioG6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TurnoId,Nome,HoraInicio,HoraFim,Pausa,IRefeicao,FRefeicao")] Turno turno)
+        public async Task<IActionResult> Create([Bind("TurnoId,Nome,HoraInicioManha,HoraFimManha,HoraInicioTarde,HoraFimTarde")] Turno turno)
         {
             if (ModelState.IsValid)
             {
@@ -119,7 +119,7 @@ namespace GestorHorarioG6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TurnoId,Nome,HoraInicio,HoraFim,Pausa,IRefeicao,FRefeicao")] Turno turno)
+        public async Task<IActionResult> Edit(int id, [Bind("TurnoId,Nome,HoraInicioManha,HoraFimManha,HoraInicioTarde,HoraFimTarde")] Turno turno)
         {
             if (id != turno.TurnoId)
             {
