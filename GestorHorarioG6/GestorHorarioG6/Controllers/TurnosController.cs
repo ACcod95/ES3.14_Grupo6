@@ -12,7 +12,7 @@ namespace GestorHorarioG6.Controllers
     public class TurnosController : Controller
     {
         private readonly GestorHorarioG6Context _context;
-        private readonly int PageSize = 5;
+        private const int PageSize = 5;
 
         public TurnosController(GestorHorarioG6Context context)
         {
@@ -30,19 +30,19 @@ namespace GestorHorarioG6.Controllers
                 page = 1;
             }
 
-            var turno = _context.Turno.Include(t => t.TurnoId).Where(t => nome == null || t.Nome.Contains(nome));
-            var total = await turno.CountAsync();
+            var turnos = _context.Turno.Where(t => nome == null || t.Nome.Contains(nome));
+            var total = await turnos.CountAsync();
 
             if (page > (total / PageSize) + 1)
             {
                 page = 1;
             }
 
-            var listTurno = await turno
-               .OrderBy(p => p.TurnoId)
-               .Skip(PageSize * (page - 1))
-               .Take(PageSize)
-               .ToListAsync();
+            var listTurno = await turnos
+                .OrderBy(t => t.TurnoId)
+                .Skip(PageSize * (page - 1))
+                .Take(PageSize)
+                .ToListAsync();
 
             return View(new TurnoListViewModel
             {
@@ -55,7 +55,7 @@ namespace GestorHorarioG6.Controllers
                 },
                 CurrentNome = nome
             });
-            
+           
         }
 
         // GET: Turnos/Details/5
