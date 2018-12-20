@@ -29,5 +29,7 @@ namespace GestorHorarioG6.Models
         public DbSet<GestorHorarioG6.Models.Equipamento> Equipamento { get; set; }
 
         public DbSet<GestorHorarioG6.Models.RequisicaoEquipamento> RequisicaoEquipamento { get; set; }
+
+        public DbSet<GestorHorarioG6.Models.Turno> Turno { get; set; }
     }
 }

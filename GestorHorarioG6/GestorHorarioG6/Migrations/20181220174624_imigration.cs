@@ -62,6 +62,23 @@ namespace GestorHorarioG6.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Turno",
+                columns: table => new
+                {
+                    TurnoId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Nome = table.Column<string>(nullable: true),
+                    HoraInicioManha = table.Column<int>(nullable: false),
+                    HoraFimManha = table.Column<int>(nullable: false),
+                    HoraInicioTarde = table.Column<int>(nullable: false),
+                    HoraFimTarde = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Turno", x => x.TurnoId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Equipamento",
                 columns: table => new
                 {
@@ -78,7 +95,7 @@ namespace GestorHorarioG6.Migrations
                         column: x => x.BlocoId,
                         principalTable: "Bloco",
                         principalColumn: "BlocoId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -104,7 +121,7 @@ namespace GestorHorarioG6.Migrations
                         column: x => x.CargoId,
                         principalTable: "Cargo",
                         principalColumn: "CargoId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -127,7 +144,7 @@ namespace GestorHorarioG6.Migrations
                         column: x => x.DepartamentoId,
                         principalTable: "Departamento",
                         principalColumn: "DepartamentoId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -149,7 +166,7 @@ namespace GestorHorarioG6.Migrations
                         column: x => x.BlocoId,
                         principalTable: "Bloco",
                         principalColumn: "BlocoId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_RequisicaoEquipamento_Equipamento_EquipamentoId",
                         column: x => x.EquipamentoId,
@@ -197,6 +214,9 @@ namespace GestorHorarioG6.Migrations
 
             migrationBuilder.DropTable(
                 name: "Servico");
+
+            migrationBuilder.DropTable(
+                name: "Turno");
 
             migrationBuilder.DropTable(
                 name: "Cargo");
