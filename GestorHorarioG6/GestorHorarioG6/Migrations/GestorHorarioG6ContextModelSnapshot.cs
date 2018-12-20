@@ -191,7 +191,10 @@ namespace GestorHorarioG6.Migrations
 
                     b.Property<int>("IRefeicao");
 
-                    b.Property<string>("Numero");
+                    b.Property<string>("Nome")
+                        .IsRequired();
+
+                    b.Property<int>("Pausa");
 
                     b.HasKey("TurnoId");
 

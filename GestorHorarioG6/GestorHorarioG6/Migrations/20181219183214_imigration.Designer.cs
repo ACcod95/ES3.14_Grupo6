@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestorHorarioG6.Migrations
 {
     [DbContext(typeof(GestorHorarioG6Context))]
-    [Migration("20181218114541_imigration")]
+    [Migration("20181219183214_imigration")]
     partial class imigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -193,7 +193,10 @@ namespace GestorHorarioG6.Migrations
 
                     b.Property<int>("IRefeicao");
 
-                    b.Property<string>("Numero");
+                    b.Property<string>("Nome")
+                        .IsRequired();
+
+                    b.Property<int>("Pausa");
 
                     b.HasKey("TurnoId");
 

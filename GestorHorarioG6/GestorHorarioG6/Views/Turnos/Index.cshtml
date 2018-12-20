@@ -1,0 +1,85 @@
+﻿@model TurnoListViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <div class="row">
+        <div class='col-sm-6'>
+            <h2>Lista de Turnos</h2>
+            <a asp-action="Create">Criar Novo Turno</a>
+        </div>
+        <div class='col-sm-offset-2 col-sm-3'>
+            <form asp-action="Turnos">
+                <div class="form-group">
+                    <br />
+                    <div class='input-group'>
+                        <input asp-for="CurrentNome" class="form-control" />
+                        <span class="input-group-addon">
+                            <button type="submit" style="border:0; background:transparent">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nome
+            </th>
+            <th>
+                Horar de inicio
+            </th>
+            <th>
+                Hora de fim
+            </th>
+            <th>
+                Pausa
+            </th>
+            <th>
+                Inicio da refeição
+            </th>
+            <th>
+                Fim da refeição
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Turno)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoraInicio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoraFim)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pausa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IRefeicao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FRefeicao)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.TurnoId">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.TurnoId">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.TurnoId">Apagar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div pagination-model="Model.PagingInfo"></div>

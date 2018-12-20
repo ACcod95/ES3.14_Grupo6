@@ -1,0 +1,55 @@
+﻿@model GestorHorarioG6.Models.Turno
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Apagar turno</h2>
+<div>
+    <h4>Turno</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HoraInicio)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HoraInicio)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HoraFim)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HoraFim)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pausa)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pausa)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IRefeicao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IRefeicao)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FRefeicao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FRefeicao)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="TurnoId" />
+        <input type="submit" value="Apagar" class="btn btn-default" /> |
+        <a asp-action="Index">Voltar a lista de turnos</a>
+    </form>
+</div>

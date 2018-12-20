@@ -67,9 +67,10 @@ namespace GestorHorarioG6.Migrations
                 {
                     TurnoId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Numero = table.Column<string>(nullable: true),
+                    Nome = table.Column<string>(nullable: false),
                     HoraInicio = table.Column<int>(nullable: false),
                     HoraFim = table.Column<int>(nullable: false),
+                    Pausa = table.Column<int>(nullable: false),
                     IRefeicao = table.Column<int>(nullable: false),
                     FRefeicao = table.Column<int>(nullable: false)
                 },

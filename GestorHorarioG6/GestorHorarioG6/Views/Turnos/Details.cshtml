@@ -1,0 +1,53 @@
+﻿@model GestorHorarioG6.Models.Turno
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Detalhes do turno</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nome
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt>
+           Hora de Inicio
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HoraInicio)
+        </dd>
+        <dt>
+            Hora de Fim
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HoraFim)
+        </dd>
+        <dt>
+            Pausa
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pausa)
+        </dd>
+        <dt>
+           Inicio da refeição
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IRefeicao)
+        </dd>
+        <dt>
+           Fim da refeição
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FRefeicao)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.TurnoId">Editar Turno</a> |
+    <a asp-action="Index">Voltar a lista de turnos</a>
+</div>
