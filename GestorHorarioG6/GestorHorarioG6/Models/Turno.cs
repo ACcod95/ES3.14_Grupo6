@@ -8,11 +8,16 @@ namespace GestorHorarioG6.Models
 {
     public class Turno
     {
+        [Key]
         public int TurnoId { get; set; }
-        public string Numero { get; set; }
-        public int HoraInicio { get; set; }
-        public int HoraFim { get; set; }
-        public int IRefeicao { get; set; }
-        public int FRefeicao { get; set; }
+        public string Nome { get; set; }
+        [Required(ErrorMessage = "Este campo não pode estar por preencher")]
+        public int HoraInicioManha { get; set; }
+        [Required(ErrorMessage = "Este campo não pode estar por preencher")]
+        public int HoraFimManha { get; set; }
+        [Required(ErrorMessage = "Este campo não pode estar por preencher")]
+        public int HoraInicioTarde { get; set; }
+        [Required(ErrorMessage = "Este campo não pode estar por preencher")]
+        public int HoraFimTarde { get; set; }
     }
 }

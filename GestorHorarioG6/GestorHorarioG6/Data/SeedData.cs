@@ -69,7 +69,8 @@ namespace GestorHorarioG6.Models
                     new Funcionario { Nome = "Ana ", CargoId = 2, Nascimento = DateTime.Today, NascimentoFilho = DateTime.Today, NIF = "226897456", Telefone = "965871369", Email = "ana@hotmail.com", Notas = "" },
                     new Funcionario { Nome = "Maria ", CargoId = 1, Nascimento = DateTime.Today, NascimentoFilho = DateTime.Today, NIF = "224117819", Telefone = "912789658", Email = "mari4@sapo.pt", Notas = "" },
                     new Funcionario { Nome = "António ", CargoId = 2, Nascimento = DateTime.Today, NascimentoFilho = DateTime.Today, NIF = "235587975", Telefone = "918751032", Email = "toni@gmail.com", Notas = "" },
-                    new Funcionario { Nome = "Bruna ", CargoId = 2, Nascimento = DateTime.Today, NascimentoFilho = DateTime.Today, NIF = "221362789", Telefone = "917854745", Email = "bruna@outlook.com", Notas = "" }
+                    new Funcionario { Nome = "Bruna ", CargoId = 2, Nascimento = DateTime.Today, NascimentoFilho = DateTime.Today, NIF = "221362789", Telefone = "917854745", Email = "bruna@outlook.com", Notas = "" },
+                    new Funcionario { Nome = "Celso ", CargoId = 1, Nascimento = DateTime.Today, NascimentoFilho = DateTime.Today, NIF = "221362800", Telefone = "917854777", Email = "celso@gmail.com", Notas = "" }
                     );
                 }
                 db.SaveChanges();
@@ -128,9 +129,9 @@ namespace GestorHorarioG6.Models
                 if (!db.Turno.Any())
                 {
                     db.Turno.AddRange
-                    (new Turno { Numero = "1", HoraInicio = 8, HoraFim = 16, IRefeicao = 13, FRefeicao = 14 },
-                    new Turno { Numero = "2", HoraInicio = 11, HoraFim = 19, IRefeicao = 14, FRefeicao = 15 },                                       
-                    new Turno { Numero = "3", HoraInicio = 14, HoraFim = 22, IRefeicao = 19, FRefeicao = 20 }
+                    (new Turno { Nome = "Primeiro", HoraInicioManha = 8, HoraFimManha = 13, HoraInicioTarde = 14, HoraFimTarde = 16 },
+                    new Turno { Nome = "Segundo", HoraInicioManha = 11, HoraFimManha = 14, HoraInicioTarde = 15, HoraFimTarde = 19 },
+                    new Turno { Nome = "Terceiro", HoraInicioManha = 14, HoraFimManha = 19, HoraInicioTarde = 20, HoraFimTarde = 22 }
                     );
                 }
                 db.SaveChanges();
