@@ -169,7 +169,7 @@ namespace GestorHorarioG6.Controllers
         }
 
         [HttpPost]
-        public IActionResult GerarHorarioEnfermeiro(GerarHorarioTecnicos gerarHorarioTecnicos)
+        public IActionResult GerarHorarioTecnicos(GerarHorarioTecnicos gerarHorarioTecnicos)
         {
             if (ModelState.IsValid)
             {
@@ -179,10 +179,14 @@ namespace GestorHorarioG6.Controllers
                 int mes = dataIn.Month;
                 int dia = dataIn.Day;
 
+                GerarHorarioTecnico(_context, ano, mes, dia);
+                return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction(nameof(Index));
+
+            return View(gerarHorarioTecnicos);
         }
 
+       
         /**Funções**/
         private void GerarHorarioTecnico(GestorHorarioG6Context db, int ano, int mes, int dia)
         {
@@ -191,18 +195,67 @@ namespace GestorHorarioG6.Controllers
 
             int[] tecnicos = IdTecnicos();
 
+            int tec = 0;
+
             //Lista de Tecnicos
             List<int> listaTecnicos = new List<int>(tecnicos);
 
             DateTime data;
 
-            Random random = new Random();
+            int numeroTecnicos = listaTecnicos.Count();
+            int controlo = 1;
+            string turno;
 
-            int numeroTecnicos = listaTecnicos.Count;
-
-            for(int i = 1; i <= numeroTecnicos; i++)
+            for (int i = 0; i <= numeroTecnicos-1; i++)
             {
-                
+               for(int j = segunda; j <= sexta; j++)
+                {
+                    if (controlo == 1)
+                    {
+                        turno = "Primeiro";
+
+                        tec = listaTecnicos[i];
+                        data = new DateTime(ano, mes, dia-2+j, 0, 0, 0);
+
+                        Turno IdTurno = _context.Turno.SingleOrDefault(t => t.Nome.Equals(turno));
+                        Funcionario IdTecnico = _context.Funcionario.SingleOrDefault(f => f.FuncionarioId == tec);
+
+                        InserirDadosNoHorarioTecnico(db, data.AddHours(8), data.AddHours(12), data.AddHours(13), data.AddHours(15), IdTurno, IdTecnico);
+
+                    } else if (controlo == 2)
+                    {
+                        turno = "Segundo";
+
+                        tec = listaTecnicos[i];
+                        data = new DateTime(ano, mes, dia-2+j, 0, 0, 0);
+
+                        Turno IdTurno = _context.Turno.SingleOrDefault(t => t.Nome.Equals(turno));
+                        Funcionario IdTecnico = _context.Funcionario.SingleOrDefault(f => f.FuncionarioId == tec);
+
+                        InserirDadosNoHorarioTecnico(db, data.AddHours(11), data.AddHours(14), data.AddHours(15), data.AddHours(19), IdTurno, IdTecnico);
+                    } else if (controlo == 3)
+                    {
+                        turno = "Terceiro";
+
+                        tec = listaTecnicos[i];
+                        data = new DateTime(ano, mes, dia-2+j, 0, 0, 0);
+
+                        Turno IdTurno = _context.Turno.SingleOrDefault(t => t.Nome.Equals(turno));
+                        Funcionario IdTecnico = _context.Funcionario.SingleOrDefault(f => f.FuncionarioId == tec);
+
+                        InserirDadosNoHorarioTecnico(db, data.AddHours(14), data.AddHours(19), data.AddHours(20), data.AddHours(22), IdTurno, IdTecnico);
+                    }
+
+                }
+
+               if(controlo < 3)
+                {
+                    controlo++;
+                }
+                else
+                {
+                    controlo = 1;
+                }
             }
 
         }
@@ -220,7 +273,7 @@ namespace GestorHorarioG6.Controllers
         private void InserirDadosNoHorarioTecnico(GestorHorarioG6Context db, DateTime datainiciomanha, DateTime datafimmanha, DateTime datainiciotarde, DateTime datafimtarde, Turno turnoId, Funcionario funcionarioId)
         {
             db.HorarioTecnicos.Add(
-                new HorarioTecnicos { DataInicioManha = datainiciomanha, DataFimManha = datafimmanha, DataInicioTarde = datainiciotarde, DataFimTarde = datafimtarde}
+                new HorarioTecnicos { DataInicioManha = datainiciomanha, DataFimManha = datafimmanha, DataInicioTarde = datainiciotarde, DataFimTarde = datafimtarde, TurnoId = turnoId.TurnoId, FuncionarioId = funcionarioId.FuncionarioId}
             );
 
             db.SaveChanges();

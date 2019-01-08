@@ -70,7 +70,9 @@ namespace GestorHorarioG6.Models
                     new Funcionario { Nome = "Maria ", CargoId = 1, Nascimento = DateTime.Today, NascimentoFilho = DateTime.Today, NIF = "224117819", Telefone = "912789658", Email = "mari4@sapo.pt", Notas = "" },
                     new Funcionario { Nome = "António ", CargoId = 2, Nascimento = DateTime.Today, NascimentoFilho = DateTime.Today, NIF = "235587975", Telefone = "918751032", Email = "toni@gmail.com", Notas = "" },
                     new Funcionario { Nome = "Bruna ", CargoId = 2, Nascimento = DateTime.Today, NascimentoFilho = DateTime.Today, NIF = "221362789", Telefone = "917854745", Email = "bruna@outlook.com", Notas = "" },
-                    new Funcionario { Nome = "Celso ", CargoId = 1, Nascimento = DateTime.Today, NascimentoFilho = DateTime.Today, NIF = "221362800", Telefone = "917854777", Email = "celso@gmail.com", Notas = "" }
+                    new Funcionario { Nome = "Celso ", CargoId = 1, Nascimento = DateTime.Today, NascimentoFilho = DateTime.Today, NIF = "221362800", Telefone = "917854777", Email = "celso@gmail.com", Notas = "" },
+                    new Funcionario { Nome = "André ", CargoId = 2, Nascimento = DateTime.Today, NascimentoFilho = DateTime.Today, NIF = "221362801", Telefone = "917854778", Email = "andre@gmail.com", Notas = "" },
+                    new Funcionario { Nome = "Tiago ", CargoId = 1, Nascimento = DateTime.Today, NascimentoFilho = DateTime.Today, NIF = "221362802", Telefone = "917854779", Email = "tiago@gmail.com", Notas = "" }
                     );
                 }
                 db.SaveChanges();
