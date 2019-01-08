@@ -152,7 +152,7 @@ namespace GestorHorarioG6.Migrations
                         column: x => x.EquipamentoId,
                         principalTable: "Equipamento",
                         principalColumn: "EquipamentoId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
