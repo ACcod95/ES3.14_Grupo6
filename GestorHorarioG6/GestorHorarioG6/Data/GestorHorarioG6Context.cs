@@ -34,5 +34,7 @@ namespace GestorHorarioG6.Models
 
         public DbSet<GestorHorarioG6.Models.Turno> Turno { get; set; }
 
+        public DbSet<GestorHorarioG6.Models.HorarioTecnicos> HorarioTecnicos { get; set; }
+
     }
 }
