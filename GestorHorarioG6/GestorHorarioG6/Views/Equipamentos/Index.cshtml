@@ -62,8 +62,9 @@
                 @Html.DisplayFor(modelItem => item.Bloco.Nome)
             </td>
             <td style="text-align:right">
-                <a asp-action="Edit" asp-route-id="@item.EquipamentoId">Editar</a> |
-                <a asp-action="Delete" asp-route-id="@item.EquipamentoId">Eliminar</a>
+                <a asp-action="Edit" class="btn btn-success" asp-route-id="@item.EquipamentoId">Editar</a> |
+                <a class="btn btn-warning">Descrição</a>|
+                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.EquipamentoId">Eliminar</a>
             </td>
         </tr>
 }

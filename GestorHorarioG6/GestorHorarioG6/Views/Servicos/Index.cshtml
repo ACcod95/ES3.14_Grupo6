@@ -26,12 +26,10 @@
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>
                 <td style="text-align:right">
-                    @if (item.Descrição != null && item.Descrição != string.Empty)
-                    {
-                        <a asp-action="Details" asp-route-id="@item.ServicoId">Descrição</a><p style="display: inline"> |</p>
-                    }
-                    <a asp-action="Edit" asp-route-id="@item.ServicoId">Editar</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ServicoId">Eliminar</a>
+
+                    <a asp-action="Edit" class="btn btn-success" asp-route-id="@item.ServicoId">Editar</a> |
+                    <a asp-action="Details" class="btn btn-warning" asp-route-id="@item.ServicoId">Descrição</a>|
+                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.ServicoId">Eliminar</a>
                 </td>
             </tr>
         }

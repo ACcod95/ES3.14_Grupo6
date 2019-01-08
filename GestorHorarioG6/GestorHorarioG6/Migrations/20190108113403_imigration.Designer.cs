@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestorHorarioG6.Migrations
 {
     [DbContext(typeof(GestorHorarioG6Context))]
-    [Migration("20181129180646_imigration")]
+    [Migration("20190108113403_imigration")]
     partial class imigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -73,7 +73,7 @@ namespace GestorHorarioG6.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasMaxLength(35);
+                        .HasMaxLength(50);
 
                     b.HasKey("EquipamentoId");
 
@@ -97,7 +97,7 @@ namespace GestorHorarioG6.Migrations
 
                     b.Property<DateTime>("Nascimento");
 
-                    b.Property<DateTime>("NascimentoFilho");
+                    b.Property<DateTime?>("NascimentoFilho");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -177,6 +177,27 @@ namespace GestorHorarioG6.Migrations
                     b.HasKey("ServicoId");
 
                     b.ToTable("Servico");
+                });
+
+            modelBuilder.Entity("GestorHorarioG6.Models.Turno", b =>
+                {
+                    b.Property<int>("TurnoId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("HoraFimManha");
+
+                    b.Property<int>("HoraFimTarde");
+
+                    b.Property<int>("HoraInicioManha");
+
+                    b.Property<int>("HoraInicioTarde");
+
+                    b.Property<string>("Nome");
+
+                    b.HasKey("TurnoId");
+
+                    b.ToTable("Turno");
                 });
 
             modelBuilder.Entity("GestorHorarioG6.Models.Equipamento", b =>
