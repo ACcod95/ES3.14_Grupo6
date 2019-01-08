@@ -107,7 +107,7 @@ namespace GestorHorarioG6.Migrations
                     Nome = table.Column<string>(maxLength: 60, nullable: false),
                     CargoId = table.Column<int>(nullable: false),
                     Nascimento = table.Column<DateTime>(nullable: false),
-                    NascimentoFilho = table.Column<DateTime>(nullable: false),
+                    NascimentoFilho = table.Column<DateTime>(nullable: true),
                     NIF = table.Column<string>(nullable: false),
                     Telefone = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: true),
@@ -121,7 +121,7 @@ namespace GestorHorarioG6.Migrations
                         column: x => x.CargoId,
                         principalTable: "Cargo",
                         principalColumn: "CargoId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(

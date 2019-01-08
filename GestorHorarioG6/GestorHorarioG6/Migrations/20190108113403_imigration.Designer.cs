@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestorHorarioG6.Migrations
 {
     [DbContext(typeof(GestorHorarioG6Context))]
-    [Migration("20181220174624_imigration")]
+    [Migration("20190108113403_imigration")]
     partial class imigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -97,7 +97,7 @@ namespace GestorHorarioG6.Migrations
 
                     b.Property<DateTime>("Nascimento");
 
-                    b.Property<DateTime>("NascimentoFilho");
+                    b.Property<DateTime?>("NascimentoFilho");
 
                     b.Property<string>("Nome")
                         .IsRequired()
