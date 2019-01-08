@@ -12,7 +12,6 @@ namespace GestorHorarioG6.Models
         [Key]
         public int RequisicaoEquipamentoId { get; set; }
 
-        [ForeignKey("On Delete No Action")]
         public Equipamento Equipamento { get; set; }
         public int EquipamentoId { get; set; }
 
