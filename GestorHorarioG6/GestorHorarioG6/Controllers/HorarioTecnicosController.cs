@@ -186,6 +186,24 @@ namespace GestorHorarioG6.Controllers
         /**Funções**/
         private void GerarHorarioTecnico(GestorHorarioG6Context db, int ano, int mes, int dia)
         {
+            int segunda = 2;
+            int sexta = 6;
+
+            int[] tecnicos = IdTecnicos();
+
+            //Lista de Tecnicos
+            List<int> listaTecnicos = new List<int>(tecnicos);
+
+            DateTime data;
+
+            Random random = new Random();
+
+            int numeroTecnicos = listaTecnicos.Count;
+
+            for(int i = 1; i <= numeroTecnicos; i++)
+            {
+                
+            }
 
         }
 
@@ -197,6 +215,15 @@ namespace GestorHorarioG6.Controllers
             int[] arrayIdTecnicos = tecnicos.ToArray();
 
             return arrayIdTecnicos;
+        }
+
+        private void InserirDadosNoHorarioTecnico(GestorHorarioG6Context db, DateTime datainiciomanha, DateTime datafimmanha, DateTime datainiciotarde, DateTime datafimtarde, Turno turnoId, Funcionario funcionarioId)
+        {
+            db.HorarioTecnicos.Add(
+                new HorarioTecnicos { DataInicioManha = datainiciomanha, DataFimManha = datafimmanha, DataInicioTarde = datainiciotarde, DataFimTarde = datafimtarde}
+            );
+
+            db.SaveChanges();
         }
     }
 }
