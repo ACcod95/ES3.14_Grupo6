@@ -179,11 +179,13 @@ namespace GestorHorarioG6.Migrations
 
                     b.Property<DateTime>("HoraDeInicio");
 
+                    b.Property<int>("On Delete No Action");
+
                     b.HasKey("RequisicaoEquipamentoId");
 
                     b.HasIndex("BlocoId");
 
-                    b.HasIndex("EquipamentoId");
+                    b.HasIndex("On Delete No Action");
 
                     b.ToTable("RequisicaoEquipamento");
                 });
@@ -211,7 +213,7 @@ namespace GestorHorarioG6.Migrations
                     b.HasOne("GestorHorarioG6.Models.Bloco", "Bloco")
                         .WithMany()
                         .HasForeignKey("BlocoId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("GestorHorarioG6.Models.Funcionario", b =>
@@ -219,7 +221,7 @@ namespace GestorHorarioG6.Migrations
                     b.HasOne("GestorHorarioG6.Models.Cargo", "Cargo")
                         .WithMany()
                         .HasForeignKey("CargoId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("GestorHorarioG6.Models.Requisicao", b =>
@@ -227,7 +229,7 @@ namespace GestorHorarioG6.Migrations
                     b.HasOne("GestorHorarioG6.Models.Departamento", "Departamento")
                         .WithMany()
                         .HasForeignKey("DepartamentoId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("GestorHorarioG6.Models.RequisicaoDetalhe", b =>
@@ -235,12 +237,12 @@ namespace GestorHorarioG6.Migrations
                     b.HasOne("GestorHorarioG6.Models.Requisicao", "Requisicao")
                         .WithMany("Detalhes")
                         .HasForeignKey("RequisicaoId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("GestorHorarioG6.Models.Servico", "Servico")
                         .WithMany()
                         .HasForeignKey("ServicoId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("GestorHorarioG6.Models.RequisicaoEquipamento", b =>
@@ -248,12 +250,12 @@ namespace GestorHorarioG6.Migrations
                     b.HasOne("GestorHorarioG6.Models.Bloco", "Bloco")
                         .WithMany()
                         .HasForeignKey("BlocoId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("GestorHorarioG6.Models.Equipamento", "Equipamento")
                         .WithMany()
-                        .HasForeignKey("EquipamentoId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("On Delete No Action")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

@@ -78,7 +78,7 @@ namespace GestorHorarioG6.Migrations
                         column: x => x.BlocoId,
                         principalTable: "Bloco",
                         principalColumn: "BlocoId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -104,7 +104,7 @@ namespace GestorHorarioG6.Migrations
                         column: x => x.CargoId,
                         principalTable: "Cargo",
                         principalColumn: "CargoId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -124,7 +124,7 @@ namespace GestorHorarioG6.Migrations
                         column: x => x.DepartamentoId,
                         principalTable: "Departamento",
                         principalColumn: "DepartamentoId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -133,6 +133,7 @@ namespace GestorHorarioG6.Migrations
                 {
                     RequisicaoEquipamentoId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    OnDeleteNoAction = table.Column<int>(name: "On Delete No Action", nullable: false),
                     EquipamentoId = table.Column<int>(nullable: false),
                     HoraDeInicio = table.Column<DateTime>(nullable: false),
                     HoraDeFim = table.Column<DateTime>(nullable: false),
@@ -146,13 +147,13 @@ namespace GestorHorarioG6.Migrations
                         column: x => x.BlocoId,
                         principalTable: "Bloco",
                         principalColumn: "BlocoId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_RequisicaoEquipamento_Equipamento_EquipamentoId",
-                        column: x => x.EquipamentoId,
+                        name: "FK_RequisicaoEquipamento_Equipamento_On Delete No Action",
+                        column: x => x.OnDeleteNoAction,
                         principalTable: "Equipamento",
                         principalColumn: "EquipamentoId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -180,13 +181,13 @@ namespace GestorHorarioG6.Migrations
                         column: x => x.RequisicaoId,
                         principalTable: "Requisicao",
                         principalColumn: "RequisicaoId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_RequisicaoDetalhe_Servico_ServicoId",
                         column: x => x.ServicoId,
                         principalTable: "Servico",
                         principalColumn: "ServicoId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -220,9 +221,9 @@ namespace GestorHorarioG6.Migrations
                 column: "BlocoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RequisicaoEquipamento_EquipamentoId",
+                name: "IX_RequisicaoEquipamento_On Delete No Action",
                 table: "RequisicaoEquipamento",
-                column: "EquipamentoId");
+                column: "On Delete No Action");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
