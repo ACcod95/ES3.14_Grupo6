@@ -173,10 +173,30 @@ namespace GestorHorarioG6.Controllers
         {
             if (ModelState.IsValid)
             {
+                DateTime dataIn = gerarHorarioTecnicos.DataInicioSemana;
 
+                int ano = dataIn.Year;
+                int mes = dataIn.Month;
+                int dia = dataIn.Day;
 
             }
             return RedirectToAction(nameof(Index));
+        }
+
+        /**Funções**/
+        private void GerarHorarioTecnico(GestorHorarioG6Context db, int ano, int mes, int dia)
+        {
+
+        }
+
+        private int[] IdTecnicos()
+        {
+            var tecnicos = from t in _context.Funcionario
+                           select t.FuncionarioId;
+
+            int[] arrayIdTecnicos = tecnicos.ToArray();
+
+            return arrayIdTecnicos;
         }
     }
 }
