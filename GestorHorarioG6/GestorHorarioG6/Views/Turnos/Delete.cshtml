@@ -42,8 +42,8 @@
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="TurnoId" />
-        <input type="submit" value="Apagar" class="btn btn-default" /> |
-        <a asp-action="Index">Voltar a lista de turnos</a>
+        <input type="hidden" class="btn btn-danger" asp-for="TurnoId" />
+        <input type="submit" value="Apagar" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-default">Voltar a lista de turnos</a>
     </form>
 </div>

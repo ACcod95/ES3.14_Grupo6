@@ -25,13 +25,14 @@
         <dt><br /></dt>
         <dd><br /></dd>
         <dt>
-            <a asp-action="Index"><input type="button" value="Voltar" class="btn btn-default" /></a>
-        </dt>
-        <dd>
             <form asp-action="Delete">
                 <input type="hidden" asp-for="ServicoId" />
                 <input type="submit" value="Eliminar" class="btn btn-danger" />
             </form>
+        </dt>
+        <dd>
+            <a asp-action="Index"><input type="button" value="Voltar" class="btn btn-default" /></a>
         </dd>
+
     </dl>
 </div>

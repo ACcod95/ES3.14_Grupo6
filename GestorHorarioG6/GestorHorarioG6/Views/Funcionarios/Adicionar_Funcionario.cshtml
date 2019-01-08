@@ -17,7 +17,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Cargo" class="control-label"></label>
-                <select asp-for="Cargo" class="form-control" asp-items="ViewBag.Cargo"></select>
+                <select asp-for="CargoId" class="form-control" asp-items="ViewBag.Cargo"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Nascimento" class="control-label">Data de Nascimento</label>
@@ -50,8 +50,9 @@
                 <span asp-validation-for="Notas" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <a asp-action="Funcionario" class="btn btn-default">Voltar</a>
                 <input type="submit" value="Adicionar" class="btn btn-primary" />
+                <a asp-action="Funcionario" class="btn btn-default">Voltar</a>
+
 
             </div>
           

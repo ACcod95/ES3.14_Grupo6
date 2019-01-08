@@ -26,7 +26,7 @@ namespace GestorHorarioG6.Models
         public DateTime Nascimento { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime NascimentoFilho { get; set; }
+        public DateTime? NascimentoFilho { get; set; }
 
         [Required(ErrorMessage = "Por favor insira um NIF válido")]
         [RegularExpression(@"[0-9]{9}")]

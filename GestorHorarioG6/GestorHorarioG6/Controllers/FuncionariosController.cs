@@ -98,7 +98,8 @@ namespace GestorHorarioG6.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Adicionar_Funcionario([Bind("FuncionarioId,Nome,CargoId,Nascimento,NascimentoFilho,NIF,Telefone,Email,Notas")] Funcionario funcionario)
         {
-            if (funcionario.NascimentoFilho  > DateTime.Now)
+            System.Diagnostics.Debug.WriteLine(funcionario.CargoId);
+            if (!funcionario.NascimentoFilho.Equals(DateTime.MinValue) && funcionario.NascimentoFilho > DateTime.Now)
             {
                 ModelState.AddModelError("NascimentoFilho", "A data de nascimento não pode de ser posterior á atual.");
 
@@ -108,7 +109,12 @@ namespace GestorHorarioG6.Controllers
                 ModelState.AddModelError("Nascimento", "A data de nascimento não pode ser posterior á atual.");
 
             }
+         
+            if (funcionario.Nascimento > DateTime.Now.AddYears(-18))
+            {
+                ModelState.AddModelError("Nascimento", "Funcionário com menos de 18 anos.");
 
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(funcionario);
@@ -155,6 +161,11 @@ namespace GestorHorarioG6.Controllers
             if (funcionario.Nascimento > DateTime.Now)
             {
                 ModelState.AddModelError("Nascimento", "A data de nascimento não pode ser posterior á atual.");
+
+            }
+            if (funcionario.Nascimento > DateTime.Now.AddYears(-18))
+            {
+                ModelState.AddModelError("Nascimento", "Funcionário com menos de 18 anos.");
 
             }
             if (ModelState.IsValid)

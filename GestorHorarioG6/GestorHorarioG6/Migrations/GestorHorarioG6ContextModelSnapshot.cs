@@ -95,7 +95,7 @@ namespace GestorHorarioG6.Migrations
 
                     b.Property<DateTime>("Nascimento");
 
-                    b.Property<DateTime>("NascimentoFilho");
+                    b.Property<DateTime?>("NascimentoFilho");
 
                     b.Property<string>("Nome")
                         .IsRequired()
