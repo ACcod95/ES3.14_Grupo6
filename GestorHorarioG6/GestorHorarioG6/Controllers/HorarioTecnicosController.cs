@@ -161,5 +161,22 @@ namespace GestorHorarioG6.Controllers
         {
             return _context.HorarioTecnicos.Any(e => e.HorarioTecnicoId == id);
         }
+
+        // GET: HorarioTecnicos/GerarHorarioTecnicos
+        public IActionResult GerarHorarioTecnicos()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult GerarHorarioEnfermeiro(GerarHorarioTecnicos gerarHorarioTecnicos)
+        {
+            if (ModelState.IsValid)
+            {
+
+
+            }
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
