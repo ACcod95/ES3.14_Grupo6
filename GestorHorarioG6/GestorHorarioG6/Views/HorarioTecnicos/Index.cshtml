@@ -10,54 +10,81 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DataInicioManha)
+                Técnico
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataFimManha)
+                Turno
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataInicioTarde)
+                Segunda
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataFimTarde)
+                Terça
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Turno)
+                Quarta
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Funcionario)
+                Quinta
             </th>
-            <th></th>
+            <th>
+               Sexta
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataInicioManha)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataFimManha)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataInicioTarde)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataFimTarde)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Turno.TurnoId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Funcionario.Nome)
-            </td>
-            
-        </tr>
-        <tr>
-            <a asp-action="Edit" asp-route-id="@item.HorarioTecnicoId">Edit</a> |
-            <a asp-action="Details" asp-route-id="@item.HorarioTecnicoId">Details</a> |
-            <a asp-action="Delete" asp-route-id="@item.HorarioTecnicoId">Delete</a>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            @if (item.DataInicioManha.DayOfWeek == DayOfWeek.Monday)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Funcionario.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Turno.TurnoId)
+                    </td>
+
+                    @foreach (var item1 in Model.Where(p => p.FuncionarioId == item.FuncionarioId))
+                    {
+                        @if (item1.DataInicioManha.DayOfWeek == DayOfWeek.Monday)
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item1.DataInicioManha)-@Html.DisplayFor(modelItem => item1.DataFimManha)
+                                @Html.DisplayFor(modelItem => item1.DataInicioTarde)-@Html.DisplayFor(modelItem => item1.DataFimTarde)
+                            </td>
+                        }
+                        else if (item1.DataInicioManha.DayOfWeek == DayOfWeek.Tuesday)
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item1.DataInicioManha)-@Html.DisplayFor(modelItem => item1.DataFimManha)
+                                @Html.DisplayFor(modelItem => item1.DataInicioTarde)-@Html.DisplayFor(modelItem => item1.DataFimTarde)
+                            </td>
+                        }
+                        else if (item1.DataInicioManha.DayOfWeek == DayOfWeek.Wednesday)
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item1.DataInicioManha)-@Html.DisplayFor(modelItem => item1.DataFimManha)
+                                @Html.DisplayFor(modelItem => item1.DataInicioTarde)-@Html.DisplayFor(modelItem => item1.DataFimTarde)
+                            </td>
+                        }
+                        else if (item1.DataInicioManha.DayOfWeek == DayOfWeek.Thursday)
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item1.DataInicioManha)-@Html.DisplayFor(modelItem => item1.DataFimManha)
+                                @Html.DisplayFor(modelItem => item1.DataInicioTarde)-@Html.DisplayFor(modelItem => item1.DataFimTarde)
+                            </td>
+                        }
+                        else if (item1.DataInicioManha.DayOfWeek == DayOfWeek.Friday)
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item1.DataInicioManha)-@Html.DisplayFor(modelItem => item1.DataFimManha)
+                                @Html.DisplayFor(modelItem => item1.DataInicioTarde)-@Html.DisplayFor(modelItem => item1.DataFimTarde)
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        }
     </tbody>
-</table>
+    </table>

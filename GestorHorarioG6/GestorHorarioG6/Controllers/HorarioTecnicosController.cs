@@ -174,24 +174,26 @@ namespace GestorHorarioG6.Controllers
             if (ModelState.IsValid)
             {
                 DateTime dataIn = gerarHorarioTecnicos.DataInicioSemana;
-
-                int ano = dataIn.Year;
-                int mes = dataIn.Month;
-                int dia = dataIn.Day;
-
-                GerarHorarioTecnico(_context, ano, mes, dia);
+                GerarHorarioTecnico(_context, dataIn);
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(gerarHorarioTecnicos);
+            return View(nameof(Index));
         }
 
        
         /**Funções**/
-        private void GerarHorarioTecnico(GestorHorarioG6Context db, int ano, int mes, int dia)
+        private void GerarHorarioTecnico(GestorHorarioG6Context db, DateTime dia)
         {
-            int segunda = 2;
-            int sexta = 6;
+            DateTime segunda;
+            DateTime sexta;
+
+            if (dia.DayOfWeek == DayOfWeek.Monday)
+            {
+                segunda = dia.Date;
+                sexta = dia.Date.AddDays(5);
+            } else
+                return;
 
             int[] tecnicos = IdTecnicos();
 
@@ -200,64 +202,49 @@ namespace GestorHorarioG6.Controllers
             //Lista de Tecnicos
             List<int> listaTecnicos = new List<int>(tecnicos);
 
-            DateTime data;
-
             int numeroTecnicos = listaTecnicos.Count();
             int controlo = 1;
             string turno;
 
             for (int i = 0; i <= numeroTecnicos-1; i++)
             {
-               for(int j = segunda; j <= sexta; j++)
-                {
+                DateTime j = segunda;
+                while (!j.Equals(sexta)) {
                     if (controlo == 1)
                     {
                         turno = "Primeiro";
-
                         tec = listaTecnicos[i];
-                        data = new DateTime(ano, mes, dia-2+j, 0, 0, 0);
-
                         Turno IdTurno = _context.Turno.SingleOrDefault(t => t.Nome.Equals(turno));
                         Funcionario IdTecnico = _context.Funcionario.SingleOrDefault(f => f.FuncionarioId == tec);
 
-                        InserirDadosNoHorarioTecnico(db, data.AddHours(8), data.AddHours(12), data.AddHours(13), data.AddHours(15), IdTurno, IdTecnico);
-
-                    } else if (controlo == 2)
+                        InserirDadosNoHorarioTecnico(db, j.AddHours(8), j.AddHours(12), j.AddHours(13), j.AddHours(15), IdTurno, IdTecnico);
+                    }
+                    else if (controlo == 2)
                     {
                         turno = "Segundo";
-
                         tec = listaTecnicos[i];
-                        data = new DateTime(ano, mes, dia-2+j, 0, 0, 0);
-
                         Turno IdTurno = _context.Turno.SingleOrDefault(t => t.Nome.Equals(turno));
                         Funcionario IdTecnico = _context.Funcionario.SingleOrDefault(f => f.FuncionarioId == tec);
 
-                        InserirDadosNoHorarioTecnico(db, data.AddHours(11), data.AddHours(14), data.AddHours(15), data.AddHours(19), IdTurno, IdTecnico);
-                    } else if (controlo == 3)
+                        InserirDadosNoHorarioTecnico(db, j.AddHours(11), j.AddHours(14), j.AddHours(15), j.AddHours(19), IdTurno, IdTecnico);
+                    }
+                    else if (controlo == 3)
                     {
                         turno = "Terceiro";
-
                         tec = listaTecnicos[i];
-                        data = new DateTime(ano, mes, dia-2+j, 0, 0, 0);
-
                         Turno IdTurno = _context.Turno.SingleOrDefault(t => t.Nome.Equals(turno));
                         Funcionario IdTecnico = _context.Funcionario.SingleOrDefault(f => f.FuncionarioId == tec);
 
-                        InserirDadosNoHorarioTecnico(db, data.AddHours(14), data.AddHours(19), data.AddHours(20), data.AddHours(22), IdTurno, IdTecnico);
+                        InserirDadosNoHorarioTecnico(db, j.AddHours(14), j.AddHours(19), j.AddHours(20), j.AddHours(22), IdTurno, IdTecnico);
                     }
-
+                    j = j.AddDays(1);
                 }
-
-               if(controlo < 3)
-                {
-                    controlo++;
-                }
-                else
+                controlo++;
+                if (controlo > 3)
                 {
                     controlo = 1;
                 }
             }
-
         }
 
         private int[] IdTecnicos()
