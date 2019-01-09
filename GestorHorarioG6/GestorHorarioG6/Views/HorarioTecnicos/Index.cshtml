@@ -49,38 +49,38 @@
                     {
                         @if (item1.DataInicioManha.DayOfWeek == DayOfWeek.Monday)
                         {
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.DataInicioManha)-@Html.DisplayFor(modelItem => item1.DataFimManha)
-                                @Html.DisplayFor(modelItem => item1.DataInicioTarde)-@Html.DisplayFor(modelItem => item1.DataFimTarde)
-                            </td>
+                    <td>                       
+                        @Html.DisplayFor(modelItem => item1.DataInicioManha.Hour)h-@Html.DisplayFor(modelItem => item1.DataFimManha.Hour)h |
+                        @Html.DisplayFor(modelItem => item1.DataInicioTarde.Hour)h-@Html.DisplayFor(modelItem => item1.DataFimTarde.Hour)h
+                    </td>
                         }
                         else if (item1.DataInicioManha.DayOfWeek == DayOfWeek.Tuesday)
                         {
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.DataInicioManha)-@Html.DisplayFor(modelItem => item1.DataFimManha)
-                                @Html.DisplayFor(modelItem => item1.DataInicioTarde)-@Html.DisplayFor(modelItem => item1.DataFimTarde)
-                            </td>
+                    <td>                       
+                        @Html.DisplayFor(modelItem => item1.DataInicioManha.Hour)h-@Html.DisplayFor(modelItem => item1.DataFimManha.Hour)h |
+                        @Html.DisplayFor(modelItem => item1.DataInicioTarde.Hour)h-@Html.DisplayFor(modelItem => item1.DataFimTarde.Hour)h
+                    </td>
                         }
                         else if (item1.DataInicioManha.DayOfWeek == DayOfWeek.Wednesday)
                         {
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.DataInicioManha)-@Html.DisplayFor(modelItem => item1.DataFimManha)
-                                @Html.DisplayFor(modelItem => item1.DataInicioTarde)-@Html.DisplayFor(modelItem => item1.DataFimTarde)
-                            </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item1.DataInicioManha.Hour)h-@Html.DisplayFor(modelItem => item1.DataFimManha.Hour)h |
+                        @Html.DisplayFor(modelItem => item1.DataInicioTarde.Hour)h-@Html.DisplayFor(modelItem => item1.DataFimTarde.Hour)h
+                    </td>
                         }
                         else if (item1.DataInicioManha.DayOfWeek == DayOfWeek.Thursday)
                         {
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.DataInicioManha)-@Html.DisplayFor(modelItem => item1.DataFimManha)
-                                @Html.DisplayFor(modelItem => item1.DataInicioTarde)-@Html.DisplayFor(modelItem => item1.DataFimTarde)
-                            </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item1.DataInicioManha.Hour)h-@Html.DisplayFor(modelItem => item1.DataFimManha.Hour)h |
+                        @Html.DisplayFor(modelItem => item1.DataInicioTarde.Hour)h-@Html.DisplayFor(modelItem => item1.DataFimTarde.Hour)h
+                    </td>
                         }
                         else if (item1.DataInicioManha.DayOfWeek == DayOfWeek.Friday)
                         {
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.DataInicioManha)-@Html.DisplayFor(modelItem => item1.DataFimManha)
-                                @Html.DisplayFor(modelItem => item1.DataInicioTarde)-@Html.DisplayFor(modelItem => item1.DataFimTarde)
-                            </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item1.DataInicioManha.Hour)h-@Html.DisplayFor(modelItem => item1.DataFimManha.Hour)h |
+                        @Html.DisplayFor(modelItem => item1.DataInicioTarde.Hour)h-@Html.DisplayFor(modelItem => item1.DataFimTarde.Hour)h
+                    </td>
                         }
                     }
                 </tr>
