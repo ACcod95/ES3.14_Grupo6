@@ -181,9 +181,8 @@ namespace GestorHorarioG6.Controllers
             return View(nameof(Index));
         }
 
-       
         /**Funções**/
-        private void GerarHorarioTecnico(GestorHorarioG6Context db, DateTime dia)
+        private void GerarHorarioTecnicoTest(GestorHorarioG6Context db, DateTime dia)
         {
             DateTime segunda;
             DateTime sexta;
@@ -246,6 +245,70 @@ namespace GestorHorarioG6.Controllers
                 }
             }
         }
+
+        private void GerarHorarioTecnico(GestorHorarioG6Context db, DateTime dia)
+        {
+            DateTime segunda;
+            DateTime sexta;
+            string turno;
+
+            if (dia.DayOfWeek == DayOfWeek.Monday)
+            {
+                segunda = dia.Date;
+                sexta = dia.Date.AddDays(5);
+            }
+            else
+                return;
+
+            int[] tecnicos = IdTecnicos();
+            int controlo = 1;
+            int tec = 0;
+
+            //Lista de Tecnicos
+            List<int> listaTecnicos = new List<int>(tecnicos);
+
+            int numeroTecnicos = listaTecnicos.Count();
+
+            for (DateTime i = segunda; i <= sexta; i = i.AddDays(1))
+            {
+                for(int j = 0; j <= numeroTecnicos - 1; j++)
+                {
+                    if (controlo == 1)
+                    {
+                        turno = "Primeiro";
+                        tec = listaTecnicos[j];
+                        Turno IdTurno = _context.Turno.SingleOrDefault(t => t.Nome.Equals(turno));
+                        Funcionario IdTecnico = _context.Funcionario.SingleOrDefault(f => f.FuncionarioId == tec);
+
+                        InserirDadosNoHorarioTecnico(db, i.AddHours(8), i.AddHours(12), i.AddHours(13), i.AddHours(15), IdTurno, IdTecnico);
+                    }
+                    else if (controlo == 2)
+                    {
+                        turno = "Segundo";
+                        tec = listaTecnicos[j];
+                        Turno IdTurno = _context.Turno.SingleOrDefault(t => t.Nome.Equals(turno));
+                        Funcionario IdTecnico = _context.Funcionario.SingleOrDefault(f => f.FuncionarioId == tec);
+
+                        InserirDadosNoHorarioTecnico(db, i.AddHours(11), i.AddHours(14), i.AddHours(15), i.AddHours(19), IdTurno, IdTecnico);
+                    }
+                    else if (controlo == 3)
+                    {
+                        turno = "Terceiro";
+                        tec = listaTecnicos[j];
+                        Turno IdTurno = _context.Turno.SingleOrDefault(t => t.Nome.Equals(turno));
+                        Funcionario IdTecnico = _context.Funcionario.SingleOrDefault(f => f.FuncionarioId == tec);
+
+                        InserirDadosNoHorarioTecnico(db, i.AddHours(14), i.AddHours(19), i.AddHours(20), i.AddHours(22), IdTurno, IdTecnico);
+                    }
+                    controlo++;
+                    if (controlo > 3)
+                    {
+                        controlo = 1;
+                    }
+                }
+            }
+        }
+
 
         private int[] IdTecnicos()
         {

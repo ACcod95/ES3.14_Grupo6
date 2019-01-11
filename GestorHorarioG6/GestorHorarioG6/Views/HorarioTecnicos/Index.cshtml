@@ -16,75 +16,42 @@
                 Turno
             </th>
             <th>
-                Segunda
+                Data1
             </th>
             <th>
-                Terça
+                Data1fim
             </th>
             <th>
-                Quarta
+                Data2
             </th>
             <th>
-                Quinta
-            </th>
-            <th>
-               Sexta
+                Data2fim
             </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            @if (item.DataInicioManha.DayOfWeek == DayOfWeek.Monday)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Funcionario.Nome)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Turno.TurnoId)
-                    </td>
-
-                    @foreach (var item1 in Model.Where(p => p.FuncionarioId == item.FuncionarioId))
-                    {
-                        @if (item1.DataInicioManha.DayOfWeek == DayOfWeek.Monday)
-                        {
-                    <td>                       
-                        @Html.DisplayFor(modelItem => item1.DataInicioManha.Hour)h-@Html.DisplayFor(modelItem => item1.DataFimManha.Hour)h |
-                        @Html.DisplayFor(modelItem => item1.DataInicioTarde.Hour)h-@Html.DisplayFor(modelItem => item1.DataFimTarde.Hour)h
-                    </td>
-                        }
-                        else if (item1.DataInicioManha.DayOfWeek == DayOfWeek.Tuesday)
-                        {
-                    <td>                       
-                        @Html.DisplayFor(modelItem => item1.DataInicioManha.Hour)h-@Html.DisplayFor(modelItem => item1.DataFimManha.Hour)h |
-                        @Html.DisplayFor(modelItem => item1.DataInicioTarde.Hour)h-@Html.DisplayFor(modelItem => item1.DataFimTarde.Hour)h
-                    </td>
-                        }
-                        else if (item1.DataInicioManha.DayOfWeek == DayOfWeek.Wednesday)
-                        {
-                    <td>
-                        @Html.DisplayFor(modelItem => item1.DataInicioManha.Hour)h-@Html.DisplayFor(modelItem => item1.DataFimManha.Hour)h |
-                        @Html.DisplayFor(modelItem => item1.DataInicioTarde.Hour)h-@Html.DisplayFor(modelItem => item1.DataFimTarde.Hour)h
-                    </td>
-                        }
-                        else if (item1.DataInicioManha.DayOfWeek == DayOfWeek.Thursday)
-                        {
-                    <td>
-                        @Html.DisplayFor(modelItem => item1.DataInicioManha.Hour)h-@Html.DisplayFor(modelItem => item1.DataFimManha.Hour)h |
-                        @Html.DisplayFor(modelItem => item1.DataInicioTarde.Hour)h-@Html.DisplayFor(modelItem => item1.DataFimTarde.Hour)h
-                    </td>
-                        }
-                        else if (item1.DataInicioManha.DayOfWeek == DayOfWeek.Friday)
-                        {
-                    <td>
-                        @Html.DisplayFor(modelItem => item1.DataInicioManha.Hour)h-@Html.DisplayFor(modelItem => item1.DataFimManha.Hour)h |
-                        @Html.DisplayFor(modelItem => item1.DataInicioTarde.Hour)h-@Html.DisplayFor(modelItem => item1.DataFimTarde.Hour)h
-                    </td>
-                        }
-                    }
-                </tr>
-            }
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Funcionario.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Turno.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataInicioManha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataFimManha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataInicioTarde)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataFimTarde)
+            </td>
+        </tr>
         }
     </tbody>
     </table>
