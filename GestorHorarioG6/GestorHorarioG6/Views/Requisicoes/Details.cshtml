@@ -44,10 +44,10 @@
                     @Html.DisplayFor(modelItem => item.DuraçãoEstimada)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Notas, new { @onclick = "Notas(" + item.RequisicaoDetalheId + ")" })
+                    @Html.DisplayFor(modelItem => item.Notas)
                 </td>
                 <td>
-                    @Html.CheckBoxFor(modelItem => item.Aprovado, new { @onclick = "Aprovar(" + item.RequisicaoDetalheId + ")" })
+                    @Html.CheckBoxFor(modelItem => item.Aprovado)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.RequisicaoDetalheId">Editar</a> |
@@ -57,13 +57,4 @@
         }
     </tbody>
 </table>
-
-<script>
-    function Aprovar(id) {
-        $.post("/Requisicoes/Aprovar/" + id);
-    }
-    function Notas(id) {
-        alert(""+ id);
-    } 
-</script>
 

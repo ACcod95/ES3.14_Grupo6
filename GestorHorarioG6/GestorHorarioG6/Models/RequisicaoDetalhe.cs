@@ -33,6 +33,6 @@ namespace GestorHorarioG6.Models
         public DateTime HoraDeFim { get; set; }
 
         [DataType(DataType.DateTime)]
-        public DateTime HoraConcluido { get; set; }
+        public DateTime? HoraConcluido { get; set; }
     }
 }
