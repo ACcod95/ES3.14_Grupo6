@@ -59,7 +59,7 @@ namespace GestorHorarioG6
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Shared/Error");
                 app.UseHsts();
             }
 
@@ -73,7 +73,7 @@ namespace GestorHorarioG6
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Funcionarios}/{action=Index}/{id?}");
             });
         }
     }

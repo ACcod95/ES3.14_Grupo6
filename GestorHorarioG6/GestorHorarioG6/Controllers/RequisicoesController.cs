@@ -40,7 +40,7 @@ namespace GestorHorarioG6.Controllers
             }
 
             var requisicoes = await databaseContext
-                .OrderBy(p => p.RequisicaoId)
+                .OrderBy(r => r.HoraDeInicio)
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize)
                 .ToListAsync();
@@ -93,6 +93,11 @@ namespace GestorHorarioG6.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RequisicaoId,DepartamentoId,HoraDeInicio,HoraDeFim,RequisicoesAdicionais")] Requisicao requisicao)
         {
+            if (requisicao.HoraDeInicio.CompareTo(DateTime.Now) < 1)
+                ModelState.AddModelError("HoraDeInicio", "A hora de início não pode ser anterior ou igual à actual.");
+            if (requisicao.HoraDeFim.CompareTo(requisicao.HoraDeInicio) < 1)
+                ModelState.AddModelError("HoraDeFim", "A hora de fim não pode ser anterior ou igual à hora de início.");
+
             if (ModelState.IsValid)
             {
                 _context.Add(requisicao);
@@ -182,6 +187,11 @@ namespace GestorHorarioG6.Controllers
             {
                 return NotFound();
             }
+            
+            if (requisicao.HoraDeInicio.CompareTo(DateTime.Now) < 1)
+                ModelState.AddModelError("HoraDeInicio", "A hora de início não pode ser anterior ou igual à actual.");
+            if (requisicao.HoraDeFim.CompareTo(requisicao.HoraDeInicio) < 1)
+                ModelState.AddModelError("HoraDeFim", "A hora de fim não pode ser anterior ou igual à hora de início.");
 
             if (ModelState.IsValid)
             {

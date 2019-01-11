@@ -1,0 +1,66 @@
+﻿@model FuncionarioViewModel
+
+@{
+    ViewData["Title"] = "Funcionários";
+}
+
+<div class="container">
+    <div class="row">
+        <div class='col-sm-6'>
+            <h2>@ViewData["Title"]</h2>
+            <p><a asp-action="Adicionar_Funcionario" class="btn btn-primary">Novo</a></p>
+        </div>
+        <div class='col-sm-offset-2 col-sm-3'>
+            <form asp-action="Funcionario">
+                <div class="form-group">
+                    <br />
+                    <div class='input-group'>                        
+                            <input asp-for="CurrentNome" class="form-control" />
+                            <span class="input-group-addon">
+                                <button type="submit" style="border:0; background:transparent">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                    </div>      
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Nome
+                        </th>
+                        <th>
+                            Cargo
+                        </th>
+                       
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Funcionario)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cargo.Nome)
+                            </td>
+                            
+                            <td>
+                                <a asp-action="Edit" class="btn btn-success" asp-route-id="@item.FuncionarioId">Editar</a> |
+                                <a asp-action="Details" class="btn btn-warning" asp-route-id="@item.FuncionarioId">Detalhes</a> |
+                                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.FuncionarioId">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div pagination-model="Model.PageInfo"></div>
+
+           

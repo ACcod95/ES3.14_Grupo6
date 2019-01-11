@@ -1,0 +1,72 @@
+﻿@model RequisicoesEquipamentosListViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Requisições de Equipamentos</h2>
+<table class="table">
+    <tr>
+        <td>
+            <br />
+            <p>
+                <a asp-action="Create" class="btn btn-primary">Criar Nova Requisição</a>
+            </p>
+        </td>
+        <td>
+        <td class="col-sm-3" style="text-align:right ">
+            <form asp-controller="RequisicaoEquipamentos" asp-action="Index">
+               <br />
+               <p>
+                   Data: <input asp-for="CurrentDay"/>
+                   <button type="submit" style="border:0; background:transparent">
+                       <span class="glyphicon glyphicon-search"></span>
+                   </button>
+               </p>
+            </form> 
+        </td>
+    </tr>
+</table>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Equipamento
+            </th>
+            <th>
+                Hora de Início
+            </th>
+            <th>
+                Hora de Fim
+            </th>
+            <th>
+                Bloco
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.RequisicaoEquipamento) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipamento.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraDeInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraDeFim)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bloco.Nome)
+            </td>
+            <td>
+                <a asp-action="Edit" class="btn btn-success" asp-route-id="@item.RequisicaoEquipamentoId">Editar</a> |
+                <a class="btn btn-warning" >Descrição</a>|
+                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.RequisicaoEquipamentoId">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div pagination-model="Model.PagingInfo"></div>

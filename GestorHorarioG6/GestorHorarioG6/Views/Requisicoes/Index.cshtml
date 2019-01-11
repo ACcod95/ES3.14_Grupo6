@@ -1,14 +1,14 @@
 ﻿@model RequisicoesListViewModel
 
 @{
-    ViewData["Title"] = "Requisições";
+    ViewData["Title"] = "Requisições de Técnicos";
 }
 
 <div class="container">
     <div class="row">
         <div class='col-sm-6'>
-            <h2>Requisições</h2>
-            <p><a asp-action="Create"><input type="submit" value="Criar Requisição" class="btn btn-primary" /></a></p>
+            <h2>Requisições de Técnicos</h2>
+            <p><a asp-action="Create"><input type="button" value="Criar Requisição" class="btn btn-primary" /></a><a asp-action="Aprovadas">  <input type="button" value="Requisições Aprovadas" class="btn btn-default" /></a></p>
         </div>
         <div class='col-sm-offset-2 col-sm-3'>
             <form asp-action="Index">
@@ -42,8 +42,12 @@
                 <p>Hora de Fim</p>
             </th>
             <th>
-                <p>Requisições Adicionais</p>
+                <p>Notas Adicionais</p>
             </th>
+            <th>
+                <p>Aprovar</p>
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -67,8 +71,9 @@
                     @Html.CheckBoxFor(modelItem => item.Aprovado, new { @onclick = "Clicked(" + item.RequisicaoId + ")" })
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.RequisicaoId">Editar</a> |
-                    <a asp-action="Delete" asp-route-id="@item.RequisicaoId">Eliminar</a>
+                    <a asp-action="Edit" class="btn btn-success" asp-route-id="@item.RequisicaoId">Editar</a> |
+                    <a class="btn btn-warning">Descrição</a>|
+                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.RequisicaoId">Eliminar</a>
                 </td>
             </tr>
         }

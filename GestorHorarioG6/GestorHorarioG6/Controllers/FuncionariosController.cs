@@ -10,12 +10,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GestorHorarioG6.Controllers
 {
-    public class HomeController : Controller
+    public class FuncionariosController : Controller
     {
         private const int PAGE_SIZE = 5;
         private readonly GestorHorarioG6Context _context;
 
-        public HomeController(GestorHorarioG6Context context)
+        public FuncionariosController(GestorHorarioG6Context context)
         {
             _context = context;
         }
@@ -28,7 +28,7 @@ namespace GestorHorarioG6.Controllers
 
 
         // GET: Funcionarios
-        public async Task<IActionResult> Escalas(FuncionarioViewModel  model = null, int page = 1)
+        public async Task<IActionResult> Funcionario(FuncionarioViewModel  model = null, int page = 1)
         {
             string nome = null;
 
@@ -71,7 +71,7 @@ namespace GestorHorarioG6.Controllers
             if (id == null)
             {
                 //return NotFound();
-                return RedirectToAction(nameof(Escalas));
+                return RedirectToAction(nameof(Funcionario));
             }
 
             var funcionario = await _context.Funcionario
@@ -98,11 +98,28 @@ namespace GestorHorarioG6.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Adicionar_Funcionario([Bind("FuncionarioId,Nome,CargoId,Nascimento,NascimentoFilho,NIF,Telefone,Email,Notas")] Funcionario funcionario)
         {
+            System.Diagnostics.Debug.WriteLine(funcionario.CargoId);
+            if (!funcionario.NascimentoFilho.Equals(DateTime.MinValue) && funcionario.NascimentoFilho > DateTime.Now)
+            {
+                ModelState.AddModelError("NascimentoFilho", "A data de nascimento não pode de ser posterior á atual.");
+
+            }
+            if (funcionario.Nascimento > DateTime.Now)
+            {
+                ModelState.AddModelError("Nascimento", "A data de nascimento não pode ser posterior á atual.");
+
+            }
+         
+            if (funcionario.Nascimento > DateTime.Now.AddYears(-18))
+            {
+                ModelState.AddModelError("Nascimento", "Funcionário com menos de 18 anos.");
+
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(funcionario);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Escalas));
+                return RedirectToAction(nameof(Funcionario));
             }
             ViewData["Cargo"] = new SelectList(_context.Cargo, "CargoId", "Nome", funcionario.CargoId);
             return View(funcionario);
@@ -136,7 +153,21 @@ namespace GestorHorarioG6.Controllers
             {
                 return NotFound();
             }
+            if (funcionario.NascimentoFilho > DateTime.Now)
+            {
+                ModelState.AddModelError("NascimentoFilho", "A data de nascimento não pode de ser posterior á atual.");
 
+            }
+            if (funcionario.Nascimento > DateTime.Now)
+            {
+                ModelState.AddModelError("Nascimento", "A data de nascimento não pode ser posterior á atual.");
+
+            }
+            if (funcionario.Nascimento > DateTime.Now.AddYears(-18))
+            {
+                ModelState.AddModelError("Nascimento", "Funcionário com menos de 18 anos.");
+
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -155,7 +186,7 @@ namespace GestorHorarioG6.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Escalas));
+                return RedirectToAction(nameof(Funcionario));
             }
             ViewData["Cargo"] = new SelectList(_context.Cargo, "CargoId", "Nome", funcionario.CargoId);
             return View(funcionario);
@@ -187,7 +218,7 @@ namespace GestorHorarioG6.Controllers
             var funcionario = await _context.Funcionario.FindAsync(id);
             _context.Funcionario.Remove(funcionario);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Escalas));
+            return RedirectToAction(nameof(Funcionario));
         }
 
         private bool FuncionarioExists(int id)
