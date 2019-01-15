@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using GestorHorarioG6.Data;
 using GestorHorarioG6.Models;
 
 namespace GestorHorarioG6.Controllers

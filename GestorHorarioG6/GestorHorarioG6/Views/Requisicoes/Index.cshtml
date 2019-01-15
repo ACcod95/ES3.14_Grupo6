@@ -1,86 +1,41 @@
-﻿@model RequisicoesListViewModel
+﻿@model IEnumerable<GestorHorarioG6.Models.Requisicao>
 
 @{
-    ViewData["Title"] = "Requisições de Técnicos";
+    ViewData["Title"] = "Index";
 }
 
-<div class="container">
-    <div class="row">
-        <div class='col-sm-6'>
-            <h2>Requisições de Técnicos</h2>
-            <p><a asp-action="Create"><input type="button" value="Criar Requisição" class="btn btn-primary" /></a><a asp-action="Aprovadas">  <input type="button" value="Requisições Aprovadas" class="btn btn-default" /></a></p>
-        </div>
-        <div class='col-sm-offset-2 col-sm-3'>
-            <form asp-action="Index">
-                <div class="form-group">
-                    <br />
-                    <br />
-                    <div class='input-group date'>
-                        <input asp-for="CurrentDay" class="form-control" />
-                        <span class="input-group-addon" >
-                            <button type="submit" style="border:0; background:transparent">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                        </span>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<h2>Index</h2>
 
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                <p>Departamento</p>
+                @Html.DisplayNameFor(model => model.Dia)
             </th>
             <th>
-                <p>Serviço</p>
-            </th>
-            <th>
-                <p>Hora de Início</p>
-            </th>
-            <th>
-                <p>Concluído</p>
-            </th>
-            <th>
-                <p>Aprovar</p>
+                @Html.DisplayNameFor(model => model.Departamento)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Requisicoes)
-        {
-            @if (item.Detalhes != null)
-            {
-                foreach (var detalhe in item.Detalhes)
-                {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Departamento.Nome)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => detalhe.Servico.Nome)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => detalhe.HoraDeInicio)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => detalhe.HoraConcluido)
-                    </td>
-                    <td>
-                        @Html.CheckBoxFor(modelItem => detalhe.Aprovado, new { @onclick = "Aprovar(" + detalhe.RequisicaoDetalheId + ")" })
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.RequisicaoId">Editar</a> |
-                        <a asp-action="Delete" asp-route-id="@item.RequisicaoId">Eliminar</a>
-                    </td>
-                </tr>
-                    }
-                }
-            }
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Departamento.Nome)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RequisicaoId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.RequisicaoId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.RequisicaoId">Delete</a>
+            </td>
+        </tr>
+}
     </tbody>
 </table>
-<div pagination-model="Model.PagingInfo"></div>
