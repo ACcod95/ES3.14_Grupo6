@@ -1,10 +1,32 @@
-﻿@model IEnumerable<GestorHorarioG6.Models.HorarioTecnicos>
+﻿@model HorarioTecnicosViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <h2 style="text-align:center;">Horário Técnicos</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div id="suc_form" class="alert alert-success">
+        <strong>Sucesso!</strong> O horário foi gerado com sucesso.
+    </div>
+}
+
+@if (TempData["Insuccess"] != null)
+{
+    <div id="suc_form" class="alert alert-warning">
+        <strong>Insucesso!</strong> Não existem dados.
+    </div>
+}
+
+<form asp-action="Index">
+    <p>
+        Pesquisar por nome: <input style="width: 200px;" asp-for="CurrentNome" placeholder="Nome" />
+        Pesquisar por data: <input style="width: 200px;" asp-for="DataInicio" />
+        <button type="submit" value="Pesquisar" class="btn btn-info"><span class="glyphicon glyphicon-search"></span> Pesquisar</button>
+    </p>
+</form>
 
 <table class="table">
     <thead>
@@ -30,28 +52,30 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.HorarioTecnicos)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Funcionario.Nome)
-            </td>
-            <td style="text-align:center;">
-                @Html.DisplayFor(modelItem => item.DataInicioManha.Day)/@Html.DisplayFor(modelItem => item.DataInicioManha.Month)/@Html.DisplayFor(modelItem => item.DataInicioManha.Year)
-            </td>
-            <td style="text-align:center">
-                @Html.DisplayFor(modelItem => item.DataInicioManha.TimeOfDay)
-            </td>
-            <td style="text-align:center">
-                @Html.DisplayFor(modelItem => item.DataFimManha.TimeOfDay)
-            </td>
-            <td style="text-align:center">
-                @Html.DisplayFor(modelItem => item.DataInicioTarde.TimeOfDay)
-            </td>
-            <td style="text-align:center">
-                @Html.DisplayFor(modelItem => item.DataFimTarde.TimeOfDay)
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Funcionario.Nome)
+                </td>
+                <td style="text-align:center;">
+                    @Html.DisplayFor(modelItem => item.DataInicioManha.Day)/@Html.DisplayFor(modelItem => item.DataInicioManha.Month)/@Html.DisplayFor(modelItem => item.DataInicioManha.Year)
+                </td>
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.DataInicioManha.TimeOfDay)
+                </td>
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.DataFimManha.TimeOfDay)
+                </td>
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.DataInicioTarde.TimeOfDay)
+                </td>
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.DataFimTarde.TimeOfDay)
+                </td>
+            </tr>
         }
     </tbody>
-    </table>
+</table>
+
+<div pagination-model="Model.PagingInfo"></div>
