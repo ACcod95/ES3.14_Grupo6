@@ -1,0 +1,81 @@
+﻿@model GestorHorarioG6.Models.RequisicaoDetalhe
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>RequisicaoDetalhe</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Requisicao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Requisicao.RequisicaoId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Servico)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Servico.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HoraCriticaDe)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HoraCriticaDe)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HoraCriticaAte)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HoraCriticaAte)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DuraçãoEstimada)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DuraçãoEstimada)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Notas)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Notas)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Aprovado)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Aprovado)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HoraDeInicio)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HoraDeInicio)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HoraDeFim)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HoraDeFim)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HoraConcluido)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HoraConcluido)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="RequisicaoDetalheId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

@@ -1,0 +1,78 @@
+﻿@model GestorHorarioG6.Models.RequisicaoDetalhe
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>RequisicaoDetalhe</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RequisicaoId" class="control-label"></label>
+                <select asp-for="RequisicaoId" class ="form-control" asp-items="ViewBag.RequisicaoId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ServicoId" class="control-label"></label>
+                <select asp-for="ServicoId" class ="form-control" asp-items="ViewBag.ServicoId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="HoraCriticaDe" class="control-label"></label>
+                <input asp-for="HoraCriticaDe" class="form-control" />
+                <span asp-validation-for="HoraCriticaDe" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HoraCriticaAte" class="control-label"></label>
+                <input asp-for="HoraCriticaAte" class="form-control" />
+                <span asp-validation-for="HoraCriticaAte" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DuraçãoEstimada" class="control-label"></label>
+                <input asp-for="DuraçãoEstimada" class="form-control" />
+                <span asp-validation-for="DuraçãoEstimada" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Notas" class="control-label"></label>
+                <input asp-for="Notas" class="form-control" />
+                <span asp-validation-for="Notas" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Aprovado" /> @Html.DisplayNameFor(model => model.Aprovado)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="HoraDeInicio" class="control-label"></label>
+                <input asp-for="HoraDeInicio" class="form-control" />
+                <span asp-validation-for="HoraDeInicio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HoraDeFim" class="control-label"></label>
+                <input asp-for="HoraDeFim" class="form-control" />
+                <span asp-validation-for="HoraDeFim" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HoraConcluido" class="control-label"></label>
+                <input asp-for="HoraConcluido" class="form-control" />
+                <span asp-validation-for="HoraConcluido" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

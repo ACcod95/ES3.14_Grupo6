@@ -35,7 +35,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- TODO SPAWN TABLE BODY -->
+                    @foreach (var detalhe in Model.Detalhes)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(d => detalhe.Servico)</td>
+                            <td>@Html.DisplayFor(d => detalhe.HoraCriticaDe)</td>
+                            <td>@Html.DisplayFor(d => detalhe.HoraCriticaAte)</td>
+                            <td>@Html.DisplayFor(d => detalhe.Notas)</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
