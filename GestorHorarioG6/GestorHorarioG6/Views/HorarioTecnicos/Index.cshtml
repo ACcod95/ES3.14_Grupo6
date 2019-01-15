@@ -4,28 +4,28 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Horário Técnicos</h2>
+<h2 style="text-align:center;">Horário Técnicos</h2>
 
 <table class="table">
     <thead>
         <tr>
-            <th>
+            <th style="text-align:center;">
                 Técnico
             </th>
-            <th>
-                Turno
+            <th style="text-align:center;">
+                Data
             </th>
-            <th>
-                Data1
+            <th style="max-width:150px; text-align:center;">
+                Hora de Inicio - Manha
             </th>
-            <th>
-                Data1fim
+            <th style="max-width:150px; text-align:center;">
+                Hora de Fim - Manha
             </th>
-            <th>
-                Data2
+            <th style="max-width:150px; text-align:center;">
+                Hora de Inicio - Tarde
             </th>
-            <th>
-                Data2fim
+            <th style="max-width:150px; text-align:center;">
+                Hora de Fim - Tarde
             </th>
         </tr>
     </thead>
@@ -36,20 +36,20 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Funcionario.Nome)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Turno.Nome)
+            <td style="text-align:center;">
+                @Html.DisplayFor(modelItem => item.DataInicioManha.Day)/@Html.DisplayFor(modelItem => item.DataInicioManha.Month)/@Html.DisplayFor(modelItem => item.DataInicioManha.Year)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataInicioManha)
+            <td style="text-align:center">
+                @Html.DisplayFor(modelItem => item.DataInicioManha.TimeOfDay)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataFimManha)
+            <td style="text-align:center">
+                @Html.DisplayFor(modelItem => item.DataFimManha.TimeOfDay)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataInicioTarde)
+            <td style="text-align:center">
+                @Html.DisplayFor(modelItem => item.DataInicioTarde.TimeOfDay)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataFimTarde)
+            <td style="text-align:center">
+                @Html.DisplayFor(modelItem => item.DataFimTarde.TimeOfDay)
             </td>
         </tr>
         }

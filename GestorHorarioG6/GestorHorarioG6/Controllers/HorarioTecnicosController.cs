@@ -182,83 +182,24 @@ namespace GestorHorarioG6.Controllers
         }
 
         /**Funções**/
-        private void GerarHorarioTecnicoTest(GestorHorarioG6Context db, DateTime dia)
-        {
-            DateTime segunda;
-            DateTime sexta;
-
-            if (dia.DayOfWeek == DayOfWeek.Monday)
-            {
-                segunda = dia.Date;
-                sexta = dia.Date.AddDays(5);
-            } else
-                return;
-
-            int[] tecnicos = IdTecnicos();
-
-            int tec = 0;
-
-            //Lista de Tecnicos
-            List<int> listaTecnicos = new List<int>(tecnicos);
-
-            int numeroTecnicos = listaTecnicos.Count();
-            int controlo = 1;
-            string turno;
-
-            for (int i = 0; i <= numeroTecnicos-1; i++)
-            {
-                DateTime j = segunda;
-                while (!j.Equals(sexta)) {
-                    if (controlo == 1)
-                    {
-                        turno = "Primeiro";
-                        tec = listaTecnicos[i];
-                        Turno IdTurno = _context.Turno.SingleOrDefault(t => t.Nome.Equals(turno));
-                        Funcionario IdTecnico = _context.Funcionario.SingleOrDefault(f => f.FuncionarioId == tec);
-
-                        InserirDadosNoHorarioTecnico(db, j.AddHours(8), j.AddHours(12), j.AddHours(13), j.AddHours(15), IdTurno, IdTecnico);
-                    }
-                    else if (controlo == 2)
-                    {
-                        turno = "Segundo";
-                        tec = listaTecnicos[i];
-                        Turno IdTurno = _context.Turno.SingleOrDefault(t => t.Nome.Equals(turno));
-                        Funcionario IdTecnico = _context.Funcionario.SingleOrDefault(f => f.FuncionarioId == tec);
-
-                        InserirDadosNoHorarioTecnico(db, j.AddHours(11), j.AddHours(14), j.AddHours(15), j.AddHours(19), IdTurno, IdTecnico);
-                    }
-                    else if (controlo == 3)
-                    {
-                        turno = "Terceiro";
-                        tec = listaTecnicos[i];
-                        Turno IdTurno = _context.Turno.SingleOrDefault(t => t.Nome.Equals(turno));
-                        Funcionario IdTecnico = _context.Funcionario.SingleOrDefault(f => f.FuncionarioId == tec);
-
-                        InserirDadosNoHorarioTecnico(db, j.AddHours(14), j.AddHours(19), j.AddHours(20), j.AddHours(22), IdTurno, IdTecnico);
-                    }
-                    j = j.AddDays(1);
-                }
-                controlo++;
-                if (controlo > 3)
-                {
-                    controlo = 1;
-                }
-            }
-        }
-
         private void GerarHorarioTecnico(GestorHorarioG6Context db, DateTime dia)
         {
             DateTime segunda;
             DateTime sexta;
             string turno;
 
-            if (dia.DayOfWeek == DayOfWeek.Monday)
+            if (dia.DayOfWeek == DayOfWeek.Monday && dia.CompareTo(DateTime.Now) > 0)
             {
                 segunda = dia.Date;
                 sexta = dia.Date.AddDays(5);
             }
             else
                 return;
+
+            if (db.HorarioTecnicos.Where(d => d.DataFimManha.Date == dia).Any())
+            {
+                return;
+            }
 
             int[] tecnicos = IdTecnicos();
             int controlo = 1;
