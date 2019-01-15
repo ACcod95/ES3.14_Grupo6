@@ -265,7 +265,7 @@ namespace GestorHorarioG6.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(nameof(Index));
+            return RedirectToAction(nameof(Index));
         }
 
         /**Funções**/
@@ -280,13 +280,19 @@ namespace GestorHorarioG6.Controllers
                 segunda = dia.Date;
                 sexta = dia.Date.AddDays(5);
             }
-            else
+            else {
+                TempData["Insuccess2"] = "Não pode gerar nesse dia (Têm de ser segunda e numa data superior)";
                 return;
+            }
+                
 
             if (db.HorarioTecnicos.Where(d => d.DataFimManha.Date == dia).Any())
             {
+                TempData["Insuccess2"] = "Não pode gerar nesse dia (Têm de ser segunda e numa data superior)";
                 return;
             }
+
+            TempData["Success"] = "Horário Gerado";
 
             int[] tecnicos = IdTecnicos();
             int controlo = 1;
@@ -297,7 +303,7 @@ namespace GestorHorarioG6.Controllers
 
             int numeroTecnicos = listaTecnicos.Count();
 
-            for (DateTime i = segunda; i <= sexta; i = i.AddDays(1))
+            for (DateTime i = segunda; i < sexta; i = i.AddDays(1))
             {
                 for(int j = 0; j <= numeroTecnicos - 1; j++)
                 {

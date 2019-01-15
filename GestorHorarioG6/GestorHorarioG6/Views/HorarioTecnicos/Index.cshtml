@@ -15,8 +15,15 @@
 
 @if (TempData["Insuccess"] != null)
 {
-    <div id="suc_form" class="alert alert-warning">
+    <div id="suc_form" class="alert alert-danger">
         <strong>Insucesso!</strong> Não existem dados.
+    </div>
+}
+
+@if (TempData["Insuccess2"] != null)
+{
+    <div id="suc_form" class="alert alert-danger">
+        <strong>Insucesso!</strong> Não pode gerar nesse dia (Têm de ser segunda e numa data superior).
     </div>
 }
 
