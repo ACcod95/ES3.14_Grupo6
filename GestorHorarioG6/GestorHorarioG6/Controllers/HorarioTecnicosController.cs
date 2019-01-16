@@ -13,6 +13,7 @@ namespace GestorHorarioG6.Controllers
     public class HorarioTecnicosController : Controller
     {
         private readonly GestorHorarioG6Context _context;
+        private const int PAGE_SIZE = 12;
 
         public HorarioTecnicosController(GestorHorarioG6Context context)
         {
@@ -20,10 +21,96 @@ namespace GestorHorarioG6.Controllers
         }
 
         // GET: HorarioTecnicos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(HorarioTecnicosViewModel model = null, int page = 1)
         {
-            var gestorHorarioG6Context = _context.HorarioTecnicos.Include(h => h.Funcionario).Include(h => h.Turno);
-            return View(await gestorHorarioG6Context.ToListAsync());
+            string nome = null;
+            DateTime? data = null;
+
+            if (model != null && model.DataInicio != null || model.CurrentNome != null)
+            {
+                nome = model.CurrentNome;
+                data = model.DataInicio;
+                page = 1;
+            }
+
+            IQueryable<HorarioTecnicos> horario;
+            int numHorario;
+            IEnumerable<HorarioTecnicos> listaHorario;
+
+            if (data.HasValue && string.IsNullOrEmpty(nome)) 
+            {
+                int ano = data.Value.Year;
+                int mes = data.Value.Month;
+                int dia = data.Value.Day;
+
+                horario = _context.HorarioTecnicos
+                   .Where(h => h.DataInicioManha.Year.Equals(ano) && h.DataInicioManha.Month.Equals(mes) && h.DataInicioManha.Day.Equals(dia));
+
+                numHorario = await horario.CountAsync();
+
+                listaHorario = await horario
+                    .Include(h => h.Funcionario)
+                    .Include(h => h.Turno)
+                    .OrderBy(h => h.DataInicioManha)
+                    .Skip(PAGE_SIZE * (page - 1))
+                    .Take(PAGE_SIZE)
+                    .ToListAsync();
+            }
+            else if (!string.IsNullOrEmpty(nome) && !data.HasValue) 
+            {
+                horario = _context.HorarioTecnicos
+                    .Where(h => h.Funcionario.Nome.Contains(nome.Trim()));
+
+                numHorario = await horario.CountAsync();
+
+                listaHorario = await horario
+                    .Include(h => h.Funcionario)
+                    .Include(h => h.Turno)
+                    .OrderBy(h => h.DataInicioManha)
+                    .Skip(PAGE_SIZE * (page - 1))
+                    .Take(PAGE_SIZE)
+                    .ToListAsync();
+            }         
+            else
+            {
+                horario = _context.HorarioTecnicos;
+
+                numHorario = await horario.CountAsync();
+
+                listaHorario = await horario
+                  .Include(h => h.Funcionario)
+                  .Include(h => h.Turno)
+                  .OrderBy(h => h.DataInicioManha)
+                  .Skip(PAGE_SIZE * (page - 1))
+                  .Take(PAGE_SIZE)
+                  .ToListAsync();
+            }
+
+            if (page > (numHorario / PAGE_SIZE) + 1)
+            {
+                page = 1;
+            }
+
+            if (listaHorario.Count() == 0)
+            {
+                TempData["Insuccess"] = "Não existe dados";
+            }
+
+
+            return View(
+                new HorarioTecnicosViewModel
+                {
+                    HorarioTecnicos = listaHorario,
+                    PagingInfo = new PaginationViewModel
+                    {
+                        CurrentPage = page,
+                        ItensPerPage = PAGE_SIZE,
+                        TotalItems = numHorario
+                    },
+                    CurrentNome = nome,
+                    DataInicio = data
+                }
+            );
         }
 
         // GET: HorarioTecnicos/Details/5
@@ -178,88 +265,34 @@ namespace GestorHorarioG6.Controllers
                 GerarHorarioTecnico(_context, dataIn);
                 return RedirectToAction(nameof(Index));
             }
-
-            return View(nameof(Index));
+            return RedirectToAction(nameof(Index));
         }
 
         /**Funções**/
-        private void GerarHorarioTecnicoTest(GestorHorarioG6Context db, DateTime dia)
-        {
-            DateTime segunda;
-            DateTime sexta;
-
-            if (dia.DayOfWeek == DayOfWeek.Monday)
-            {
-                segunda = dia.Date;
-                sexta = dia.Date.AddDays(5);
-            } else
-                return;
-
-            int[] tecnicos = IdTecnicos();
-
-            int tec = 0;
-
-            //Lista de Tecnicos
-            List<int> listaTecnicos = new List<int>(tecnicos);
-
-            int numeroTecnicos = listaTecnicos.Count();
-            int controlo = 1;
-            string turno;
-
-            for (int i = 0; i <= numeroTecnicos-1; i++)
-            {
-                DateTime j = segunda;
-                while (!j.Equals(sexta)) {
-                    if (controlo == 1)
-                    {
-                        turno = "Primeiro";
-                        tec = listaTecnicos[i];
-                        Turno IdTurno = _context.Turno.SingleOrDefault(t => t.Nome.Equals(turno));
-                        Funcionario IdTecnico = _context.Funcionario.SingleOrDefault(f => f.FuncionarioId == tec);
-
-                        InserirDadosNoHorarioTecnico(db, j.AddHours(8), j.AddHours(12), j.AddHours(13), j.AddHours(15), IdTurno, IdTecnico);
-                    }
-                    else if (controlo == 2)
-                    {
-                        turno = "Segundo";
-                        tec = listaTecnicos[i];
-                        Turno IdTurno = _context.Turno.SingleOrDefault(t => t.Nome.Equals(turno));
-                        Funcionario IdTecnico = _context.Funcionario.SingleOrDefault(f => f.FuncionarioId == tec);
-
-                        InserirDadosNoHorarioTecnico(db, j.AddHours(11), j.AddHours(14), j.AddHours(15), j.AddHours(19), IdTurno, IdTecnico);
-                    }
-                    else if (controlo == 3)
-                    {
-                        turno = "Terceiro";
-                        tec = listaTecnicos[i];
-                        Turno IdTurno = _context.Turno.SingleOrDefault(t => t.Nome.Equals(turno));
-                        Funcionario IdTecnico = _context.Funcionario.SingleOrDefault(f => f.FuncionarioId == tec);
-
-                        InserirDadosNoHorarioTecnico(db, j.AddHours(14), j.AddHours(19), j.AddHours(20), j.AddHours(22), IdTurno, IdTecnico);
-                    }
-                    j = j.AddDays(1);
-                }
-                controlo++;
-                if (controlo > 3)
-                {
-                    controlo = 1;
-                }
-            }
-        }
-
         private void GerarHorarioTecnico(GestorHorarioG6Context db, DateTime dia)
         {
             DateTime segunda;
             DateTime sexta;
             string turno;
 
-            if (dia.DayOfWeek == DayOfWeek.Monday)
+            if (dia.DayOfWeek == DayOfWeek.Monday && dia.CompareTo(DateTime.Now) > 0)
             {
                 segunda = dia.Date;
                 sexta = dia.Date.AddDays(5);
             }
-            else
+            else {
+                TempData["Insuccess2"] = "Não pode gerar nesse dia (Têm de ser segunda e numa data superior)";
                 return;
+            }
+                
+
+            if (db.HorarioTecnicos.Where(d => d.DataFimManha.Date == dia).Any())
+            {
+                TempData["Insuccess2"] = "Não pode gerar nesse dia (Têm de ser segunda e numa data superior)";
+                return;
+            }
+
+            TempData["Success"] = "Horário Gerado";
 
             int[] tecnicos = IdTecnicos();
             int controlo = 1;
@@ -269,8 +302,8 @@ namespace GestorHorarioG6.Controllers
             List<int> listaTecnicos = new List<int>(tecnicos);
 
             int numeroTecnicos = listaTecnicos.Count();
-
-            for (DateTime i = segunda; i <= sexta; i = i.AddDays(1))
+            
+            for (DateTime i = segunda; i < sexta; i = i.AddDays(1))
             {
                 for(int j = 0; j <= numeroTecnicos - 1; j++)
                 {
