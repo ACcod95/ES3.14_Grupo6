@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using GestorHorarioG6.Data;
 using GestorHorarioG6.Models;
 
 namespace GestorHorarioG6.Controllers
@@ -20,7 +21,7 @@ namespace GestorHorarioG6.Controllers
         }
 
         // GET: Turnos
-        public async Task<IActionResult> Index(TurnoListViewModel model = null, int page = 1)
+        public async Task<IActionResult> Index(TurnosListViewModel model = null, int page = 1)
         {
             string nome = null;
 
@@ -44,7 +45,7 @@ namespace GestorHorarioG6.Controllers
                 .Take(PageSize)
                 .ToListAsync();
 
-            return View(new TurnoListViewModel
+            return View(new TurnosListViewModel
             {
                 Turno = listTurno,
                 PagingInfo = new PaginationViewModel
@@ -55,7 +56,7 @@ namespace GestorHorarioG6.Controllers
                 },
                 CurrentNome = nome
             });
-           
+
         }
 
         // GET: Turnos/Details/5

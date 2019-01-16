@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GestorHorarioG6.Models.RequisicaoDetalhe>
+﻿@model IEnumerable<GestorHorarioG6.Models.Requisicao>
 
 @{
     ViewData["Title"] = "Requisições Aprovadas";
@@ -10,55 +10,29 @@
     <thead>
         <tr>
             <th>
+                <p>Data</p>
+            </th>
+            <th>
                 <p>Departamento</p>
             </th>
-            <th>
-                <p>Serviço</p>
-            </th>
-            <th>
-                <p>Hora de Início</p>
-            </th>
-            <th>
-                <p>Duração Estimada</p>
-            </th>
-            <th>
-                <p>Concluir</p>
-            </th>
-            <th>
-            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-   @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Requisicao.Departamento.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Servico.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HoraDeInicio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DuraçãoEstimada)
-                </td>
-                <td>
-                    @Html.CheckBoxFor(modelItem => item.HoraConcluido != null, new { @onclick = "Concluir(" + item.RequisicaoDetalheId + ")" })
-                </td>
-                <td>
-                    <a asp-action="Edit" class="btn btn-success" asp-route-id="@item.RequisicaoDetalheId">Editar</a> |
-                    <a asp-action="Details" class="btn btn-warning" asp-route-id="@item.RequisicaoId">Detalhes</a> |
-                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.RequisicaoId">Eliminar</a>
-                </td>
-            </tr>
-        }
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Departamento.Nome)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RequisicaoId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.RequisicaoId">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.RequisicaoId">Eliminar</a>
+            </td>
+        </tr>
+}
     </tbody>
 </table>
-
-<script>
-    function Concluir(id) {
-        $.post("/Requisicoes/Concluir/" + id);
-    }
-</script>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,7 +15,7 @@ namespace GestorHorarioG6.Models
         [Required(ErrorMessage = "Este campo não pode estar por preencher")]
         public string Nome { get; set; }
 
-        
+
         public Cargo Cargo { get; set; }
         [Required(ErrorMessage = "Por favor selecione um cargo válido")]
         public int CargoId { get; set; }

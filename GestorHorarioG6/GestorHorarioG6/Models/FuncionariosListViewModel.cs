@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace GestorHorarioG6.Models
 {
-    public class EquipamentosViewModel
+    public class FuncionariosListViewModel
     {
-        public IEnumerable<Equipamento> Equipamento { get; set; }
+        public IEnumerable<Funcionario> Funcionario { get; set; }
         public PaginationViewModel PageInfo { get; set; }
 
         [DisplayName("Nome")]

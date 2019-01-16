@@ -17,7 +17,7 @@
                     <br />
                     <div class='input-group date'>
                         <input asp-for="CurrentDay" class="form-control" />
-                        <span class="input-group-addon" >
+                        <span class="input-group-addon">
                             <button type="submit" style="border:0; background:transparent">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
@@ -33,19 +33,10 @@
     <thead>
         <tr>
             <th>
+                <p>Data</p>
+            </th>
+            <th>
                 <p>Departamento</p>
-            </th>
-            <th>
-                <p>Serviço</p>
-            </th>
-            <th>
-                <p>Hora de Início</p>
-            </th>
-            <th>
-                <p>Concluído</p>
-            </th>
-            <th>
-                <p>Aprovar</p>
             </th>
             <th></th>
         </tr>
@@ -53,35 +44,20 @@
     <tbody>
         @foreach (var item in Model.Requisicoes)
         {
-            @if (item.Detalhes != null)
-            {
-                foreach (var detalhe in item.Detalhes)
-                {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Departamento.Nome)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => detalhe.Servico.Nome)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => detalhe.HoraDeInicio)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => detalhe.HoraConcluido)
-                    </td>
-                    <td>
-                        @Html.CheckBoxFor(modelItem => detalhe.Aprovado, new { @onclick = "Aprovar(" + detalhe.RequisicaoDetalheId + ")" })
-                    </td>
-                    <td>
-                        <a asp-action="Edit" class="btn btn-success" asp-route-id="@detalhe.RequisicaoDetalheId">Editar</a> |
-                        <a asp-action="Details" class="btn btn-warning" asp-route-id="@item.RequisicaoId">Detalhes</a> |
-                        <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.RequisicaoId">Eliminar</a>
-                    </td>
-                </tr>
-                    }
-                }
-            }
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Departamento.Nome)
+                </td>
+                <td>
+                    <a asp-action="Edit" class="btn btn-success" asp-route-id="@item.RequisicaoId">Editar</a> |
+                    <a asp-action="Details" class="btn btn-warning" asp-route-id="@item.RequisicaoId">Detalhes</a> |
+                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.RequisicaoId">Eliminar</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 <div pagination-model="Model.PagingInfo"></div>

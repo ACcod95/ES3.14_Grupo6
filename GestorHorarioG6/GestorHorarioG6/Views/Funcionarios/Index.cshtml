@@ -1,38 +1,63 @@
-﻿@model IEnumerable<GestorHorarioG6.Models.Funcionario>
+﻿@model FuncionariosListViewModel
 
 @{
-    ViewData["Title"] = "Horário";
+    ViewData["Title"] = "Funcionários";
 }
 
-<h2>Horário</h2>
-
+<div class="container">
+    <div class="row">
+        <div class='col-sm-6'>
+            <h2>@ViewData["Title"]</h2>
+            <p><a asp-action="Create" class="btn btn-primary">Novo</a></p>
+        </div>
+        <div class='col-sm-offset-2 col-sm-3'>
+            <form asp-action="Funcionario">
+                <div class="form-group">
+                    <br />
+                    <div class='input-group'>
+                        <input asp-for="CurrentNome" class="form-control" />
+                        <span class="input-group-addon">
+                            <button type="submit" style="border:0; background:transparent">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Funcionário</th>
-            <th scope="col">Segunda</th>
-            <th scope="col">Terça</th>
-            <th scope="col">Quarta</th>
-            <th scope="col">Quinta</th>
-            <th scope="col">Sexta</th>
-            <th scope="col">Sábado</th>
-            <th scope="col">Domingo</th>
+            <th>
+                <p>Nome</p>
+            </th>
+            <th>
+                <p>Cargo</p>
+            </th>
+
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        <!--
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-	<td></td>
-    </tr>
-	-->
+        @foreach (var item in Model.Funcionario)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cargo.Nome)
+                </td>
+                <td>
+                    <a asp-action="Edit" class="btn btn-success" asp-route-id="@item.FuncionarioId">Editar</a> |
+                    <a asp-action="Details" class="btn btn-warning" asp-route-id="@item.FuncionarioId">Detalhes</a> |
+                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.FuncionarioId">Eliminar</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
-
+<div pagination-model="Model.PageInfo"></div>
