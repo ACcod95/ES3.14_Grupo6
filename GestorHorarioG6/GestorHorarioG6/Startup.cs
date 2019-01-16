@@ -72,7 +72,7 @@ namespace GestorHorarioG6
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Funcionarios}/{action=Index}/{id?}");
+                    template: "{controller=HorarioTecnicos}/{action=Horario}/{id?}");
             });
         }
     }

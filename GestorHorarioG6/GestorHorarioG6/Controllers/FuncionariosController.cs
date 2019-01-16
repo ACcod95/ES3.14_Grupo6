@@ -20,15 +20,8 @@ namespace GestorHorarioG6.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-
-
         // GET: Funcionarios
-        public async Task<IActionResult> Funcionario(FuncionariosListViewModel model = null, int page = 1)
+        public async Task<IActionResult> Index(FuncionariosListViewModel model = null, int page = 1)
         {
             string nome = null;
 
@@ -71,7 +64,7 @@ namespace GestorHorarioG6.Controllers
             if (id == null)
             {
                 //return NotFound();
-                return RedirectToAction(nameof(Funcionario));
+                return RedirectToAction(nameof(Index));
             }
 
             var funcionario = await _context.Funcionario
@@ -119,7 +112,7 @@ namespace GestorHorarioG6.Controllers
             {
                 _context.Add(funcionario);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Funcionario));
+                return RedirectToAction(nameof(Index));
             }
             ViewData["Cargo"] = new SelectList(_context.Cargo, "CargoId", "Nome", funcionario.CargoId);
             return View(funcionario);
@@ -186,7 +179,7 @@ namespace GestorHorarioG6.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Funcionario));
+                return RedirectToAction(nameof(Index));
             }
             ViewData["Cargo"] = new SelectList(_context.Cargo, "CargoId", "Nome", funcionario.CargoId);
             return View(funcionario);
@@ -218,7 +211,7 @@ namespace GestorHorarioG6.Controllers
             var funcionario = await _context.Funcionario.FindAsync(id);
             _context.Funcionario.Remove(funcionario);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Funcionario));
+            return RedirectToAction(nameof(Index));
         }
 
         private bool FuncionarioExists(int id)
