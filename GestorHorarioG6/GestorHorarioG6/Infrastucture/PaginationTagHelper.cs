@@ -57,15 +57,15 @@ namespace GestorHorarioG6.Infrastucture
                 {
                     link = new TagBuilder("p");
                     link.InnerHtml.Append(p.ToString());
-                    link.AddCssClass("disabled");
+                    link.AddCssClass("btn-info");
                 }
                 else
                 {
                     link.Attributes["href"] = urlHelper.Action(PageAction, new { page = p });
                     link.InnerHtml.Append(p.ToString());
+                    link.AddCssClass("btn-default");
                 }
                 link.AddCssClass("btn");
-                link.AddCssClass("btn-default");
                 result.InnerHtml.AppendHtml(link);
             }
 

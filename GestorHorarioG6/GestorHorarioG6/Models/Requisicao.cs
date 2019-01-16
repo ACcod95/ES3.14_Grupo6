@@ -12,19 +12,12 @@ namespace GestorHorarioG6.Models
         [Key]
         public int RequisicaoId { get; set; }
 
+        [DataType(DataType.Date)]
+        public DateTime Dia { get; set; }
+
         public Departamento Departamento { get; set; }
         public int DepartamentoId { get; set; }
 
-        [Required]
-        [DataType(DataType.DateTime)]
-        public DateTime HoraDeInicio { get; set; }
-
-        [Required]
-        [DataType(DataType.DateTime)]
-        public DateTime HoraDeFim { get; set; }
-
-        public string RequisicoesAdicionais { get; set; }
-
-        public Boolean Aprovado { get; set; }
+        public IEnumerable<RequisicaoDetalhe> Detalhes { get; set; }
     }
 }

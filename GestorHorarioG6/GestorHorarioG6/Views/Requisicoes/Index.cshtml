@@ -36,13 +36,13 @@
                 <p>Departamento</p>
             </th>
             <th>
+                <p>Serviço</p>
+            </th>
+            <th>
                 <p>Hora de Início</p>
             </th>
             <th>
-                <p>Hora de Fim</p>
-            </th>
-            <th>
-                <p>Notas Adicionais</p>
+                <p>Concluído</p>
             </th>
             <th>
                 <p>Aprovar</p>
@@ -51,38 +51,36 @@
         </tr>
     </thead>
     <tbody>
-
         @foreach (var item in Model.Requisicoes)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Departamento.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HoraDeInicio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HoraDeFim)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RequisicoesAdicionais)
-                </td>
-                <td>
-                    @Html.CheckBoxFor(modelItem => item.Aprovado, new { @onclick = "Clicked(" + item.RequisicaoId + ")" })
-                </td>
-                <td>
-                    <a asp-action="Edit" class="btn btn-success" asp-route-id="@item.RequisicaoId">Editar</a> |
-                    <a class="btn btn-warning">Descrição</a>|
-                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.RequisicaoId">Eliminar</a>
-                </td>
-            </tr>
-        }
+            @if (item.Detalhes != null)
+            {
+                foreach (var detalhe in item.Detalhes)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Departamento.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => detalhe.Servico.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => detalhe.HoraDeInicio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => detalhe.HoraConcluido)
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(modelItem => detalhe.Aprovado, new { @onclick = "Aprovar(" + detalhe.RequisicaoDetalheId + ")" })
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.RequisicaoId">Editar</a> |
+                        <a asp-action="Delete" asp-route-id="@item.RequisicaoId">Eliminar</a>
+                    </td>
+                </tr>
+                    }
+                }
+            }
     </tbody>
 </table>
 <div pagination-model="Model.PagingInfo"></div>
-
-<script>
-    function Clicked(id) {
-        $.post("/Requisicoes/Aprovar/" + id);
-    }
-</script>
