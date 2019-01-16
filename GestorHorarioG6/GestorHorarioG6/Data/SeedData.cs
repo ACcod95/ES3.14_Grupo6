@@ -31,15 +31,15 @@ namespace GestorHorarioG6.Data
                 {
                     DateTime inicio = DateTime.Today.AddDays(5), fim = DateTime.Today.AddDays(5).AddHours(2);
                     db.Requisicao.AddRange
-                    (new Requisicao { DepartamentoId = 1 },
-                    new Requisicao { DepartamentoId = 2 },
-                    new Requisicao { DepartamentoId = 3 },
-                    new Requisicao { DepartamentoId = 4 },
-                    new Requisicao { DepartamentoId = 5 },
-                    new Requisicao { DepartamentoId = 4 },
-                    new Requisicao { DepartamentoId = 3 },
-                    new Requisicao { DepartamentoId = 2 },
-                    new Requisicao { DepartamentoId = 1 }
+                    (new Requisicao { DepartamentoId = 1, Dia = inicio.AddDays(8) },
+                    new Requisicao { DepartamentoId = 2, Dia = inicio.AddDays(7) },
+                    new Requisicao { DepartamentoId = 3, Dia = inicio.AddDays(2) },
+                    new Requisicao { DepartamentoId = 4, Dia = inicio },
+                    new Requisicao { DepartamentoId = 5, Dia = inicio.AddDays(1) },
+                    new Requisicao { DepartamentoId = 4, Dia = inicio.AddDays(5) },
+                    new Requisicao { DepartamentoId = 3, Dia = inicio.AddDays(1) },
+                    new Requisicao { DepartamentoId = 2, Dia = inicio.AddDays(10) },
+                    new Requisicao { DepartamentoId = 1, Dia = inicio.AddDays(3) }
                     );
                 }
                 db.SaveChanges();
