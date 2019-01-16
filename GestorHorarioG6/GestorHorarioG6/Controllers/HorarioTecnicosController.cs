@@ -265,7 +265,6 @@ namespace GestorHorarioG6.Controllers
                 GerarHorarioTecnico(_context, dataIn);
                 return RedirectToAction(nameof(Index));
             }
-
             return RedirectToAction(nameof(Index));
         }
 
@@ -303,7 +302,7 @@ namespace GestorHorarioG6.Controllers
             List<int> listaTecnicos = new List<int>(tecnicos);
 
             int numeroTecnicos = listaTecnicos.Count();
-
+            
             for (DateTime i = segunda; i < sexta; i = i.AddDays(1))
             {
                 for(int j = 0; j <= numeroTecnicos - 1; j++)
