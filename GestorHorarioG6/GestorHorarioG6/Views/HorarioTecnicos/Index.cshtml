@@ -1,0 +1,57 @@
+﻿@model IEnumerable<GestorHorarioG6.Models.HorarioTecnicos>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Horário Técnicos</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Técnico
+            </th>
+            <th>
+                Turno
+            </th>
+            <th>
+                Data1
+            </th>
+            <th>
+                Data1fim
+            </th>
+            <th>
+                Data2
+            </th>
+            <th>
+                Data2fim
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Funcionario.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Turno.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataInicioManha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataFimManha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataInicioTarde)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataFimTarde)
+            </td>
+        </tr>
+        }
+    </tbody>
+    </table>
