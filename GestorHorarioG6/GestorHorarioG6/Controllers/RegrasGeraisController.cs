@@ -1,54 +1,30 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using GestorHorarioG6.Data;
 using GestorHorarioG6.Models;
 
 namespace GestorHorarioG6.Controllers
 {
-    public class ServicosController : Controller
+    public class RegrasGeraisController : Controller
     {
         private readonly GestorHorarioG6Context _context;
-        private readonly int PageSize = 5;
 
-        public ServicosController(GestorHorarioG6Context context)
+        public RegrasGeraisController(GestorHorarioG6Context context)
         {
             _context = context;
         }
 
-        // GET: Servicos
-        public async Task<IActionResult> Index(RequisicoesListViewModel model = null, int page = 1)
+        // GET: RegrasGerais
+        public async Task<IActionResult> Index()
         {
-            var total = await _context.Servico.CountAsync();
-
-            if (page > (total / PageSize) + 1)
-            {
-                page = 1;
-            }
-
-            var servicos = await _context.Servico
-                .OrderBy(p => p.ServicoId)
-                .Skip((page - 1) * PageSize)
-                .Take(PageSize)
-                .ToListAsync();
-
-            return View(new ServicosListViewModel
-            {
-                Servicos = servicos,
-                PagingInfo = new PaginationViewModel
-                {
-                    CurrentPage = page,
-                    ItensPerPage = PageSize,
-                    TotalItems = total
-                }
-            });
+            return View(await _context.RegrasGerais.ToListAsync());
         }
 
-        // GET: Servicos/Details/5
+        // GET: RegrasGerais/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -56,39 +32,39 @@ namespace GestorHorarioG6.Controllers
                 return NotFound();
             }
 
-            var servico = await _context.Servico
-                .FirstOrDefaultAsync(m => m.ServicoId == id);
-            if (servico == null)
+            var regrasGerais = await _context.RegrasGerais
+                .FirstOrDefaultAsync(m => m.RegraId == id);
+            if (regrasGerais == null)
             {
                 return NotFound();
             }
 
-            return View(servico);
+            return View(regrasGerais);
         }
 
-        // GET: Servicos/Create
+        // GET: RegrasGerais/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Servicos/Create
+        // POST: RegrasGerais/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ServicoId,Nome,Descrição")] Servico servico)
+        public async Task<IActionResult> Create([Bind("RegraId,Nome,Descricao,Horas")] RegrasGerais regrasGerais)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(servico);
+                _context.Add(regrasGerais);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(servico);
+            return View(regrasGerais);
         }
 
-        // GET: Servicos/Edit/5
+        // GET: RegrasGerais/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -96,22 +72,22 @@ namespace GestorHorarioG6.Controllers
                 return NotFound();
             }
 
-            var servico = await _context.Servico.FindAsync(id);
-            if (servico == null)
+            var regrasGerais = await _context.RegrasGerais.FindAsync(id);
+            if (regrasGerais == null)
             {
                 return NotFound();
             }
-            return View(servico);
+            return View(regrasGerais);
         }
 
-        // POST: Servicos/Edit/5
+        // POST: RegrasGerais/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ServicoId,Nome,Descrição")] Servico servico)
+        public async Task<IActionResult> Edit(int id, [Bind("RegraId,Nome,Descricao,Horas")] RegrasGerais regrasGerais)
         {
-            if (id != servico.ServicoId)
+            if (id != regrasGerais.RegraId)
             {
                 return NotFound();
             }
@@ -120,12 +96,12 @@ namespace GestorHorarioG6.Controllers
             {
                 try
                 {
-                    _context.Update(servico);
+                    _context.Update(regrasGerais);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ServicoExists(servico.ServicoId))
+                    if (!RegrasGeraisExists(regrasGerais.RegraId))
                     {
                         return NotFound();
                     }
@@ -136,10 +112,10 @@ namespace GestorHorarioG6.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(servico);
+            return View(regrasGerais);
         }
 
-        // GET: Servicos/Delete/5
+        // GET: RegrasGerais/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -147,30 +123,30 @@ namespace GestorHorarioG6.Controllers
                 return NotFound();
             }
 
-            var servico = await _context.Servico
-                .FirstOrDefaultAsync(m => m.ServicoId == id);
-            if (servico == null)
+            var regrasGerais = await _context.RegrasGerais
+                .FirstOrDefaultAsync(m => m.RegraId == id);
+            if (regrasGerais == null)
             {
                 return NotFound();
             }
 
-            return View(servico);
+            return View(regrasGerais);
         }
 
-        // POST: Servicos/Delete/5
+        // POST: RegrasGerais/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var servico = await _context.Servico.FindAsync(id);
-            _context.Servico.Remove(servico);
+            var regrasGerais = await _context.RegrasGerais.FindAsync(id);
+            _context.RegrasGerais.Remove(regrasGerais);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ServicoExists(int id)
+        private bool RegrasGeraisExists(int id)
         {
-            return _context.Servico.Any(e => e.ServicoId == id);
+            return _context.RegrasGerais.Any(e => e.RegraId == id);
         }
     }
 }

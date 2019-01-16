@@ -20,6 +20,6 @@ namespace GestorHorarioG6.Models
         [Required(ErrorMessage = "Este campo não pode estar por preencher")]
         public int HoraFimTarde { get; set; }
 
-
+        public ICollection<HorarioTecnicos> HorarioTecnicos { get; set; }
     }
 }

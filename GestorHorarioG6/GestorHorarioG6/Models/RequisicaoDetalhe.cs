@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace GestorHorarioG6.Models
 {
@@ -26,7 +29,7 @@ namespace GestorHorarioG6.Models
         public string Notas { get; set; }
 
         public Boolean Aprovado { get; set; }
-        
+
         [DataType(DataType.DateTime)]
         public DateTime HoraDeInicio { get; set; }
         [DataType(DataType.DateTime)]
