@@ -3,34 +3,14 @@
 @{
     ViewData["Title"] = "Horário";
 }
-
-<h2>Horário</h2>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Funcionário</th>
-            <th scope="col">Segunda</th>
-            <th scope="col">Terça</th>
-            <th scope="col">Quarta</th>
-            <th scope="col">Quinta</th>
-            <th scope="col">Sexta</th>
-            <th scope="col">Sábado</th>
-            <th scope="col">Domingo</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!--
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        <td></td>
-        </tr>
-        -->
-    </tbody>
-</table>
+<body>
+    <div style=" margin-top:50px; margin-left: 100px;" class="col-md-3">
+        <h3>Gerar Horários</h3>
+        <div style="margin-right:10px; margin-left:10px;">
+            <a href='@Url.Action("GerarHorarioTecnicos", "HorarioTecnicos")'>
+                <input type="button" class="btn btn-info btn-lg btn-block" value="GERAR HORÁRIO" />
+            </a>
+        </div>
+    </div>
+    <br />
+</body>
