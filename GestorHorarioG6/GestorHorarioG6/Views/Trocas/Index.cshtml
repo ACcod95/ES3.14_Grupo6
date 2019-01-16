@@ -1,71 +1,59 @@
-﻿@model IEnumerable<GestorHorarioG6.Models.Trocas>
+﻿@model PedidoDeTrocaViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Trocas";
 }
 
-<h2>Lista de Trocas</h2>
+<h2>Trocas</h2>
 
 <p>
-    <a asp-action="Create">Nova Troca</a>
+    <a asp-action="Create" class="btn btn-primary">Criar Novo</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                Nome do Primeiro Funcionário
+               Funcionario
             </th>
             <th>
-                Nome do Segundo Funcionário
+               Data
             </th>
             <th>
-                De dia:
+                HorarioATrocar
             </th>
             <th>
-               Para dia:
+                HorarioParaTroca
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Conhecimento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Aprovado)
+                Estado
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Trocas) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Funcionario.Nome)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Funcionario2.Nome)
+                @Html.DisplayFor(modelItem => item.Data)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DiaF1)
+                @Html.DisplayFor(modelItem => item.HorarioATrocar.HorarioATrocarId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DiaF2)
+                @Html.DisplayFor(modelItem => item.HorarioParaTroca.HorarioParaTrocaId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Conhecimento)
+                @Html.DisplayFor(modelItem => item.Estado.EstadoTrocaId)
             </td>
             <td>
-                @Html.CheckBoxFor(modelItem => item.Aprovado, new { @onclick = "Clicked(" + item.TrocasID + ")" })
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.TrocasID">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.TrocasID">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.TrocasID">Apagar</a>
+                <a asp-action="Edit" class="btn btn-success" asp-route-id="@item.TrocasID">Edit</a> |
+                <a asp-action="Details" class="btn btn-warning" asp-route-id="@item.TrocasID">Details</a> |
+                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.TrocasID">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
-
-<script>
-    function Clicked(id) {
-        $.post("/Trocas/Aprovar/" + id);
-    }
-</script>

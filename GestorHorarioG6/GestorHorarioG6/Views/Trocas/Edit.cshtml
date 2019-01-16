@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Editar Troca</h2>
+<h2>Trocas</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -17,36 +17,34 @@
                 <span asp-validation-for="FuncionarioId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FuncionarioId2" class="control-label"></label>
-                <select asp-for="FuncionarioId2" class="form-control" asp-items="ViewBag.FuncionarioId"></select>
-                <span asp-validation-for="FuncionarioId2" class="text-danger"></span>
-
+                <label asp-for="Data" class="control-label"></label>
+                <input asp-for="Data" class="form-control" />
+                <span asp-validation-for="Data" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DiaF1" class="control-label"></label>
-                <input asp-for="DiaF1" class="form-control" />
-                <span asp-validation-for="DiaF1" class="text-danger"></span>
+                <label asp-for="HorarioATrocarId" class="control-label"></label>
+                <select asp-for="HorarioATrocarId" class="form-control" asp-items="ViewBag.HorarioATrocarId"></select>
+                <span asp-validation-for="HorarioATrocarId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DiaF2" class="control-label"></label>
-                <input asp-for="DiaF2" class="form-control" />
-                <span asp-validation-for="DiaF2" class="text-danger"></span>
+                <label asp-for="HorarioParaTrocaId" class="control-label"></label>
+                <select asp-for="HorarioParaTrocaId" class="form-control" asp-items="ViewBag.HorarioParaTrocaId"></select>
+                <span asp-validation-for="HorarioParaTrocaId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="Conhecimento" /> @Html.DisplayNameFor(model => model.Conhecimento)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Guardar" class="btn btn-default" />
+                <label asp-for="EstadoTrocaId" class="control-label"></label>
+                <select asp-for="EstadoTrocaId" class="form-control" asp-items="ViewBag.EstadoTrocaId"></select>
+                <span asp-validation-for="EstadoTrocaId" class="text-danger"></span>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Voltar</a>
+    <input type="submit" value="Guardar" class="btn btn-primary" />
+    <a asp-action="Index" class="btn btn-default">Voltar</a>
 </div>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

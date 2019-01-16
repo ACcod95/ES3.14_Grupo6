@@ -48,6 +48,19 @@ namespace GestorHorarioG6.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Estado",
+                columns: table => new
+                {
+                    EstadoTrocaId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Nome = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Estado", x => x.EstadoTrocaId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Servico",
                 columns: table => new
                 {
@@ -121,7 +134,7 @@ namespace GestorHorarioG6.Migrations
                         column: x => x.CargoId,
                         principalTable: "Cargo",
                         principalColumn: "CargoId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -172,7 +185,116 @@ namespace GestorHorarioG6.Migrations
                         column: x => x.EquipamentoId,
                         principalTable: "Equipamento",
                         principalColumn: "EquipamentoId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HorarioTecnicos",
+                columns: table => new
+                {
+                    HorarioTecnicoId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DataInicioManha = table.Column<DateTime>(nullable: false),
+                    DataFimManha = table.Column<DateTime>(nullable: false),
+                    DataInicioTarde = table.Column<DateTime>(nullable: false),
+                    DataFimTarde = table.Column<DateTime>(nullable: false),
+                    TurnoId = table.Column<int>(nullable: false),
+                    FuncionarioId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HorarioTecnicos", x => x.HorarioTecnicoId);
+                    table.ForeignKey(
+                        name: "FK_HorarioTecnicos_Funcionario_FuncionarioId",
+                        column: x => x.FuncionarioId,
+                        principalTable: "Funcionario",
+                        principalColumn: "FuncionarioId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_HorarioTecnicos_Turno_TurnoId",
+                        column: x => x.TurnoId,
+                        principalTable: "Turno",
+                        principalColumn: "TurnoId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HorarioATrocar",
+                columns: table => new
+                {
+                    HorarioATrocarId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    HorarioFuncionarioId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HorarioATrocar", x => x.HorarioATrocarId);
+                    table.ForeignKey(
+                        name: "FK_HorarioATrocar_HorarioTecnicos_HorarioFuncionarioId",
+                        column: x => x.HorarioFuncionarioId,
+                        principalTable: "HorarioTecnicos",
+                        principalColumn: "HorarioTecnicoId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HorarioParaTroca",
+                columns: table => new
+                {
+                    HorarioParaTrocaId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    HorarioFucnionarioId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HorarioParaTroca", x => x.HorarioParaTrocaId);
+                    table.ForeignKey(
+                        name: "FK_HorarioParaTroca_HorarioTecnicos_HorarioFucnionarioId",
+                        column: x => x.HorarioFucnionarioId,
+                        principalTable: "HorarioTecnicos",
+                        principalColumn: "HorarioTecnicoId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Trocas",
+                columns: table => new
+                {
+                    TrocasID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    FuncionarioId = table.Column<int>(nullable: false),
+                    Data = table.Column<DateTime>(nullable: false),
+                    HorarioATrocarId = table.Column<int>(nullable: false),
+                    HorarioParaTrocaId = table.Column<int>(nullable: false),
+                    EstadoTrocaId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Trocas", x => x.TrocasID);
+                    table.ForeignKey(
+                        name: "FK_Trocas_Estado_EstadoTrocaId",
+                        column: x => x.EstadoTrocaId,
+                        principalTable: "Estado",
+                        principalColumn: "EstadoTrocaId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Trocas_Funcionario_FuncionarioId",
+                        column: x => x.FuncionarioId,
+                        principalTable: "Funcionario",
+                        principalColumn: "FuncionarioId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Trocas_HorarioATrocar_HorarioATrocarId",
+                        column: x => x.HorarioATrocarId,
+                        principalTable: "HorarioATrocar",
+                        principalColumn: "HorarioATrocarId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Trocas_HorarioParaTroca_HorarioParaTrocaId",
+                        column: x => x.HorarioParaTrocaId,
+                        principalTable: "HorarioParaTroca",
+                        principalColumn: "HorarioParaTrocaId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -184,6 +306,26 @@ namespace GestorHorarioG6.Migrations
                 name: "IX_Funcionario_CargoId",
                 table: "Funcionario",
                 column: "CargoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HorarioATrocar_HorarioFuncionarioId",
+                table: "HorarioATrocar",
+                column: "HorarioFuncionarioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HorarioParaTroca_HorarioFucnionarioId",
+                table: "HorarioParaTroca",
+                column: "HorarioFucnionarioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HorarioTecnicos_FuncionarioId",
+                table: "HorarioTecnicos",
+                column: "FuncionarioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HorarioTecnicos_TurnoId",
+                table: "HorarioTecnicos",
+                column: "TurnoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Requisicao_DepartamentoId",
@@ -199,13 +341,30 @@ namespace GestorHorarioG6.Migrations
                 name: "IX_RequisicaoEquipamento_EquipamentoId",
                 table: "RequisicaoEquipamento",
                 column: "EquipamentoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trocas_EstadoTrocaId",
+                table: "Trocas",
+                column: "EstadoTrocaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trocas_FuncionarioId",
+                table: "Trocas",
+                column: "FuncionarioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trocas_HorarioATrocarId",
+                table: "Trocas",
+                column: "HorarioATrocarId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trocas_HorarioParaTrocaId",
+                table: "Trocas",
+                column: "HorarioParaTrocaId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Funcionario");
-
             migrationBuilder.DropTable(
                 name: "Requisicao");
 
@@ -216,10 +375,7 @@ namespace GestorHorarioG6.Migrations
                 name: "Servico");
 
             migrationBuilder.DropTable(
-                name: "Turno");
-
-            migrationBuilder.DropTable(
-                name: "Cargo");
+                name: "Trocas");
 
             migrationBuilder.DropTable(
                 name: "Departamento");
@@ -228,7 +384,28 @@ namespace GestorHorarioG6.Migrations
                 name: "Equipamento");
 
             migrationBuilder.DropTable(
+                name: "Estado");
+
+            migrationBuilder.DropTable(
+                name: "HorarioATrocar");
+
+            migrationBuilder.DropTable(
+                name: "HorarioParaTroca");
+
+            migrationBuilder.DropTable(
                 name: "Bloco");
+
+            migrationBuilder.DropTable(
+                name: "HorarioTecnicos");
+
+            migrationBuilder.DropTable(
+                name: "Funcionario");
+
+            migrationBuilder.DropTable(
+                name: "Turno");
+
+            migrationBuilder.DropTable(
+                name: "Cargo");
         }
     }
 }

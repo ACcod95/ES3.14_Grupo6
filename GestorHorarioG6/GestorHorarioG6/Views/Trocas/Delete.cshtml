@@ -1,54 +1,50 @@
 ﻿@model GestorHorarioG6.Models.Trocas
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Eliminar";
 }
 
-<h2>Deseja apagar?</h2>
+<h2>Eliminar troca</h2>
+
+<h3>Deseja apagar esta troca?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Funcionario)
+            Funcionário
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Funcionario.Nome)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Funcionario2)
+           Data
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Funcionario2.Nome)
+            @Html.DisplayFor(model => model.Data)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.DiaF1)
+            Horário a trocar
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.DiaF1)
+            @Html.DisplayFor(model => model.HorarioATrocar.HorarioATrocarId)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.DiaF2)
+            Horário para trocar
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.DiaF2)
+            @Html.DisplayFor(model => model.HorarioParaTroca.HorarioParaTrocaId)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Conhecimento)
+            Estado
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Conhecimento)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Aprovado)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Aprovado)
+            @Html.DisplayFor(model => model.Estado.EstadoTrocaId)
         </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="TrocasID" />
-        <input type="submit" value="Apagar" class="btn btn-default" /> |
-        <a asp-action="Index"> Voltar</a>
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-primary">Voltar</a>
     </form>
 </div>
