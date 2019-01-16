@@ -1,0 +1,38 @@
+﻿@model IEnumerable<GestorHorarioG6.Models.Requisicao>
+
+@{
+    ViewData["Title"] = "Requisições Aprovadas";
+}
+
+<h2>Requisições Aprovadas</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <p>Data</p>
+            </th>
+            <th>
+                <p>Departamento</p>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Departamento.Nome)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RequisicaoId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.RequisicaoId">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.RequisicaoId">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

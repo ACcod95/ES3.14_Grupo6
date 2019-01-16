@@ -1,30 +1,68 @@
 ﻿@model GestorHorarioG6.Models.Requisicao
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes";
 }
 
-<h2>Details</h2>
+<h2>Detalhes</h2>
 
-<div>
-    <h4>Requisicao</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Dia)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Dia)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Departamento)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Departamento.Nome)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.RequisicaoId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <p>Serviço</p>
+            </th>
+            <th>
+                <p>Hora Crítica</p>
+            </th>
+            <th>
+                <p>Duração Estimada</p>
+            </th>
+            <th>
+                <p>Hora Conclusão</p>
+            </th>
+            <th>
+                <p>Notas</p>
+            </th>
+            <th>
+                <p>Aprovado</p>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Detalhes)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Servico)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoraCriticaDe.TimeOfDay.ToString() + " a " + item.HoraCriticaAte.TimeOfDay.ToString())
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DuraçãoEstimada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notas, new { @onclick = "Notas(" + item.RequisicaoDetalheId + ")" })
+                </td>
+                <td>
+                    @Html.CheckBoxFor(modelItem => item.Aprovado, new { @onclick = "Aprovar(" + item.RequisicaoDetalheId + ")" })
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.RequisicaoDetalheId">Editar</a> |
+                    <a asp-action="Delete" asp-route-id="@item.RequisicaoDetalheId">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function Aprovar(id) {
+        $.post("/Requisicoes/Aprovar/" + id);
+    }
+    function Notas(id) {
+        alert(""+ id);
+    }
+</script>

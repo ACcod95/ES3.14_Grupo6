@@ -21,7 +21,7 @@ namespace GestorHorarioG6.Controllers
         }
 
         // GET: Turnos
-        public async Task<IActionResult> Index(TurnoListViewModel model = null, int page = 1)
+        public async Task<IActionResult> Index(TurnosListViewModel model = null, int page = 1)
         {
             string nome = null;
 
@@ -45,7 +45,7 @@ namespace GestorHorarioG6.Controllers
                 .Take(PageSize)
                 .ToListAsync();
 
-            return View(new TurnoListViewModel
+            return View(new TurnosListViewModel
             {
                 Turno = listTurno,
                 PagingInfo = new PaginationViewModel
