@@ -1,57 +1,16 @@
 ﻿@model IEnumerable<GestorHorarioG6.Models.HorarioTecnicos>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Horário";
 }
-
-<h2>Horário Técnicos</h2>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Técnico
-            </th>
-            <th>
-                Turno
-            </th>
-            <th>
-                Data1
-            </th>
-            <th>
-                Data1fim
-            </th>
-            <th>
-                Data2
-            </th>
-            <th>
-                Data2fim
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Funcionario.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Turno.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataInicioManha)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataFimManha)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataInicioTarde)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataFimTarde)
-            </td>
-        </tr>
-        }
-    </tbody>
-    </table>
+<body>
+    <div style=" margin-top:50px; margin-left: 100px;" class="col-md-3">
+        <h3>Gerar Horários</h3>
+        <div style="margin-right:10px; margin-left:10px;">
+            <a href='@Url.Action("GerarHorarioTecnicos", "HorarioTecnicos")'>
+                <input type="button" class="btn btn-info btn-lg btn-block" value="GERAR HORÁRIO" />
+            </a>
+        </div>
+    </div>
+    <br />
+</body>
