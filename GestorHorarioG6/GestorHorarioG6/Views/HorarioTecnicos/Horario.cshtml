@@ -26,15 +26,43 @@
         <strong>Insucesso!</strong> Não pode gerar nesse dia (Têm de ser segunda e numa data superior).
     </div>
 }
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <form asp-action="Horario">
+                    <div class="form-inline">
+                        <div class="input-group" >
+                            <div class="col-md-6" style="margin: 0; padding: 0">
+                                <input asp-for="CurrentNome" class="form-control" placeholder="Nome" />
+                            </div>
+                            <div class="col-md-6" style="margin: 0; padding: 0px" >
+                                <input asp-for="DataInicio" class="form-control" />
+                            </div>
+                            <span class="input-group-addon" >
+                                <button type="submit" style="border:0; background:transparent">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+</th>
+            <th>
+                <div style="margin-right:10px; margin-left:10px;">
+                    <a href='@Url.Action("GerarHorarioTecnicos", "HorarioTecnicos")'>
+                        <input type="button" class="btn btn-info btn-lg btn-block" value="GERAR HORÁRIO" />
+                    </a>
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
 
-<form asp-action="Horario">
-    <p>
-        Pesquisar por nome: <input style="width: 200px;" asp-for="CurrentNome" placeholder="Nome" />
-        Pesquisar por data: <input style="width: 200px;" asp-for="DataInicio" />
-        <button type="submit" value="Pesquisar" class="btn btn-info"><span class="glyphicon glyphicon-search"></span> Pesquisar</button>
-    </p>
-</form>
-
+        </tr>
+    </tbody>
+</table>
 <table class="table">
     <thead>
         <tr>
