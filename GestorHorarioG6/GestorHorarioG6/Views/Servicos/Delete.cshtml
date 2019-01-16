@@ -1,37 +1,38 @@
-﻿@model GestorHorarioG6.Models.Servico
+﻿@model ServicosListViewModel
 
 @{
-    ViewData["Title"] = "Eliminar Serviço";
+    ViewData["Title"] = "Serviços";
 }
 
-<h2>Eliminar Serviço</h2>
+<h2>Serviços</h2>
 
-<h3>Tem a certeza que pretende eliminar este serviço?</h3>
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Descrição)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Descrição)
-        </dd>
-        <dt><br /></dt>
-        <dd><br /></dd>
-        <dt>
-            <a asp-action="Index"><input type="button" value="Voltar" class="btn btn-default" /></a>
-        </dt>
-        <dd>
-            <form asp-action="Delete">
-                <input type="hidden" asp-for="ServicoId" />
-                <input type="submit" value="Eliminar" class="btn btn-danger" />
-            </form>
-        </dd>
-    </dl>
-</div>
+<p>
+    <a asp-action="Create"><input type="button" value="Criar Serviço" class="btn btn-primary" /></a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <p>Nome</p>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Servicos)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td style="text-align:right">
+
+                    <a asp-action="Edit" class="btn btn-success" asp-route-id="@item.ServicoId">Editar</a> |
+                    <a asp-action="Details" class="btn btn-warning" asp-route-id="@item.ServicoId">Descrição</a>|
+                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.ServicoId">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div pagination-model="Model.PagingInfo"></div>

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using GestorHorarioG6.Data;
 using GestorHorarioG6.Models;
 
 namespace GestorHorarioG6.Controllers
@@ -27,11 +28,10 @@ namespace GestorHorarioG6.Controllers
             if (model != null && model.CurrentDay != DateTime.MinValue)
             {
                 day = model.CurrentDay;
-                page = 1;
             }
 
             var databaseContext = _context.Requisicao.Include(r => r.Departamento)
-                .Where(r => day == DateTime.MinValue || r.HoraDeInicio.Date.Equals(day.Date));
+                .Where(r => day == DateTime.MinValue || r.Detalhes.OrderBy(d => d.HoraDeInicio).FirstOrDefault().HoraDeInicio.Date.Equals(day.Date));
             var total = await databaseContext.CountAsync();
 
             if (page > (total / PageSize) + 1)
@@ -40,7 +40,7 @@ namespace GestorHorarioG6.Controllers
             }
 
             var requisicoes = await databaseContext
-                .OrderBy(r => r.HoraDeInicio)
+                .OrderBy(r => r.Detalhes.OrderBy(d => d.HoraDeInicio).FirstOrDefault().HoraDeInicio)
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize)
                 .ToListAsync();
@@ -62,12 +62,12 @@ namespace GestorHorarioG6.Controllers
         [HttpPost]
         public async Task<IActionResult> Aprovar(int id)
         {
-            var requisicao = await _context.Requisicao.FindAsync(id);
-            if (requisicao.Aprovado)
-                requisicao.Aprovado = false;
+            var detalhe = await _context.RequisicaoDetalhe.FindAsync(id);
+            if (detalhe.Aprovado)
+                detalhe.Aprovado = false;
             else
-                requisicao.Aprovado = true;
-            _context.Requisicao.Update(requisicao);
+                detalhe.Aprovado = true;
+            _context.RequisicaoDetalhe.Update(detalhe);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -75,13 +75,14 @@ namespace GestorHorarioG6.Controllers
         // GET: Requisicoes/Aprovadas
         public async Task<IActionResult> Aprovadas()
         {
-            var databaseContext = _context.Requisicao.Include(r => r.Departamento);
+            var databaseContext = _context.RequisicaoDetalhe.Include(r => r.Requisicao).Include(r => r.Servico);
             return View(await databaseContext.Where(r => r.Aprovado == true).ToListAsync());
         }
 
         // GET: Requisicoes/Create
         public IActionResult Create()
         {
+            ViewData["Servico"] = new SelectList(_context.Servico, "ServicoId", "Nome");
             ViewData["Departamento"] = new SelectList(_context.Departamento, "DepartamentoId", "Nome");
             return View();
         }
@@ -91,19 +92,15 @@ namespace GestorHorarioG6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RequisicaoId,DepartamentoId,HoraDeInicio,HoraDeFim,RequisicoesAdicionais")] Requisicao requisicao)
+        public async Task<IActionResult> Create([Bind("RequisicaoId,DepartamentoId,Detalhes")] Requisicao requisicao)
         {
-            if (requisicao.HoraDeInicio.CompareTo(DateTime.Now) < 1)
-                ModelState.AddModelError("HoraDeInicio", "A hora de início não pode ser anterior ou igual à actual.");
-            if (requisicao.HoraDeFim.CompareTo(requisicao.HoraDeInicio) < 1)
-                ModelState.AddModelError("HoraDeFim", "A hora de fim não pode ser anterior ou igual à hora de início.");
-
             if (ModelState.IsValid)
             {
                 _context.Add(requisicao);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Created/" + requisicao.RequisicaoId);
             }
+            ViewData["Servico"] = new SelectList(_context.Servico, "ServicoId", "Nome");
             ViewData["Departamento"] = new SelectList(_context.Departamento, "DepartamentoId", "Nome", requisicao.DepartamentoId);
             return View(requisicao);
         }
@@ -121,6 +118,7 @@ namespace GestorHorarioG6.Controllers
             {
                 return NotFound();
             }
+            ViewData["Servico"] = new SelectList(_context.Servico, "ServicoId", "Nome");
             ViewData["Departamento"] = new SelectList(_context.Departamento, "DepartamentoId", "Nome", requisicao.DepartamentoId);
             return View(requisicao);
         }
@@ -130,7 +128,7 @@ namespace GestorHorarioG6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Created(int id, [Bind("RequisicaoId,DepartamentoId,HoraDeInicio,HoraDeFim,RequisicoesAdicionais")] Requisicao requisicao)
+        public async Task<IActionResult> Created(int id, [Bind("RequisicaoId,DepartamentoId,Detalhes")] Requisicao requisicao)
         {
             if (id != requisicao.RequisicaoId)
             {
@@ -156,6 +154,7 @@ namespace GestorHorarioG6.Controllers
                     }
                 }
             }
+            ViewData["Servico"] = new SelectList(_context.Servico, "ServicoId", "Nome");
             ViewData["Departamento"] = new SelectList(_context.Departamento, "DepartamentoId", "Nome", requisicao.DepartamentoId);
             return View(requisicao);
         }
@@ -181,17 +180,15 @@ namespace GestorHorarioG6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RequisicaoId,DepartamentoId,HoraDeInicio,HoraDeFim,RequisicoesAdicionais")] Requisicao requisicao)
+        public async Task<IActionResult> Edit(int id, [Bind("RequisicaoId,DepartamentoId,Detalhes")] Requisicao requisicao)
         {
             if (id != requisicao.RequisicaoId)
             {
                 return NotFound();
             }
-            
-            if (requisicao.HoraDeInicio.CompareTo(DateTime.Now) < 1)
-                ModelState.AddModelError("HoraDeInicio", "A hora de início não pode ser anterior ou igual à actual.");
-            if (requisicao.HoraDeFim.CompareTo(requisicao.HoraDeInicio) < 1)
-                ModelState.AddModelError("HoraDeFim", "A hora de fim não pode ser anterior ou igual à hora de início.");
+
+            if (requisicao.Detalhes.OrderBy(d => d.HoraDeInicio).FirstOrDefault().HoraDeInicio.CompareTo(DateTime.Now) < 1)
+                ModelState.AddModelError("Detalhes", "A hora de início não pode ser anterior ao presente.");
 
             if (ModelState.IsValid)
             {

@@ -24,10 +24,11 @@
         <dt><br /></dt>
         <dd><br /></dd>
         <dt>
-            <a asp-action="Index"><input type="button" value="Voltar" class="btn btn-default" /></a>
+            <a asp-action="Edit" asp-route-id="@Model.ServicoId"><input type="button" value="Editar" class="btn btn-success" /></a>
         </dt>
         <dd>
-            <a asp-action="Edit" asp-route-id="@Model.ServicoId"><input type="button" value="Editar" class="btn btn-success" /></a>
+            <a asp-action="Index"><input type="button" value="Voltar" class="btn btn-default" /></a>
         </dd>
+
     </dl>
 </div>

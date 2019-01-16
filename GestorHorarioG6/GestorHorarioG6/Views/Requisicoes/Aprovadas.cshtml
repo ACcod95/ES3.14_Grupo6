@@ -10,37 +10,29 @@
     <thead>
         <tr>
             <th>
+                <p>Data</p>
+            </th>
+            <th>
                 <p>Departamento</p>
             </th>
-            <th>
-                <p>Hora de Início</p>
-            </th>
-            <th>
-                <p>Hora de Fim</p>
-            </th>
-            <th>
-                <p>Requisições Adicionais</p>
-            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Departamento.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HoraDeInicio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HoraDeFim)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RequisicoesAdicionais)
-                </td>
-            </tr>
-        }
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Departamento.Nome)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RequisicaoId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.RequisicaoId">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.RequisicaoId">Eliminar</a>
+            </td>
+        </tr>
+}
     </tbody>
 </table>

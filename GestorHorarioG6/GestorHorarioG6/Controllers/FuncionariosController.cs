@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using GestorHorarioG6.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using GestorHorarioG6.Data;
+using GestorHorarioG6.Models;
 
 namespace GestorHorarioG6.Controllers
 {
@@ -28,7 +28,7 @@ namespace GestorHorarioG6.Controllers
 
 
         // GET: Funcionarios
-        public async Task<IActionResult> Escalas(FuncionarioViewModel  model = null, int page = 1)
+        public async Task<IActionResult> Funcionario(FuncionariosListViewModel model = null, int page = 1)
         {
             string nome = null;
 
@@ -37,7 +37,7 @@ namespace GestorHorarioG6.Controllers
                 nome = model.CurrentNome;
                 page = 1;
             }
-        
+
             var func = _context.Funcionario.Include(f => f.Cargo).Where(f => nome == null || f.Nome.Contains(nome));
             var total = await func.CountAsync();
 
@@ -45,14 +45,14 @@ namespace GestorHorarioG6.Controllers
             {
                 page = 1;
             }
-            
+
             var listFunc = await func
-               .OrderBy(p => p.FuncionarioId)   
+               .OrderBy(p => p.FuncionarioId)
                .Skip(PAGE_SIZE * (page - 1))
                .Take(PAGE_SIZE)
                .ToListAsync();
 
-            return View(new FuncionarioViewModel
+            return View(new FuncionariosListViewModel
             {
                 Funcionario = listFunc,
                 PageInfo = new PaginationViewModel
@@ -71,7 +71,7 @@ namespace GestorHorarioG6.Controllers
             if (id == null)
             {
                 //return NotFound();
-                return RedirectToAction(nameof(Escalas));
+                return RedirectToAction(nameof(Funcionario));
             }
 
             var funcionario = await _context.Funcionario
@@ -85,7 +85,7 @@ namespace GestorHorarioG6.Controllers
         }
 
         // GET: Funcionarios/Create
-        public IActionResult Adicionar_Funcionario()
+        public IActionResult Create()
         {
             ViewData["Cargo"] = new SelectList(_context.Cargo, "CargoId", "Nome");
             return View();
@@ -96,9 +96,10 @@ namespace GestorHorarioG6.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Adicionar_Funcionario([Bind("FuncionarioId,Nome,CargoId,Nascimento,NascimentoFilho,NIF,Telefone,Email,Notas")] Funcionario funcionario)
+        public async Task<IActionResult> Create([Bind("FuncionarioId,Nome,CargoId,Nascimento,NascimentoFilho,NIF,Telefone,Email,Notas")] Funcionario funcionario)
         {
-            if (funcionario.NascimentoFilho  > DateTime.Now)
+            System.Diagnostics.Debug.WriteLine(funcionario.CargoId);
+            if (!funcionario.NascimentoFilho.Equals(DateTime.MinValue) && funcionario.NascimentoFilho > DateTime.Now)
             {
                 ModelState.AddModelError("NascimentoFilho", "A data de nascimento não pode de ser posterior á atual.");
 
@@ -109,11 +110,16 @@ namespace GestorHorarioG6.Controllers
 
             }
 
+            if (funcionario.Nascimento > DateTime.Now.AddYears(-18))
+            {
+                ModelState.AddModelError("Nascimento", "Funcionário com menos de 18 anos.");
+
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(funcionario);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Escalas));
+                return RedirectToAction(nameof(Funcionario));
             }
             ViewData["Cargo"] = new SelectList(_context.Cargo, "CargoId", "Nome", funcionario.CargoId);
             return View(funcionario);
@@ -157,6 +163,11 @@ namespace GestorHorarioG6.Controllers
                 ModelState.AddModelError("Nascimento", "A data de nascimento não pode ser posterior á atual.");
 
             }
+            if (funcionario.Nascimento > DateTime.Now.AddYears(-18))
+            {
+                ModelState.AddModelError("Nascimento", "Funcionário com menos de 18 anos.");
+
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -175,7 +186,7 @@ namespace GestorHorarioG6.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Escalas));
+                return RedirectToAction(nameof(Funcionario));
             }
             ViewData["Cargo"] = new SelectList(_context.Cargo, "CargoId", "Nome", funcionario.CargoId);
             return View(funcionario);
@@ -198,7 +209,7 @@ namespace GestorHorarioG6.Controllers
 
             return View(funcionario);
         }
-        
+
         // POST: Funcionarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -207,7 +218,7 @@ namespace GestorHorarioG6.Controllers
             var funcionario = await _context.Funcionario.FindAsync(id);
             _context.Funcionario.Remove(funcionario);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Escalas));
+            return RedirectToAction(nameof(Funcionario));
         }
 
         private bool FuncionarioExists(int id)

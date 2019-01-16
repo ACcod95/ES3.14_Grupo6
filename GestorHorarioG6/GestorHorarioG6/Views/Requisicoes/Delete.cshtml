@@ -10,38 +10,28 @@
     <h4>Requisição</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>Departamento</dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Dia)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Dia)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Departamento)
+        </dt>
         <dd>
             @Html.DisplayFor(model => model.Departamento.Nome)
         </dd>
-        <dt>Hora de Início</dt>
-        <dd>
-            @Html.DisplayFor(model => model.HoraDeInicio)
-        </dd>
-        <dt>Hora de Fim</dt>
-        <dd>
-            @Html.DisplayFor(model => model.HoraDeFim)
-        </dd>
-        <dt>Requisições Adicionais</dt>
-        <dd>
-            @Html.DisplayFor(model => model.RequisicoesAdicionais)
-        </dd>
         <dt>
-            <br />
-        </dt>
-        <dd>
-            <br />
-        </dd>
-        <dt>
-            <a asp-action="Index">
-                <input type="submit" value="Voltar" class="btn btn-default" />
-            </a>
-        </dt>
-        <dd>
             <form asp-action="Delete">
                 <input type="hidden" asp-for="RequisicaoId" />
                 <input type="submit" value="Eliminar" class="btn btn-danger" />
             </form>
+        </dt>
+        <dd>
+            <a asp-action="Index">
+                <input type="submit" value="Voltar" class="btn btn-default" />
+            </a>
         </dd>
     </dl>
 </div>

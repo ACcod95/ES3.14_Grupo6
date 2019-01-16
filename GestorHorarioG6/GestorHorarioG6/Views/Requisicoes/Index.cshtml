@@ -17,7 +17,7 @@
                     <br />
                     <div class='input-group date'>
                         <input asp-for="CurrentDay" class="form-control" />
-                        <span class="input-group-addon" >
+                        <span class="input-group-addon">
                             <button type="submit" style="border:0; background:transparent">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
@@ -33,45 +33,27 @@
     <thead>
         <tr>
             <th>
+                <p>Data</p>
+            </th>
+            <th>
                 <p>Departamento</p>
-            </th>
-            <th>
-                <p>Hora de Início</p>
-            </th>
-            <th>
-                <p>Hora de Fim</p>
-            </th>
-            <th>
-                <p>Notas Adicionais</p>
-            </th>
-            <th>
-                <p>Aprovar</p>
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-
         @foreach (var item in Model.Requisicoes)
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Dia)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Departamento.Nome)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.HoraDeInicio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HoraDeFim)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RequisicoesAdicionais)
-                </td>
-                <td>
-                    @Html.CheckBoxFor(modelItem => item.Aprovado, new { @onclick = "Clicked(" + item.RequisicaoId + ")" })
-                </td>
-                <td>
                     <a asp-action="Edit" asp-route-id="@item.RequisicaoId">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.RequisicaoId">Detalhes</a> |
                     <a asp-action="Delete" asp-route-id="@item.RequisicaoId">Eliminar</a>
                 </td>
             </tr>
@@ -79,9 +61,3 @@
     </tbody>
 </table>
 <div pagination-model="Model.PagingInfo"></div>
-
-<script>
-    function Clicked(id) {
-        $.post("/Requisicoes/Aprovar/" + id);
-    }
-</script>

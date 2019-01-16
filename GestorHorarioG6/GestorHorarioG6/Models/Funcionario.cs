@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,8 +15,9 @@ namespace GestorHorarioG6.Models
         [Required(ErrorMessage = "Este campo não pode estar por preencher")]
         public string Nome { get; set; }
 
-        [Required(ErrorMessage = "Por favor selecione um cargo válido")]
+
         public Cargo Cargo { get; set; }
+        [Required(ErrorMessage = "Por favor selecione um cargo válido")]
         public int CargoId { get; set; }
 
         [DataType(DataType.Date)]
@@ -25,7 +25,7 @@ namespace GestorHorarioG6.Models
         public DateTime Nascimento { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime NascimentoFilho { get; set; }
+        public DateTime? NascimentoFilho { get; set; }
 
         [Required(ErrorMessage = "Por favor insira um NIF válido")]
         [RegularExpression(@"[0-9]{9}")]
