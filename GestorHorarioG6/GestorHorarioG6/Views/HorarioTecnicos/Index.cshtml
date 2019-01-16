@@ -1,88 +1,16 @@
-﻿@model HorarioTecnicosViewModel
+﻿@model IEnumerable<GestorHorarioG6.Models.HorarioTecnicos>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Horário";
 }
-
-<h2 style="text-align:center;">Horário Técnicos</h2>
-
-@if (TempData["Success"] != null)
-{
-    <div id="suc_form" class="alert alert-success">
-        <strong>Sucesso!</strong> O horário foi gerado com sucesso.
+<body>
+    <div style=" margin-top:50px; margin-left: 100px;" class="col-md-3">
+        <h3>Gerar Horários</h3>
+        <div style="margin-right:10px; margin-left:10px;">
+            <a href='@Url.Action("GerarHorarioTecnicos", "HorarioTecnicos")'>
+                <input type="button" class="btn btn-info btn-lg btn-block" value="GERAR HORÁRIO" />
+            </a>
+        </div>
     </div>
-}
-
-@if (TempData["Insuccess"] != null)
-{
-    <div id="suc_form" class="alert alert-danger">
-        <strong>Insucesso!</strong> Não existem dados.
-    </div>
-}
-
-@if (TempData["Insuccess2"] != null)
-{
-    <div id="suc_form" class="alert alert-danger">
-        <strong>Insucesso!</strong> Não pode gerar nesse dia (Têm de ser segunda e numa data superior).
-    </div>
-}
-
-<form asp-action="Index">
-    <p>
-        Pesquisar por nome: <input style="width: 200px;" asp-for="CurrentNome" placeholder="Nome" />
-        Pesquisar por data: <input style="width: 200px;" asp-for="DataInicio" />
-        <button type="submit" value="Pesquisar" class="btn btn-info"><span class="glyphicon glyphicon-search"></span> Pesquisar</button>
-    </p>
-</form>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th style="text-align:center;">
-                Técnico
-            </th>
-            <th style="text-align:center;">
-                Data
-            </th>
-            <th style="max-width:150px; text-align:center;">
-                Hora de Inicio - Manha
-            </th>
-            <th style="max-width:150px; text-align:center;">
-                Hora de Fim - Manha
-            </th>
-            <th style="max-width:150px; text-align:center;">
-                Hora de Inicio - Tarde
-            </th>
-            <th style="max-width:150px; text-align:center;">
-                Hora de Fim - Tarde
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.HorarioTecnicos)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Funcionario.Nome)
-                </td>
-                <td style="text-align:center;">
-                    @Html.DisplayFor(modelItem => item.DataInicioManha.Day)/@Html.DisplayFor(modelItem => item.DataInicioManha.Month)/@Html.DisplayFor(modelItem => item.DataInicioManha.Year)
-                </td>
-                <td style="text-align:center">
-                    @Html.DisplayFor(modelItem => item.DataInicioManha.TimeOfDay)
-                </td>
-                <td style="text-align:center">
-                    @Html.DisplayFor(modelItem => item.DataFimManha.TimeOfDay)
-                </td>
-                <td style="text-align:center">
-                    @Html.DisplayFor(modelItem => item.DataInicioTarde.TimeOfDay)
-                </td>
-                <td style="text-align:center">
-                    @Html.DisplayFor(modelItem => item.DataFimTarde.TimeOfDay)
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<div pagination-model="Model.PagingInfo"></div>
+    <br />
+</body>

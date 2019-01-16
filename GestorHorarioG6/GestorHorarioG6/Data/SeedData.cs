@@ -86,21 +86,6 @@ namespace GestorHorarioG6.Data
                     new Turno { Nome = "Terceiro", HoraInicioManha = 14, HoraFimManha = 19, HoraInicioTarde = 20, HoraFimTarde = 22 }
                     );
                 }
-                if (!db.RegrasGerais.Any())
-                {
-                    db.RegrasGerais.AddRange
-                    (new RegrasGerais { Nome = "RegraSemana", Descricao = "O Técnico não pode trabalhar mais de 35 horas semanais", Horas = 35 },
-                    new RegrasGerais { Nome = "RegraDia", Descricao = "O Técnico não pode trabalhar mais de 7 horas por dia", Horas = 7 }
-                    );
-                }
-                if (!db.Turno.Any())
-                {
-                    db.Turno.AddRange
-                    (new Turno { Nome = "Primeiro", HoraInicioManha = 8, HoraFimManha = 13, HoraInicioTarde = 14, HoraFimTarde = 16 },
-                    new Turno { Nome = "Segundo", HoraInicioManha = 11, HoraFimManha = 14, HoraInicioTarde = 15, HoraFimTarde = 19 },
-                    new Turno { Nome = "Terceiro", HoraInicioManha = 14, HoraFimManha = 19, HoraInicioTarde = 20, HoraFimTarde = 22 }
-                    );
-                }
                 db.SaveChanges();
             }
         }
