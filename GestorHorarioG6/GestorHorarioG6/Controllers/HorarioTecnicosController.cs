@@ -13,15 +13,20 @@ namespace GestorHorarioG6.Controllers
     public class HorarioTecnicosController : Controller
     {
         private readonly GestorHorarioG6Context _context;
-        private const int PAGE_SIZE = 12;
+        private const int PAGE_SIZE = 9;
 
         public HorarioTecnicosController(GestorHorarioG6Context context)
         {
             _context = context;
         }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         // GET: HorarioTecnicos
-        public async Task<IActionResult> Index(HorarioTecnicosViewModel model = null, int page = 1)
+        public async Task<IActionResult> Horario(HorarioTecnicosViewModel model = null, int page = 1)
         {
             string nome = null;
             DateTime? data = null;
@@ -152,7 +157,7 @@ namespace GestorHorarioG6.Controllers
             {
                 _context.Add(horarioTecnicos);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Horario));
             }
             ViewData["FuncionarioId"] = new SelectList(_context.Funcionario, "FuncionarioId", "NIF", horarioTecnicos.FuncionarioId);
             ViewData["TurnoId"] = new SelectList(_context.Turno, "TurnoId", "TurnoId", horarioTecnicos.TurnoId);
@@ -207,7 +212,7 @@ namespace GestorHorarioG6.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Horario));
             }
             ViewData["FuncionarioId"] = new SelectList(_context.Funcionario, "FuncionarioId", "NIF", horarioTecnicos.FuncionarioId);
             ViewData["TurnoId"] = new SelectList(_context.Turno, "TurnoId", "TurnoId", horarioTecnicos.TurnoId);
@@ -242,7 +247,7 @@ namespace GestorHorarioG6.Controllers
             var horarioTecnicos = await _context.HorarioTecnicos.FindAsync(id);
             _context.HorarioTecnicos.Remove(horarioTecnicos);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Horario));
         }
 
         private bool HorarioTecnicosExists(int id)
@@ -263,9 +268,9 @@ namespace GestorHorarioG6.Controllers
             {
                 DateTime dataIn = gerarHorarioTecnicos.DataInicioSemana;
                 GerarHorarioTecnico(_context, dataIn);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Horario));
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Horario));
         }
 
         /**Funções**/
