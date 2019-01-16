@@ -35,7 +35,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Servico)
+                    @Html.DisplayFor(modelItem => item.Servico.Nome)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.HoraCriticaDe.TimeOfDay.ToString() + " a " + item.HoraCriticaAte.TimeOfDay.ToString())

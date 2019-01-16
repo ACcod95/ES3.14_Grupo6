@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GestorHorarioG6.Models.Requisicao>
+﻿@model IEnumerable<GestorHorarioG6.Models.RequisicaoDetalhe>
 
 @{
     ViewData["Title"] = "Requisições Aprovadas";
@@ -10,10 +10,10 @@
     <thead>
         <tr>
             <th>
-                <p>Data</p>
+                <p>Departamento</p>
             </th>
             <th>
-                <p>Departamento</p>
+                <p>Serviço</p>
             </th>
             <th></th>
         </tr>
@@ -22,12 +22,12 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Dia)
+                @Html.DisplayFor(modelItem => item.Requisicao.Departamento.Nome)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Departamento.Nome)
+                @Html.DisplayFor(modelItem => item.Servico)
             </td>
-            <td>
+            <td align="right">
                 <a asp-action="Edit" asp-route-id="@item.RequisicaoId">Editar</a> |
                 <a asp-action="Details" asp-route-id="@item.RequisicaoId">Detalhes</a> |
                 <a asp-action="Delete" asp-route-id="@item.RequisicaoId">Eliminar</a>

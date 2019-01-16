@@ -1,7 +1,7 @@
 ﻿@model HorarioTecnicosViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Horário";
 }
 
 <h2 style="text-align:center;">Horário Técnicos</h2>
@@ -27,7 +27,7 @@
     </div>
 }
 
-<form asp-action="Index">
+<form asp-action="Horario">
     <p>
         Pesquisar por nome: <input style="width: 200px;" asp-for="CurrentNome" placeholder="Nome" />
         Pesquisar por data: <input style="width: 200px;" asp-for="DataInicio" />
@@ -84,5 +84,4 @@
         }
     </tbody>
 </table>
-
 <div pagination-model="Model.PagingInfo"></div>

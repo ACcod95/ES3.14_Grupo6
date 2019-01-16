@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GestorHorarioG6.Models;
+using GestorHorarioG6.Data;
 
 namespace GestorHorarioG6.Controllers
 {
