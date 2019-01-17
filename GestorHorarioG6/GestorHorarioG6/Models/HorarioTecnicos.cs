@@ -21,5 +21,8 @@ namespace GestorHorarioG6.Models
 
         public int FuncionarioId { get; set; }
         public Funcionario Funcionario { get; set; }
+
+        public ICollection<HorarioATrocar> HorarioATrocar { get; set; }
+        public ICollection<HorarioParaTroca> HorarioParaTroca { get; set; }
     }
 }

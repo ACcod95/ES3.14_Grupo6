@@ -1,0 +1,81 @@
+﻿@model HorarioTecnicosViewModel
+
+@{
+    ViewData["Title"] = "Pedido Troca";
+}
+
+<h2>Selecione um turno para troca</h2>
+
+<p></p>
+
+<form asp-controller="HorarioTecnicos" asp-action="PedidoTrocaTurno" asp-route-idHorario1="@ViewBag.HorarioATrocar">
+    <p>
+        Pesquisar por nome: <input style="width: 200px;" asp-for="CurrentNome" placeholder="Insira o nome a pesquisar" />
+        Pesquisar por data: <input style="width: 200px;" asp-for="DataInicio" />
+        <button type="submit" value="Pesquisar" class="btn btn-info"><span class="glyphicon glyphicon-search"></span> Pesquisar</button>
+    </p>
+</form>
+
+<table class="table">
+        <thead>
+            <tr>
+                <th style="text-align:center;">
+                    Técnico
+                </th>
+                <th style="text-align:center;">
+                    Data
+                </th>
+                <th style="max-width:150px; text-align:center;">
+                    Hora de Inicio - Manha
+                </th>
+                <th style="max-width:150px; text-align:center;">
+                    Hora de Fim - Manha
+                </th>
+                <th style="max-width:150px; text-align:center;">
+                    Hora de Inicio - Tarde
+                </th>
+                <th style="max-width:150px; text-align:center;">
+                    Hora de Fim - Tarde
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.HorarioTecnicos)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Funcionario.Nome)
+                    </td>
+                    <td style="text-align:center;">
+                        @Html.DisplayFor(modelItem => item.DataInicioManha.Day)/@Html.DisplayFor(modelItem => item.DataInicioManha.Month)/@Html.DisplayFor(modelItem => item.DataInicioManha.Year)
+                    </td>
+                    <td style="text-align:center">
+                        @Html.DisplayFor(modelItem => item.DataInicioManha.TimeOfDay)
+                    </td>
+                    <td style="text-align:center">
+                        @Html.DisplayFor(modelItem => item.DataFimManha.TimeOfDay)
+                    </td>
+                    <td style="text-align:center">
+                        @Html.DisplayFor(modelItem => item.DataInicioTarde.TimeOfDay)
+                    </td>
+                    <td style="text-align:center">
+                        @Html.DisplayFor(modelItem => item.DataFimTarde.TimeOfDay)
+                    </td>
+                    <td>
+                        <a asp-action="SolicitarPedidoTroca" asp-route-idHorario1="@ViewBag.HorarioATrocar" asp-route-idHorario2="@item.HorarioTecnicoId" class="btn btn-warning">
+                            <span class="glyphicon glyphicon-transfer" style="color:white;"></span> Trocar
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+<div page-model="@Model.PagingInfo"
+     page-action="Index"
+     page-classes-enabled="true"
+     page-class="btn"
+     page-class-normal="btn-default"
+     page-class-selected="btn-primary"
+     class="btn-group pull-right">
+</div>

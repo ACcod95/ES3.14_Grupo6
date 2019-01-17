@@ -1,0 +1,24 @@
+﻿@model GestorHorarioG6.Models.HorarioATrocar
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>HorarioATrocar</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HorarioTecnicos)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HorarioTecnicos.HorarioTecnicoId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.HorarioATrocarId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
