@@ -533,13 +533,13 @@ namespace GestorHorarioG6.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult SolicitarPedidoTrocaComfirma(int idHorario1, int idHorario2)
         {
-            DateTime dataPedido = DateTime.Now;
+            DateTime dataPTroca = DateTime.Now;
 
-            // Verifica se já existe um pedido feito com os id's dos horários
+            // Verifica se já existe um pedido feito  
             if (PedidoTrocaTurnoJaFeito(idHorario1, idHorario2) == true)
             {
                 TempData["PedidoAlreadyDone"] = "Já existe um pedido feito para a troca destes horários";
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Horario));
             }
 
            
@@ -550,16 +550,16 @@ namespace GestorHorarioG6.Controllers
 
             try
             {
-                //Insert into HorarioATrocar
+                //Inserir em HorarioATrocar
                 IDataIntoHorarioATrocar(_context, horarioATrocar);
 
-                //Insert into HorarioParaTroca
+                //Inserir em HorarioParaTroca
                 IDataIntoHorarioParaTroca(_context, horarioParaTroca);
             }
             catch (DbUpdateConcurrencyException)
             {
                 TempData["ErrorRequired"] = "Erro ao inserir!";
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(TrocasController.Index));
             }
 
             HorarioATrocar horarioATrocarId = _context.HorarioATrocar.LastOrDefault(h => h.HorarioTecnicoId == idHorario1);
@@ -569,24 +569,24 @@ namespace GestorHorarioG6.Controllers
 
             Estado estadoTrocaId = _context.Estado.SingleOrDefault(e => e.Nome == "Pendente");
 
-            //Insert into PedidoTrocaTurnos Table
+            //inserir troca
             try
             {
                 if (!PedidoTrocaTurnoJaFeito(idHorario1, idHorario2))
                 {
-                    InsertDataIntoTroca(_context, dataPedido, TecnicoReqId, horarioATrocarId, horarioParaTrocaId, estadoTrocaId);
+                    InsertDataIntoTroca(_context, dataPTroca, TecnicoReqId, horarioATrocarId, horarioParaTrocaId, estadoTrocaId);
                     TempData["SuccessRequired"] = "Pedido realizado com sucesso!";
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(TrocasController.Index));
                 }
 
             }
             catch (DbUpdateConcurrencyException)
             {
                 TempData["ErrorRequired"] = "Erro ao inserir!";
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(PedidoTrocaTurno));
             }
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(TrocasController.Index));
         }
 
         private bool PedidoTrocaTurnoJaFeito(int idHorarioATrocar, int idHorarioParaTroca)
@@ -622,11 +622,11 @@ namespace GestorHorarioG6.Controllers
 
             db.SaveChanges();
         }
-        private void InsertDataIntoTroca(GestorHorarioG6Context db, DateTime dataPedido, Funcionario FReqId, HorarioATrocar horarioATrocarId, HorarioParaTroca horarioParaTrocaId, Estado estadoTrocaId)
+        private void InsertDataIntoTroca(GestorHorarioG6Context db, DateTime dataPTroca, Funcionario FReqId, HorarioATrocar horarioATrocarId, HorarioParaTroca horarioParaTrocaId, Estado estadoTrocaId)
         {
             db.Trocas.Add(
 
-                new Trocas { Data = dataPedido, FuncionarioId = FReqId.FuncionarioId, HorarioATrocarId = horarioATrocarId.HorarioATrocarId, HorarioParaTrocaId = horarioParaTrocaId.HorarioParaTrocaId, EstadoTrocaId = estadoTrocaId.EstadoTrocaId }
+                new Trocas { Data = dataPTroca, FuncionarioId = FReqId.FuncionarioId, HorarioATrocarId = horarioATrocarId.HorarioATrocarId, HorarioParaTrocaId = horarioParaTrocaId.HorarioParaTrocaId, EstadoTrocaId = estadoTrocaId.EstadoTrocaId }
 
                );
 
