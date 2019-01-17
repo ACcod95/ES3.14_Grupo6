@@ -25,7 +25,7 @@
         <dt>
             <form asp-action="Delete">
                 <input type="hidden" asp-for="RequisicaoId" />
-                <input type="submit" value="Eliminar" class="btn btn-danger" />
+                <input type="submit" value="Eliminar" class="btn btn-danger" onclick="return confirm('Tem a certeza que pretende eliminar?');" />
             </form>
         </dt>
         <dd>

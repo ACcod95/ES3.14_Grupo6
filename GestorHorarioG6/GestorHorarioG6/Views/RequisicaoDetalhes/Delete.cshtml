@@ -1,51 +1,47 @@
 ﻿@model GestorHorarioG6.Models.RequisicaoDetalhe
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Eliminar";
 }
+<style>
+    dl, dt, dd {
+        margin-top: 8px
+    }
+</style>
+<h2>Eliminar</h2>
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h4>Tem a certeza que pretende eliminar?</h4>
 <div>
-    <h4>RequisicaoDetalhe</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Requisicao)
+            <p>ID da Requisição</p>
         </dt>
         <dd>
+            <p></p>
             @Html.DisplayFor(model => model.Requisicao.RequisicaoId)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Servico)
+            <p>Serviço</p>
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Servico.Nome)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.HoraCriticaDe)
+            <p>Horas Críticas</p>
         </dt>
         <dd>
             @Html.DisplayFor(model => model.HoraCriticaDe)
+            @if (Model.HoraCriticaAte.HasValue)
+            {
+                <i> - </i>
+                @Html.DisplayFor(model => model.HoraCriticaAte.Value.TimeOfDay)
+            }
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.HoraCriticaAte)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.HoraCriticaAte)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DuraçãoEstimada)
+            <p>Duração Estimada</p>
         </dt>
         <dd>
             @Html.DisplayFor(model => model.DuraçãoEstimada)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Notas)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Notas)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Aprovado)
@@ -54,28 +50,30 @@
             @Html.DisplayFor(model => model.Aprovado)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.HoraDeInicio)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.HoraDeInicio)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.HoraDeFim)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.HoraDeFim)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.HoraConcluido)
+            <p>
+                Hora a que<br />
+                foi concluído
+            </p>
         </dt>
         <dd>
             @Html.DisplayFor(model => model.HoraConcluido)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Notas)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Notas)
+        </dd>
+        <dt><br /></dt>
+        <dd><br /></dd>
+        <dt>
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="RequisicaoDetalheId" />
+                <input type="submit" value="Eliminar" class="btn btn-danger" onclick="return confirm('Tem a certeza que pretende eliminar?');" />
+            </form>
+        </dt>
+        <dd>
+            <input type="button" value="Voltar" class="btn btn-default" onclick="history.back();return false;" />
+        </dd>
     </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="RequisicaoDetalheId" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
 </div>

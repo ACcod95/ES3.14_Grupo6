@@ -19,10 +19,10 @@ namespace GestorHorarioG6.Data
                 {
                     db.Departamento.AddRange
                     (new Departamento { Nome = "Obstetrícia" },
-                        new Departamento { Nome = "Ortopedia" },
-                        new Departamento { Nome = "Pediatria" },
-                        new Departamento { Nome = "Cardiologia" },
-                        new Departamento { Nome = "Neurologia" }
+                    new Departamento { Nome = "Ortopedia" },
+                    new Departamento { Nome = "Pediatria" },
+                    new Departamento { Nome = "Cardiologia" },
+                    new Departamento { Nome = "Neurologia" }
                     );
                 }
                 db.SaveChanges();
@@ -40,15 +40,6 @@ namespace GestorHorarioG6.Data
                     new Requisicao { DepartamentoId = 3, Dia = inicio.AddDays(1) },
                     new Requisicao { DepartamentoId = 2, Dia = inicio.AddDays(10) },
                     new Requisicao { DepartamentoId = 1, Dia = inicio.AddDays(3) }
-                    );
-                }
-                db.SaveChanges();
-
-                if (!db.Servico.Any())
-                {
-                    db.Servico.AddRange
-                    (new Servico { Nome = "Reparação", Descrição = "Reparação geral de um computador" },
-                    new Servico { Nome = "Substituição" }
                     );
                 }
                 db.SaveChanges();
@@ -84,6 +75,24 @@ namespace GestorHorarioG6.Data
                     (new Turno { Nome = "Primeiro", HoraInicioManha = 8, HoraFimManha = 13, HoraInicioTarde = 14, HoraFimTarde = 16 },
                     new Turno { Nome = "Segundo", HoraInicioManha = 11, HoraFimManha = 14, HoraInicioTarde = 15, HoraFimTarde = 19 },
                     new Turno { Nome = "Terceiro", HoraInicioManha = 14, HoraFimManha = 19, HoraInicioTarde = 20, HoraFimTarde = 22 }
+                    );
+                }
+                db.SaveChanges();
+
+                if (!db.Servico.Any())
+                {
+                    db.Servico.AddRange
+                    (new Servico { Nome = "Reparação", Descrição = "Reparação geral de um computador" },
+                    new Servico { Nome = "Substituição" }
+                    );
+                }
+                db.SaveChanges();
+
+                if (!db.RequisicaoDetalhe.Any())
+                {
+                    var duracao1 = db.Servico.Where(s => s.ServicoId == 1).FirstOrDefault().DuracaoMedia;
+                    db.RequisicaoDetalhe.AddRange
+                    (new RequisicaoDetalhe { RequisicaoId = 1, ServicoId = 1, DuraçãoEstimada = duracao1}
                     );
                 }
                 db.SaveChanges();

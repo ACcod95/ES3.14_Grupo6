@@ -13,7 +13,7 @@ namespace GestorHorarioG6.Controllers
     public class RequisicaoDetalhesController : Controller
     {
         private readonly GestorHorarioG6Context _context;
-        private readonly int PAGE_SIZE = 5;
+        private readonly int PageSize = 5;
 
         public RequisicaoDetalhesController(GestorHorarioG6Context context)
         {
@@ -25,6 +25,26 @@ namespace GestorHorarioG6.Controllers
         {
             var gestorHorarioG6Context = _context.RequisicaoDetalhe.Include(r => r.Requisicao).Include(r => r.Servico);
             return View(await gestorHorarioG6Context.ToListAsync());
+        }
+
+        // GET: Requisicoes/Aprovadas
+        public async Task<IActionResult> Aprovadas(int page = 1)
+        {
+            var databaseContext = _context.RequisicaoDetalhe.Include(r => r.Requisicao).Include(r => r.Servico);
+            var total = await databaseContext.CountAsync();
+            return View(new RequisicaoDetalhesListViewModel
+            {
+                RequisicaoDetalhes = await databaseContext
+                        .Where(r => r.Aprovado == true)
+                        .OrderByDescending(r => r.Requisicao.Dia)
+                        .ToListAsync(),
+                PagingInfo = new PaginationViewModel
+                {
+                    CurrentPage = page,
+                    ItensPerPage = PageSize,
+                    TotalItems = total
+                }
+            });
         }
 
         // GET: RequisicaoDetalhes/Details/5
@@ -47,10 +67,27 @@ namespace GestorHorarioG6.Controllers
             return View(requisicaoDetalhe);
         }
 
-        // GET: RequisicaoDetalhes/Create
-        public IActionResult Create()
+        // POST: Requisicoes/Concluir/1
+        [HttpPost]
+        public async Task<IActionResult> Concluir(int id)
         {
-            ViewData["RequisicaoId"] = new SelectList(_context.Requisicao, "RequisicaoId", "RequisicaoId");
+            var detalhe = await _context.RequisicaoDetalhe.FindAsync(id);
+            if (!detalhe.HoraConcluido.HasValue)
+                detalhe.HoraConcluido = DateTime.Now;
+            else
+                detalhe.HoraConcluido = null;
+            _context.RequisicaoDetalhe.Update(detalhe);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: RequisicaoDetalhes/Create/1
+        public IActionResult Create(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            ViewData["RequisicaoId"] = id;
             ViewData["ServicoId"] = new SelectList(_context.Servico, "ServicoId", "Nome");
             return View();
         }
@@ -64,6 +101,7 @@ namespace GestorHorarioG6.Controllers
         {
             if (ModelState.IsValid)
             {
+                requisicaoDetalhe.DuraçãoEstimada = _context.Servico.Where(s => s.ServicoId == requisicaoDetalhe.ServicoId).FirstOrDefault().DuracaoMedia;
                 _context.Add(requisicaoDetalhe);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

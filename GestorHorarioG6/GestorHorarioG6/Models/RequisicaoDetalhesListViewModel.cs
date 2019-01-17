@@ -5,11 +5,9 @@ using System.Threading.Tasks;
 
 namespace GestorHorarioG6.Models
 {
-    public class RequisicaoDetalheListView
+    public class RequisicaoDetalhesListViewModel
     {
-        public int RequisicaoDetalheId { get; set; }
-        public Requisicao RequisicaoDetalhe { get; set; }
-
+        public IEnumerable<RequisicaoDetalhe> RequisicaoDetalhes { get; set; }
         public PaginationViewModel PagingInfo { get; set; }
     }
 }
