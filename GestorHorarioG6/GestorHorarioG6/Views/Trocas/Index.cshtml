@@ -1,0 +1,146 @@
+﻿@model PedidoDeTrocaViewModel
+
+@{
+    ViewData["Title"] = "Trocas";
+}
+
+<h2>Trocas</h2>
+
+@if (TempData["UpdatedSuccess"] != null)
+{
+    <!--Mensagem de sucesso quando é aprovado pedido do horário-->
+    <div id="suc_form" class="alert alert-success">
+        <strong>Sucesso!</strong> O pedido de troca de turno foi aprovado com sucesso!
+    </div>
+}
+
+@if (TempData["NotAproved"] != null)
+{
+    <!--Mensagem de sucesso quando é rejeitado um pedido do horário-->
+    <div id="suc_form" class="alert alert-success">
+        <strong>Sucesso!</strong> O pedido de troca de turno foi arquivado!
+    </div>
+}
+
+@if (TempData["Validated"] != null)
+{
+    <!--Mensagem de sucesso quando é validado um pedido do horário-->
+    <div id="suc_form" class="alert alert-success">
+        <strong>Sucesso!</strong> O pedido de troca de turno foi validado com sucesso!
+    </div>
+}
+
+@if (TempData["DateIsUpperThanDateNoe"] != null)
+{
+    <!--Mensagem de sucesso quando é validado um pedido do horário-->
+    <div id="suc_form" class="alert alert-warning">
+        <strong>Atenção!</strong> Já não pode aprovar este pedido. A data de turno é menor que a data atual.
+    </div>
+}
+
+@if (TempData["DeleteRequest"] != null)
+{
+    <!--Mensagem de sucesso quando é eliminado um pedido do horário-->
+    <div id="suc_form" class="alert alert-success">
+        <strong>Sucesso!</strong> O pedido foi eliminado com sucesso!
+    </div>
+}
+
+<form asp-action="Index">
+    <p>
+        Nome:<input style="width: 200px;" asp-for="CurrentNome" placeholder="Insira o nome a pesquisar" />
+        data:<input style="width: 200px;" asp-for="DataInicio" />
+        <button type="submit" value="Pesquisar" class="btn btn-info"><span class="glyphicon glyphicon-search"></span> Pesquisar</button>
+    </p>
+</form>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                <i style='font-size:24px' class='far'></i> Data
+            </th>
+            <th>
+                <i style='font-size:24px' class='fas'></i> Funcionario
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Trocas)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Funcionario.Nome)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.TrocasID" class="btn btn-info">
+                    <span class="fas fa-info" style="color:white;"></span> Detalhes
+                </a>
+
+                @if (item.Estado.Nome == "Pendente")
+                {
+                    <a asp-action="Aprovar" asp-route-id="@item.TrocasID" class="btn btn-success">
+                        <span class="fas fa-check" style="color:white;"></span> Aprovar
+                    </a>
+                    <a asp-action="NaoAprovar" asp-route-id="@item.TrocasID" class="btn btn-danger">
+                        <span class="fas fa-times" style="color:white;"></span> Não Aprovar
+                    </a>
+                }
+
+            </td>
+            <td></td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@if (TempData["NoItemsFound"] != null)
+{
+    <script>
+        //Show #myModal when there aren't records founded of search by date or name
+        $(document).ready(function () {
+            $("#myModal").modal();
+        });
+    </script>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="color:dodgerblue;"><strong>Ops!</strong></h4>
+                </div>
+                <div class="modal-body">
+                    <p> Não foram encontrados resultados para a sua pesquisa :(</p>
+                </div>
+                <div class="modal-footer">
+                    <a asp-action="Index"><input type="hidden" /><input type="button" class="btn btn-default" value="Ok" /></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+<div page-model="@Model.Pagination"
+     page-action="Index"
+     page-classes-enabled="true"
+     page-class="btn"
+     page-class-normal="btn-default"
+     page-class-selected="btn-primary"
+     class="btn-group pull-right">
+</div>
+
+
+
+
+
+
+
+

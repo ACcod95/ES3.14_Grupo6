@@ -108,6 +108,11 @@
                 <td style="text-align:center">
                     @Html.DisplayFor(modelItem => item.DataFimTarde.TimeOfDay)
                 </td>
+                <td>
+                    <a asp-action="PedidoTrocaTurno" asp-route-idHorario1="@item.HorarioTecnicoId" class="btn btn-warning">
+                        <span class="glyphicon glyphicon-transfer" style="color:white;"></span> Trocar
+                    </a>
+                </td>
             </tr>
         }
     </tbody>

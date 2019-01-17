@@ -1,0 +1,76 @@
+﻿@model GestorHorarioG6.Models.Trocas
+
+@{
+    ViewData["Title"] = "Aprovar Troca";
+}
+
+<h2>Tem a certeza de que pretende <b>não</b> aprovar o pedido de troca do <b>@Html.DisplayFor(model => model.Funcionario.Nome)</b>?</h2>
+
+<hr />
+<h4>A aprovação seria efetuar a alteração dos horários seguintes: </h4>
+
+<p></p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Data de início do Turno
+            </th>
+            <th>
+                Data de fim do Turno
+            </th>
+            <th>
+                Turno
+            </th>
+            <th>
+                Funcionario
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.HorarioATrocar.HorarioTecnicos.DataInicioManha)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.HorarioATrocar.HorarioTecnicos.DataFimManha)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.HorarioATrocar.HorarioTecnicos.Turno.Nome)
+            </td>
+            <td>
+                <del style="color:red;">@Html.DisplayFor(model => model.HorarioATrocar.HorarioTecnicos.Funcionario.Nome)</del>
+                @Html.DisplayFor(model => model.HorarioParaTroca.HorarioTecnicos.Funcionario.Nome)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.HorarioParaTroca.HorarioTecnicos.DataInicioManha)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.HorarioParaTroca.HorarioTecnicos.DataFimManha)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.HorarioParaTroca.HorarioTecnicos.Turno.Nome)
+            </td>
+            <td>
+                <del style="color:red;">@Html.DisplayFor(model => model.HorarioATrocar.HorarioTecnicos.Funcionario.Nome)</del>
+                @Html.DisplayFor(model => model.HorarioATrocar.HorarioTecnicos.Funcionario.Nome)
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<hr />
+
+<form asp-action="NaoAprovar">
+    <input type="hidden" asp-for="TrocasID" />
+
+    <button type="submit" class="btn btn-danger"><i class="fas fa-times" style="color:white;"></i> Não Aprovar</button>
+    <a asp-action="Index" class="btn btn-default">
+        <span class="fas fa-undo" style="color:dodgerblue;"></span> Voltar à lista
+    </a>
+</form>

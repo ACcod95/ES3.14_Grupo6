@@ -78,7 +78,7 @@ namespace GestorHorarioG6.Data
                     );
                 }
                 db.SaveChanges();
-
+              
                 if (!db.Servico.Any())
                 {
                     db.Servico.AddRange
@@ -93,6 +93,16 @@ namespace GestorHorarioG6.Data
                     var duracao1 = db.Servico.Where(s => s.ServicoId == 1).FirstOrDefault().DuracaoMedia;
                     db.RequisicaoDetalhe.AddRange
                     (new RequisicaoDetalhe { RequisicaoId = 1, ServicoId = 1, DuraçãoEstimada = duracao1}
+                    );
+                }
+                db.SaveChanges();
+              
+                if (!db.Estado.Any())
+                {
+                    db.Estado.AddRange
+                    (new Estado { Nome = "Aprovado" },
+                    new Estado { Nome = "Não Aprovado" },
+                    new Estado { Nome = "Pendente" }
                     );
                 }
                 db.SaveChanges();
