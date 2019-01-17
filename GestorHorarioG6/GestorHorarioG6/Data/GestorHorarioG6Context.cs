@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GestorHorarioG6.Models;
 
 namespace GestorHorarioG6.Data
 {
@@ -40,5 +41,12 @@ namespace GestorHorarioG6.Data
         public DbSet<GestorHorarioG6.Models.RequisicaoDetalhe> RequisicaoDetalhe { get; set; }
 
         public DbSet<GestorHorarioG6.Models.HorarioTecnicos> HorarioTecnicos { get; set; }
+
+        public DbSet<GestorHorarioG6.Models.HorarioATrocar> HorarioATrocar { get; set; }
+
+        public DbSet<GestorHorarioG6.Models.HorarioParaTroca> HorarioParaTroca { get; set; }
+
+        public DbSet<GestorHorarioG6.Models.Estado> Estado { get; set; }
+
     }
 }

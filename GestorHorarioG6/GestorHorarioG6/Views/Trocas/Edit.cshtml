@@ -1,7 +1,7 @@
 ﻿@model GestorHorarioG6.Models.Trocas
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar";
 }
 
 <h2>Trocas</h2>
@@ -12,7 +12,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="TrocasID" />
             <div class="form-group">
-                <label asp-for="FuncionarioId" class="control-label"></label>
+                <label asp-for="FuncionarioId" class="control-label">Funcionário</label>
                 <select asp-for="FuncionarioId" class="form-control" asp-items="ViewBag.FuncionarioId"></select>
                 <span asp-validation-for="FuncionarioId" class="text-danger"></span>
             </div>
@@ -22,12 +22,12 @@
                 <span asp-validation-for="Data" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="HorarioATrocarId" class="control-label"></label>
+                <label asp-for="HorarioATrocarId" class="control-label">Horário a Trocar </label>
                 <select asp-for="HorarioATrocarId" class="form-control" asp-items="ViewBag.HorarioATrocarId"></select>
                 <span asp-validation-for="HorarioATrocarId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="HorarioParaTrocaId" class="control-label"></label>
+                <label asp-for="HorarioParaTrocaId" class="control-label">Horário para Troca</label>
                 <select asp-for="HorarioParaTrocaId" class="form-control" asp-items="ViewBag.HorarioParaTrocaId"></select>
                 <span asp-validation-for="HorarioParaTrocaId" class="text-danger"></span>
             </div>
@@ -41,10 +41,6 @@
 </div>
 
 <div>
-    <input type="submit" value="Guardar" class="btn btn-primary" />
+    <input type="submit" value="Gravar" class="btn btn-primary" />
     <a asp-action="Index" class="btn btn-default">Voltar</a>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

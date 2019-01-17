@@ -1,0 +1,45 @@
+﻿@model TrocasViewModel
+
+@{
+    ViewData["Title"] = "Solicitar Pedido Troca";
+}
+<h2>Pedido de Troca </h2>
+
+<p></p>
+<table>
+    <tr>
+        <td>
+             <div class="panel panel-danger">
+                 <div class="panel-heading"><b>Horário a Trocar</b></div>
+                    <div class="panel-body">
+                        <i style='font-size:20px' class='far'></i> Data de início do turno da manha
+                        <b>@Html.DisplayFor(model => model.HorarioATrocar.DataInicioManha)</b><br /><br />
+                        <i style='font-size:20px' class='fas'></i> Funcionario
+                        <b>@Html.DisplayFor(model => model.HorarioATrocar.Funcionario.Nome)</b>
+                    </div>
+              </div>
+        </td>
+        <td>
+            <div class="panel panel-success">
+                <div class="panel-heading"><b>Horário para Troca</b></div>
+                <div class="panel-body">
+                    <i style='font-size:20px' class='far'></i> Data de início do turno da manha
+                    <b>@Html.DisplayFor(model => model.HorarioParaTroca.DataInicioManha)</b><br /><br />
+                    <i style='font-size:20px' class='fas'></i> Funcionario
+                    <b>@Html.DisplayFor(model => model.HorarioParaTroca.Funcionario.Nome)</b>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+            <p></p>
+
+            <form asp-action="SolicitarPedidoTroca">
+                <input type="hidden" asp-for="HorarioATrocar.HorarioTecnicoId" name="idHorario1" />
+                <input type="hidden" asp-for="HorarioParaTroca.HorarioTecnicoId" name="idHorario2" />
+                <button class="btn btn-primary" type="submit"><i class="fas fa-check" style="color:white;"></i> Fazer Pedido de Troca</button>
+                <a asp-action="Index" class="btn btn-default">
+                    <span class="fas fa-times" style="color:black;"></span> Cancelar
+                </a>
+            </form>
+    

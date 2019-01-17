@@ -87,6 +87,17 @@ namespace GestorHorarioG6.Data
                     );
                 }
                 db.SaveChanges();
+
+                if (!db.Estado.Any())
+                {
+                    db.Estado.AddRange
+                    (new Estado { Nome = "Aprovado" },
+                    new Estado { Nome = "Não Aprovado" },
+                    new Estado { Nome = "Pendente" }
+                    );
+                }
+                db.SaveChanges();
+                
             }
         }
     }

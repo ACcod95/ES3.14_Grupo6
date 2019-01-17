@@ -21,10 +21,6 @@ namespace GestorHorarioG6.Models
         [DataType(DataType.Date)]
         public DateTime Data { get; set; }
 
-                                           // public DateTime DiaDeTroca { get; set; }
-                                           // [DataType(DataType.Date)]
-                                           //  public DateTime DiaParaTroca { get; set; }
-
         public HorarioATrocar HorarioATrocar { get; set; }
         public int HorarioATrocarId { get; set; }
 

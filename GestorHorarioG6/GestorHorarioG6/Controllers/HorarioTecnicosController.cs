@@ -367,5 +367,270 @@ namespace GestorHorarioG6.Controllers
 
             db.SaveChanges();
         }
+
+
+        // GET: HorarioTecnicos/PedidoTrocaTurno
+        public async Task<IActionResult> PedidoTrocaTurno(int? idHorario1, HorarioTecnicosViewModel model = null, int page = 1)
+        {
+            ViewBag.HorarioATrocar = idHorario1;
+
+            if (idHorario1 == null)
+            {
+                return NotFound();
+            }
+
+          
+            var idTecnico = from h in _context.HorarioTecnicos
+                        where h.HorarioTecnicoId == idHorario1
+                        select h.FuncionarioId;
+
+            var dataInicio = from h in _context.HorarioTecnicos
+                             where h.HorarioTecnicoId == idHorario1
+                             select h.DataInicioManha;
+
+            string nome = null;
+            DateTime? data = null;
+
+            if (model != null && model.DataInicio != null || model.CurrentNome != null)
+            {
+                nome = model.CurrentNome;
+                data = model.DataInicio;
+                page = 1;
+            }
+
+            IQueryable<HorarioTecnicos> horario;
+            int numHorario;
+            IEnumerable<HorarioTecnicos> listaHorario;
+
+            if (data.HasValue && string.IsNullOrEmpty(nome)) 
+            {
+                int ano = data.Value.Year;
+                int mes = data.Value.Month;
+                int dia = data.Value.Day;
+
+                horario = _context.HorarioTecnicos
+                   .Where(h => h.DataInicioManha.Year.Equals(ano) && h.DataInicioManha.Month.Equals(mes) && h.DataInicioManha.Day.Equals(dia) && h.HorarioTecnicoId != idHorario1 && h.FuncionarioId != idTecnico.Single() && h.DataInicioManha >= dataInicio.Single());
+
+                numHorario = await horario.CountAsync();
+
+                listaHorario = await horario
+                    .Include(h => h.Funcionario)
+                    .Include(h => h.Turno)
+                    .OrderBy(h => h.DataInicioManha)
+                    .Skip(PAGE_SIZE * (page - 1))
+                    .Take(PAGE_SIZE)
+                    .ToListAsync();
+            }
+            else if (!string.IsNullOrEmpty(nome) && !data.HasValue) 
+            {
+                horario = _context.HorarioTecnicos
+                    .Where(h => h.Funcionario.Nome.Contains(nome.Trim()) && h.HorarioTecnicoId != idHorario1 && h.FuncionarioId != idTecnico.Single() && h.DataInicioManha >= dataInicio.Single());
+
+                numHorario = await horario.CountAsync();
+
+                listaHorario = await horario
+                    .Include(h => h.Funcionario)
+                    .Include(h => h.Turno)
+                    .OrderBy(h => h.DataInicioManha)
+                    .Skip(PAGE_SIZE * (page - 1))
+                    .Take(PAGE_SIZE)
+                    .ToListAsync();
+            }
+            else if (!string.IsNullOrEmpty(nome) && data.HasValue) 
+            {
+                int ano = data.Value.Year;
+                int mes = data.Value.Month;
+                int dia = data.Value.Day;
+                
+                horario = _context.HorarioTecnicos
+                    .Where(h => h.Funcionario.Nome.Contains(nome.Trim()) && h.DataInicioManha.Year.Equals(ano) && h.DataInicioManha.Month.Equals(mes) && h.DataInicioManha.Day.Equals(dia) && h.HorarioTecnicoId != idHorario1 && h.FuncionarioId != idTecnico.Single() && h.DataInicioManha >= dataInicio.Single());
+
+                numHorario = await horario.CountAsync();
+
+                listaHorario = await horario
+                  .Include(h => h.Funcionario)
+                  .Include(h => h.Turno)
+                  .OrderBy(h => h.DataInicioManha)
+                  .Skip(PAGE_SIZE * (page - 1))
+                  .Take(PAGE_SIZE)
+                  .ToListAsync();
+            }
+            else
+            {
+                horario = _context.HorarioTecnicos
+                     .Where(h => h.HorarioTecnicoId != idHorario1 && h.FuncionarioId != idTecnico.Single() && h.DataInicioManha >= dataInicio.Single());
+
+                numHorario = await horario.CountAsync();
+
+                listaHorario = await horario
+                  .Include(h => h.Funcionario)
+                  .Include(h => h.Turno)
+                  .OrderBy(h => h.DataInicioManha)
+                  .Skip(PAGE_SIZE * (page - 1))
+                  .Take(PAGE_SIZE)
+                  .ToListAsync();
+            }
+
+            if (page > (numHorario / PAGE_SIZE) + 1)
+            {
+                page = 1;
+            }
+
+            return View(
+                new HorarioTecnicosViewModel
+                {
+                    HorarioTecnicos = listaHorario,
+                    PagingInfo = new PaginationViewModel
+                    {
+                        CurrentPage = page,
+                        ItensPerPage = PAGE_SIZE,
+                        TotalItems = numHorario
+                    },
+                    CurrentNome = nome,
+                    DataInicio = data
+                });
+        }
+
+        //GET: HorarioTecnicos/SolicitarPedidoTroca
+        public async Task<IActionResult> SolicitarPedidoTroca(int? idHorario1, int? idHorario2)
+        {
+            if (idHorario1 == null || idHorario2 == null)
+            {
+                return NotFound();
+            }
+
+            var horarioTecnico1 = await _context.HorarioTecnicos
+                .Include(h => h.Funcionario)
+                .Include(h => h.Turno)
+                .FirstOrDefaultAsync(m => m.HorarioTecnicoId == idHorario1);
+
+            var horarioTecnico2 = await _context.HorarioTecnicos
+                .Include(h => h.Funcionario)
+                .Include(h => h.Turno)
+                .FirstOrDefaultAsync(m => m.HorarioTecnicoId == idHorario2);
+
+            if (horarioTecnico1 == null || horarioTecnico2 == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.HorarioATrocar = idHorario1;
+            ViewBag.HorarioParaTroca = idHorario2;
+
+            return View(
+
+                new TrocasViewModel
+                {
+                    HorarioATrocar = horarioTecnico1,
+                    HorarioParaTroca = horarioTecnico2
+                }
+
+                );
+        }
+
+        //POST:HorarioTecnicos/SolicitarPedidoTrocaTurno
+        [HttpPost, ActionName("SolicitarPedidoTroca")]
+        [ValidateAntiForgeryToken]
+        public IActionResult SolicitarPedidoTrocaComfirma(int idHorario1, int idHorario2)
+        {
+            DateTime dataPedido = DateTime.Now;
+
+            // Verifica se já existe um pedido feito com os id's dos horários
+            if (PedidoTrocaTurnoJaFeito(idHorario1, idHorario2) == true)
+            {
+                TempData["PedidoAlreadyDone"] = "Já existe um pedido feito para a troca destes horários";
+                return RedirectToAction(nameof(Index));
+            }
+
+           
+            var idtecReq = from h in _context.HorarioTecnicos where h.HorarioTecnicoId == idHorario1 select h.FuncionarioId;
+
+            HorarioTecnicos horarioATrocar = _context.HorarioTecnicos.SingleOrDefault(h => h.HorarioTecnicoId == idHorario1);
+            HorarioTecnicos horarioParaTroca = _context.HorarioTecnicos.SingleOrDefault(h => h.HorarioTecnicoId == idHorario2);
+
+            try
+            {
+                //Insert into HorarioATrocar
+                IDataIntoHorarioATrocar(_context, horarioATrocar);
+
+                //Insert into HorarioParaTroca
+                IDataIntoHorarioParaTroca(_context, horarioParaTroca);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                TempData["ErrorRequired"] = "Erro ao inserir!";
+                return RedirectToAction(nameof(Index));
+            }
+
+            HorarioATrocar horarioATrocarId = _context.HorarioATrocar.LastOrDefault(h => h.HorarioTecnicoId == idHorario1);
+            HorarioParaTroca horarioParaTrocaId = _context.HorarioParaTroca.LastOrDefault(h => h.HorarioTecnicoId == idHorario2);
+
+            Funcionario TecnicoReqId = _context.Funcionario.SingleOrDefault(e => e.FuncionarioId == idtecReq.Single());
+
+            Estado estadoTrocaId = _context.Estado.SingleOrDefault(e => e.Nome == "Pendente");
+
+            //Insert into PedidoTrocaTurnos Table
+            try
+            {
+                if (!PedidoTrocaTurnoJaFeito(idHorario1, idHorario2))
+                {
+                    InsertDataIntoTroca(_context, dataPedido, TecnicoReqId, horarioATrocarId, horarioParaTrocaId, estadoTrocaId);
+                    TempData["SuccessRequired"] = "Pedido realizado com sucesso!";
+                    return RedirectToAction(nameof(Index));
+                }
+
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                TempData["ErrorRequired"] = "Erro ao inserir!";
+                return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool PedidoTrocaTurnoJaFeito(int idHorarioATrocar, int idHorarioParaTroca)
+        {
+            bool pedidoEfetuado = false;
+
+            var pedido = from p in _context.Trocas where p.HorarioATrocar.HorarioTecnicoId == idHorarioATrocar || p.HorarioParaTroca.HorarioParaTrocaId == idHorarioParaTroca select p;
+
+            if (pedido.Count() != 0)
+            {
+                pedidoEfetuado = true;
+            }
+
+            return pedidoEfetuado;
+        }
+        private void IDataIntoHorarioATrocar(GestorHorarioG6Context db, HorarioTecnicos horarioATrocar)
+        {
+            db.HorarioATrocar.Add(
+
+                new HorarioATrocar { HorarioTecnicoId = horarioATrocar.HorarioTecnicoId }
+
+                );
+
+            db.SaveChanges();
+        }
+        private void IDataIntoHorarioParaTroca(GestorHorarioG6Context db, HorarioTecnicos horarioParaTroca)
+        {
+            db.HorarioParaTroca.Add(
+
+                new HorarioParaTroca { HorarioTecnicoId = horarioParaTroca.HorarioTecnicoId }
+
+                );
+
+            db.SaveChanges();
+        }
+        private void InsertDataIntoTroca(GestorHorarioG6Context db, DateTime dataPedido, Funcionario FReqId, HorarioATrocar horarioATrocarId, HorarioParaTroca horarioParaTrocaId, Estado estadoTrocaId)
+        {
+            db.Trocas.Add(
+
+                new Trocas { Data = dataPedido, FuncionarioId = FReqId.FuncionarioId, HorarioATrocarId = horarioATrocarId.HorarioATrocarId, HorarioParaTrocaId = horarioParaTrocaId.HorarioParaTrocaId, EstadoTrocaId = estadoTrocaId.EstadoTrocaId }
+
+               );
+
+            db.SaveChanges();
+        }
     }
 }
