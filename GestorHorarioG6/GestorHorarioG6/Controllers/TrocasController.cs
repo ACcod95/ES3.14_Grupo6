@@ -35,7 +35,7 @@ namespace GestorHorarioG6.Controllers
             int numHorario;
             IEnumerable<Trocas> PedidoDeTrocaViewModel;
 
-            if (data.HasValue && string.IsNullOrEmpty(nome)) //Pesquisa por data
+            if (data.HasValue && string.IsNullOrEmpty(nome)) //data
             {
                 int ano = data.Value.Year;
                 int mes = data.Value.Month;
@@ -56,7 +56,7 @@ namespace GestorHorarioG6.Controllers
                     .Take(PAGE_SIZE)
                     .ToListAsync();
             }
-            else if (!string.IsNullOrEmpty(nome) && !data.HasValue) //Pesquisa por Nome
+            else if (!string.IsNullOrEmpty(nome) && !data.HasValue) // nome
             {
                 Trocas = _context.Trocas
                     .Where(h => h.Funcionario.Nome.Contains(nome.Trim()));
@@ -288,11 +288,11 @@ namespace GestorHorarioG6.Controllers
 
             var horarioATrocar = await _context.HorarioTecnicos.FindAsync(idHora1.HorarioTecnicoId);
 
-            int nomeHora1 = (from p in _context.Trocas
+            int nH1 = (from p in _context.Trocas
                             where p.TrocasID == id
                             select p.HorarioATrocar.HorarioTecnicos.Funcionario.FuncionarioId).Single();
 
-            horarioATrocar.FuncionarioId = nomeHora1;
+            horarioATrocar.FuncionarioId = nH1;
 
             int id2 = (from p in _context.Trocas
                        where p.TrocasID == id
@@ -302,11 +302,11 @@ namespace GestorHorarioG6.Controllers
 
             var horarioParaTroca = await _context.HorarioTecnicos.FindAsync(idHora2.HorarioTecnicoId);
 
-            int nomeHora2 = (from p in _context.Trocas
+            int nH2 = (from p in _context.Trocas
                             where p.TrocasID == id
                             select p.HorarioParaTroca.HorarioTecnicos.Funcionario.FuncionarioId).Single();
 
-            horarioParaTroca.FuncionarioId = nomeHora2;
+            horarioParaTroca.FuncionarioId = nH2;
 
             try
             {
@@ -329,7 +329,7 @@ namespace GestorHorarioG6.Controllers
         db.SaveChanges();
     }
 
-    // GET: PedidoTrocaTurnos/NaoValidar/5
+    // GET: PedidoTrocaTurnos/NaoAprovar/5
     public async Task<IActionResult> NaoAprovar(int? id)
     {
         if (id == null)
@@ -354,7 +354,7 @@ namespace GestorHorarioG6.Controllers
         return View(Trocas);
     }
 
-    // POST: PedidoTrocaTurnos/NaoValidar/5
+    // POST: PedidoTrocaTurnos/NaoAprovar/5
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
