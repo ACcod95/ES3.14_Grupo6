@@ -1,0 +1,65 @@
+﻿@model RequisicaoDetalhesListViewModel
+
+@{
+    ViewData["Title"] = "Requisições Aprovadas";
+}
+
+<h2>Requisições Aprovadas</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <p>Serviço</p>
+            </th>
+            <th>
+                <p>Hora Crítica</p>
+            </th>
+            <th>
+                <p align="center">Duração Estimada</p>
+            </th>
+            <th>
+                <p align="center">Concluído</p>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.RequisicaoDetalhes)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Servico.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoraCriticaDe)
+                    @if (item.HoraCriticaAte.HasValue)
+                    {
+                        <i> - </i>
+                        @Html.DisplayFor(modelItem => item.HoraCriticaAte.Value.TimeOfDay)
+                    }
+                </td>
+                <td align="center">
+                    @Html.DisplayFor(modelItem => item.DuraçãoEstimada)
+                </td>
+                <td align="center">
+                    @Html.CheckBoxFor(modelItem => item.HoraConcluido.HasValue, new { @onclick = "Concluir(" + item.RequisicaoDetalheId + ")" })
+                </td>
+                <td align="right">
+                    <a asp-controller="RequisicaoDetalhes" class="btn btn-success" asp-action="Edit" asp-route-id="@item.RequisicaoDetalheId">Editar</a> |
+                    <a asp-controller="RequisicaoDetalhes" class="btn btn-warning" asp-action="Details" asp-route-id="@item.RequisicaoDetalheId">Detalhes</a> |
+                    <a asp-controller="RequisicaoDetalhes" class="btn btn-danger" asp-action="Delete" asp-route-id="@item.RequisicaoDetalheId">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div pagination-model="Model.PagingInfo"></div>
+
+<script>
+    function Concluir(id) {
+        if (confirm("Marcar requisição como concluída?")) {
+            $.post("/RequisicaoDetalhes/Concluir/" + id)
+        }
+    }
+</script>

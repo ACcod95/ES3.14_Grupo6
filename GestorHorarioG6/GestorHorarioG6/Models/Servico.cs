@@ -17,5 +17,7 @@ namespace GestorHorarioG6.Models
 
         [StringLength(200, MinimumLength = 5)]
         public string Descrição { get; set; }
+
+        public int DuracaoMedia { get; set; }
     }
 }

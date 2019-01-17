@@ -31,7 +31,7 @@ namespace GestorHorarioG6.Controllers
             }
 
             var databaseContext = _context.Requisicao.Include(r => r.Departamento)
-                .Where(r => day == DateTime.MinValue || r.Detalhes.OrderBy(d => d.HoraDeInicio).FirstOrDefault().HoraDeInicio.Date.Equals(day.Date));
+                .Where(r => day == DateTime.MinValue || r.Detalhes.OrderBy(d => d.HoraDeInicio).FirstOrDefault().HoraDeInicio.Equals(day.Date));
             var total = await databaseContext.CountAsync();
 
             if (page > (total / PageSize) + 1)
@@ -40,7 +40,7 @@ namespace GestorHorarioG6.Controllers
             }
 
             var requisicoes = await databaseContext
-                .OrderBy(r => r.Detalhes.OrderBy(d => d.HoraDeInicio).FirstOrDefault().HoraDeInicio)
+                .OrderByDescending(r => r.Dia)
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize)
                 .ToListAsync();
@@ -72,17 +72,9 @@ namespace GestorHorarioG6.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Requisicoes/Aprovadas
-        public async Task<IActionResult> Aprovadas()
-        {
-            var databaseContext = _context.RequisicaoDetalhe.Include(r => r.Requisicao).Include(r => r.Servico);
-            return View(await databaseContext.Where(r => r.Aprovado == true).ToListAsync());
-        }
-
         // GET: Requisicoes/Create
         public IActionResult Create()
         {
-            ViewData["Servico"] = new SelectList(_context.Servico, "ServicoId", "Nome");
             ViewData["Departamento"] = new SelectList(_context.Departamento, "DepartamentoId", "Nome");
             return View();
         }
@@ -98,65 +90,21 @@ namespace GestorHorarioG6.Controllers
             {
                 _context.Add(requisicao);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Created/" + requisicao.RequisicaoId);
+                return RedirectToAction("Details/" + requisicao.RequisicaoId);
             }
-            ViewData["Servico"] = new SelectList(_context.Servico, "ServicoId", "Nome");
             ViewData["Departamento"] = new SelectList(_context.Departamento, "DepartamentoId", "Nome", requisicao.DepartamentoId);
             return View(requisicao);
         }
 
-        // GET: Requisicoes/Created/5
-        public async Task<IActionResult> Created(int? id)
+        // GET: Requisicao/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var requisicao = await _context.Requisicao.FindAsync(id);
-            if (requisicao == null)
-            {
-                return NotFound();
-            }
-            ViewData["Servico"] = new SelectList(_context.Servico, "ServicoId", "Nome");
-            ViewData["Departamento"] = new SelectList(_context.Departamento, "DepartamentoId", "Nome", requisicao.DepartamentoId);
-            return View(requisicao);
-        }
-
-        // POST: Requisicoes/Created/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Created(int id, [Bind("RequisicaoId,DepartamentoId,Detalhes")] Requisicao requisicao)
-        {
-            if (id != requisicao.RequisicaoId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(requisicao);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RequisicaoExists(requisicao.RequisicaoId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-            }
-            ViewData["Servico"] = new SelectList(_context.Servico, "ServicoId", "Nome");
-            ViewData["Departamento"] = new SelectList(_context.Departamento, "DepartamentoId", "Nome", requisicao.DepartamentoId);
-            return View(requisicao);
+            var req = _context.Requisicao.Where(r => r.RequisicaoId == id).Include(r => r.Departamento).FirstOrDefault();
+            ViewData["Data"] = req.Dia.Day.ToString() + "/" + req.Dia.Month.ToString() + "/" + req.Dia.Year.ToString();
+            ViewData["Departamento"] = req.Departamento.Nome;
+            ViewData["Id"] = req.RequisicaoId;
+            var gestorHorarioG6Context = _context.RequisicaoDetalhe.Include(r => r.Requisicao).Include(r => r.Servico);
+            return View(await gestorHorarioG6Context.Where(r => r.RequisicaoId == id).ToListAsync());
         }
 
         // GET: Requisicoes/Edit/5
@@ -172,6 +120,7 @@ namespace GestorHorarioG6.Controllers
             {
                 return NotFound();
             }
+            ViewData["Departamento"] = new SelectList(_context.Departamento, "DepartamentoId", "Nome", requisicao.DepartamentoId);
             return View(requisicao);
         }
 
@@ -186,9 +135,6 @@ namespace GestorHorarioG6.Controllers
             {
                 return NotFound();
             }
-
-            if (requisicao.Detalhes.OrderBy(d => d.HoraDeInicio).FirstOrDefault().HoraDeInicio.CompareTo(DateTime.Now) < 1)
-                ModelState.AddModelError("Detalhes", "A hora de início não pode ser anterior ao presente.");
 
             if (ModelState.IsValid)
             {
@@ -210,6 +156,7 @@ namespace GestorHorarioG6.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["Departamento"] = new SelectList(_context.Departamento, "DepartamentoId", "Nome", requisicao.DepartamentoId);
             return View(requisicao);
         }
 
@@ -222,6 +169,7 @@ namespace GestorHorarioG6.Controllers
             }
 
             var requisicao = await _context.Requisicao
+                .Include(r => r.Departamento)
                 .FirstOrDefaultAsync(m => m.RequisicaoId == id);
             if (requisicao == null)
             {

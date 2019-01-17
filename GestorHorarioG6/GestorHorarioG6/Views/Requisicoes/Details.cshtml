@@ -1,10 +1,23 @@
-﻿@model GestorHorarioG6.Models.Requisicao
+﻿@model IEnumerable<GestorHorarioG6.Models.RequisicaoDetalhe>
 
 @{
     ViewData["Title"] = "Detalhes";
 }
 
-<h2>Detalhes</h2>
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-1">
+        <h2>
+            @ViewBag.Data
+        </h2>
+    </div>
+    <div class="col-lg-4 col-lg-offset-3">
+        <h2>
+            @ViewBag.Departamento
+        </h2>
+    </div>
+</div>
+
+<a asp-controller="RequisicaoDetalhes" asp-action="Create" asp-route-id="@ViewBag.Id"><input type="button" value="Criar Detalhe" class="btn btn-primary" /></a>
 
 <table class="table">
     <thead>
@@ -19,39 +32,42 @@
                 <p>Duração Estimada</p>
             </th>
             <th>
-                <p>Hora Conclusão</p>
+                <p>Aprovar</p>
             </th>
             <th>
-                <p>Notas</p>
-            </th>
-            <th>
-                <p>Aprovado</p>
+                <p>Concluído</p>
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Detalhes)
+        @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Servico)
+                    @Html.DisplayFor(modelItem => item.Servico.Nome)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.HoraCriticaDe.TimeOfDay.ToString() + " a " + item.HoraCriticaAte.TimeOfDay.ToString())
+                    @Html.DisplayFor(modelItem => item.HoraCriticaDe.TimeOfDay)
+                    @if (item.HoraCriticaAte.HasValue)
+                    {
+                        <i> - </i>
+                        @Html.DisplayFor(modelItem => item.HoraCriticaAte.Value.TimeOfDay)
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DuraçãoEstimada)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Notas, new { @onclick = "Notas(" + item.RequisicaoDetalheId + ")" })
-                </td>
-                <td>
                     @Html.CheckBoxFor(modelItem => item.Aprovado, new { @onclick = "Aprovar(" + item.RequisicaoDetalheId + ")" })
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.RequisicaoDetalheId">Editar</a> |
-                    <a asp-action="Delete" asp-route-id="@item.RequisicaoDetalheId">Eliminar</a>
+                    @Html.DisplayFor(modelItem => item.HoraConcluido)
+                </td>
+                <td align="right">
+                    <a asp-controller="RequisicaoDetalhes" asp-action="Edit" class="btn btn-success" asp-route-id="@item.RequisicaoDetalheId">Editar</a> |
+                    <a asp-controller="RequisicaoDetalhes" asp-action="Details" class="btn btn-warning" asp-route-id="@item.RequisicaoDetalheId">Detalhes</a> |
+                    <a asp-controller="RequisicaoDetalhes" asp-action="Delete" class="btn btn-danger" asp-route-id="@item.RequisicaoDetalheId">Eliminar</a>
                 </td>
             </tr>
         }
@@ -60,9 +76,8 @@
 
 <script>
     function Aprovar(id) {
-        $.post("/Requisicoes/Aprovar/" + id);
-    }
-    function Notas(id) {
-        alert(""+ id);
+        if (confirm("Tem a certeza que pretende aprovar?")) {
+            $.post("/Requisicoes/Aprovar/" + id);
+        }
     }
 </script>

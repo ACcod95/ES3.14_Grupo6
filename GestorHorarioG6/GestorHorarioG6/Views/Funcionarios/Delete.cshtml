@@ -59,11 +59,16 @@
         <dd>
             @Html.DisplayFor(model => model.Notas)
         </dd>
+        <dt>
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="FuncionarioId" />
+                <input type="submit" value="Eliminar" class="btn btn-danger" onclick="return confirm('Tem a certeza que pretende eliminar?');" />
+            </form>
+        </dt>
+        <dd>
+            <a asp-action="Index">
+                <input type="submit" value="Voltar" class="btn btn-default" />
+            </a>
+        </dd>
     </dl>
-
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="FuncionarioId" />
-        <input type="submit" value="Eliminar" class="btn btn-danger" />
-        <a asp-action="Index" class="btn btn-default">Voltar</a>
-    </form>
 </div>

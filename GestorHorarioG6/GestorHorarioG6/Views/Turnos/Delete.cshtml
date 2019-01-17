@@ -39,11 +39,16 @@
         <dd>
             @Html.DisplayFor(model => model.HoraFimTarde)
         </dd>
+        <dt>
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="TurnoId" />
+                <input type="submit" value="Eliminar" class="btn btn-danger" onclick="return confirm('Tem a certeza que pretende eliminar?');" />
+            </form>
+        </dt>
+        <dd>
+            <a asp-action="Index">
+                <input type="submit" value="Voltar" class="btn btn-default" />
+            </a>
+        </dd>
     </dl>
-
-    <form asp-action="Delete">
-        <input type="hidden" class="btn btn-danger" asp-for="TurnoId" />
-        <input type="submit" value="Apagar" class="btn btn-danger" /> |
-        <a asp-action="Index" class="btn btn-default">Voltar a lista de turnos</a>
-    </form>
 </div>
