@@ -18,7 +18,7 @@ namespace GestorHorarioG6.Data
         {
             foreach (var relationship in modelbuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
-                relationship.DeleteBehavior = DeleteBehavior.SetNull;
+                relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
             }
 
             base.OnModelCreating(modelbuilder);

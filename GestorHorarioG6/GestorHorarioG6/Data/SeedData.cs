@@ -82,8 +82,10 @@ namespace GestorHorarioG6.Data
                 if (!db.Servico.Any())
                 {
                     db.Servico.AddRange
-                    (new Servico { Nome = "Reparação", Descrição = "Reparação geral de um computador" },
-                    new Servico { Nome = "Substituição" }
+                    (new Servico { Nome = "Reparação", Descrição = "Reparação geral de um computador", DuracaoMedia = 2},
+                    new Servico { Nome = "Substituição", DuracaoMedia = 5 },
+                    new Servico { Nome = "Remoção", Descrição = "Remoção de um equipamento eletrónico", DuracaoMedia = 1},
+                    new Servico { Nome = "Diagnóstico", Descrição = "Diagnóstico de um problema informático", DuracaoMedia = 3}
                     );
                 }
                 db.SaveChanges();
@@ -91,8 +93,25 @@ namespace GestorHorarioG6.Data
                 if (!db.RequisicaoDetalhe.Any())
                 {
                     var duracao1 = db.Servico.Where(s => s.ServicoId == 1).FirstOrDefault().DuracaoMedia;
+                    var duracao2 = db.Servico.Where(s => s.ServicoId == 2).FirstOrDefault().DuracaoMedia;
+                    var duracao3 = db.Servico.Where(s => s.ServicoId == 3).FirstOrDefault().DuracaoMedia;
+                    var duracao4 = db.Servico.Where(s => s.ServicoId == 4).FirstOrDefault().DuracaoMedia;
                     db.RequisicaoDetalhe.AddRange
-                    (new RequisicaoDetalhe { RequisicaoId = 1, ServicoId = 1, DuraçãoEstimada = duracao1}
+                    (new RequisicaoDetalhe { RequisicaoId = 1, ServicoId = 3, DuraçãoEstimada = duracao3, Aprovado = false, HoraCriticaDe = DateTime.Now.AddDays(2)},
+                    new RequisicaoDetalhe { RequisicaoId = 5, ServicoId = 1, DuraçãoEstimada = duracao1, Aprovado = false, HoraCriticaDe = DateTime.Now.AddDays(1).AddHours(3)},
+                    new RequisicaoDetalhe { RequisicaoId = 3, ServicoId = 2, DuraçãoEstimada = duracao2, Aprovado = false, HoraCriticaDe = DateTime.Now.AddDays(5) },
+                    new RequisicaoDetalhe { RequisicaoId = 4, ServicoId = 4, DuraçãoEstimada = duracao4, Aprovado = true, HoraCriticaDe = DateTime.Now.AddDays(4) },
+                    new RequisicaoDetalhe { RequisicaoId = 7, ServicoId = 1, DuraçãoEstimada = duracao1, Aprovado = false, HoraCriticaDe = DateTime.Now.AddDays(9) },
+                    new RequisicaoDetalhe { RequisicaoId = 8, ServicoId = 3, DuraçãoEstimada = duracao3, Aprovado = true, HoraCriticaDe = DateTime.Now.AddDays(10) },
+                    new RequisicaoDetalhe { RequisicaoId = 5, ServicoId = 2, DuraçãoEstimada = duracao2, Aprovado = false, HoraCriticaDe = DateTime.Now.AddDays(1) },
+                    new RequisicaoDetalhe { RequisicaoId = 2, ServicoId = 1, DuraçãoEstimada = duracao1, Aprovado = false, HoraCriticaDe = DateTime.Now.AddDays(6) },
+                    new RequisicaoDetalhe { RequisicaoId = 3, ServicoId = 4, DuraçãoEstimada = duracao4, Aprovado = true, HoraCriticaDe = DateTime.Now.AddDays(2) },
+                    new RequisicaoDetalhe { RequisicaoId = 1, ServicoId = 3, DuraçãoEstimada = duracao3, Aprovado = false, HoraCriticaDe = DateTime.Now.AddDays(4) },
+                    new RequisicaoDetalhe { RequisicaoId = 4, ServicoId = 2, DuraçãoEstimada = duracao2, Aprovado = false, HoraCriticaDe = DateTime.Now.AddDays(8) },
+                    new RequisicaoDetalhe { RequisicaoId = 6, ServicoId = 4, DuraçãoEstimada = duracao4, Aprovado = false, HoraCriticaDe = DateTime.Now.AddDays(9) },
+                    new RequisicaoDetalhe { RequisicaoId = 8, ServicoId = 1, DuraçãoEstimada = duracao1, Aprovado = false, HoraCriticaDe = DateTime.Now.AddDays(2) },
+                    new RequisicaoDetalhe { RequisicaoId = 8, ServicoId = 1, DuraçãoEstimada = duracao1, Aprovado = false, HoraCriticaDe = DateTime.Now.AddHours(2) },
+                    new RequisicaoDetalhe { RequisicaoId = 7, ServicoId = 3, DuraçãoEstimada = duracao3, Aprovado = true, HoraCriticaDe = DateTime.Now.AddHours(3) }
                     );
                 }
                 db.SaveChanges();

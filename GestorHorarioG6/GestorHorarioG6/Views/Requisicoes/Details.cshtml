@@ -56,7 +56,7 @@
                     }
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DuraçãoEstimada)
+                    @Html.DisplayFor(modelItem => item.DuraçãoEstimada) horas
                 </td>
                 <td>
                     @Html.CheckBoxFor(modelItem => item.Aprovado, new { @onclick = "Aprovar(" + item.RequisicaoDetalheId + ")" })

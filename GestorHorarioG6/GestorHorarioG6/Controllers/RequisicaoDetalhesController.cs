@@ -20,13 +20,6 @@ namespace GestorHorarioG6.Controllers
             _context = context;
         }
 
-        // GET: RequisicaoDetalhes
-        public async Task<IActionResult> Index()
-        {
-            var gestorHorarioG6Context = _context.RequisicaoDetalhe.Include(r => r.Requisicao).Include(r => r.Servico);
-            return View(await gestorHorarioG6Context.ToListAsync());
-        }
-
         // GET: Requisicoes/Aprovadas
         public async Task<IActionResult> Aprovadas(int page = 1)
         {
@@ -78,7 +71,7 @@ namespace GestorHorarioG6.Controllers
                 detalhe.HoraConcluido = null;
             _context.RequisicaoDetalhe.Update(detalhe);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Aprovadas));
         }
 
         // GET: RequisicaoDetalhes/Create/1
@@ -104,7 +97,7 @@ namespace GestorHorarioG6.Controllers
                 requisicaoDetalhe.DuraçãoEstimada = _context.Servico.Where(s => s.ServicoId == requisicaoDetalhe.ServicoId).FirstOrDefault().DuracaoMedia;
                 _context.Add(requisicaoDetalhe);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Aprovadas));
             }
             ViewData["RequisicaoId"] = new SelectList(_context.Requisicao, "RequisicaoId", "RequisicaoId", requisicaoDetalhe.RequisicaoId);
             ViewData["ServicoId"] = new SelectList(_context.Servico, "ServicoId", "Nome", requisicaoDetalhe.ServicoId);
@@ -118,13 +111,12 @@ namespace GestorHorarioG6.Controllers
             {
                 return NotFound();
             }
-
             var requisicaoDetalhe = await _context.RequisicaoDetalhe.FindAsync(id);
             if (requisicaoDetalhe == null)
             {
                 return NotFound();
             }
-            ViewData["RequisicaoId"] = new SelectList(_context.Requisicao, "RequisicaoId", "RequisicaoId", requisicaoDetalhe.RequisicaoId);
+            ViewData["RequisicaoId"] = requisicaoDetalhe.RequisicaoId;
             ViewData["ServicoId"] = new SelectList(_context.Servico, "ServicoId", "Nome", requisicaoDetalhe.ServicoId);
             return View(requisicaoDetalhe);
         }
@@ -159,7 +151,7 @@ namespace GestorHorarioG6.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Aprovadas));
             }
             ViewData["RequisicaoId"] = new SelectList(_context.Requisicao, "RequisicaoId", "RequisicaoId", requisicaoDetalhe.RequisicaoId);
             ViewData["ServicoId"] = new SelectList(_context.Servico, "ServicoId", "Nome", requisicaoDetalhe.ServicoId);
@@ -194,7 +186,7 @@ namespace GestorHorarioG6.Controllers
             var requisicaoDetalhe = await _context.RequisicaoDetalhe.FindAsync(id);
             _context.RequisicaoDetalhe.Remove(requisicaoDetalhe);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Aprovadas));
         }
 
         private bool RequisicaoDetalheExists(int id)
