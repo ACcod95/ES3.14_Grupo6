@@ -20,11 +20,6 @@ namespace GestorHorarioG6.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         // GET: HorarioTecnicos
         public async Task<IActionResult> Horario(HorarioTecnicosViewModel model = null, int page = 1)
         {
@@ -538,7 +533,6 @@ namespace GestorHorarioG6.Controllers
             // Verifica se já existe um pedido feito  
             if (PedidoTrocaTurnoJaFeito(idHorario1, idHorario2) == true)
             {
-                TempData["PedidoAlreadyDone"] = "Já existe um pedido feito para a troca destes horários";
                 return RedirectToAction(nameof(Horario));
             }
 
@@ -558,8 +552,7 @@ namespace GestorHorarioG6.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                TempData["ErrorRequired"] = "Erro ao inserir!";
-                return RedirectToAction(nameof(TrocasController.Index));
+                return RedirectToAction("Index","Trocas");
             }
 
             HorarioATrocar horarioATrocarId = _context.HorarioATrocar.LastOrDefault(h => h.HorarioTecnicoId == idHorario1);
@@ -575,18 +568,16 @@ namespace GestorHorarioG6.Controllers
                 if (!PedidoTrocaTurnoJaFeito(idHorario1, idHorario2))
                 {
                     InsertDataIntoTroca(_context, dataPTroca, TecnicoReqId, horarioATrocarId, horarioParaTrocaId, estadoTrocaId);
-                    TempData["SuccessRequired"] = "Pedido realizado com sucesso!";
-                    return RedirectToAction(nameof(TrocasController.Index));
+                    return RedirectToAction("Index", "Trocas");
                 }
 
             }
             catch (DbUpdateConcurrencyException)
             {
-                TempData["ErrorRequired"] = "Erro ao inserir!";
                 return RedirectToAction(nameof(PedidoTrocaTurno));
             }
 
-            return RedirectToAction(nameof(TrocasController.Index));
+            return RedirectToAction("Index", "Trocas");
         }
 
         private bool PedidoTrocaTurnoJaFeito(int idHorarioATrocar, int idHorarioParaTroca)
